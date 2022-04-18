@@ -44,13 +44,16 @@ export default defineComponent({
   },
 
   computed: {
-    availableCountries() {
-      return this.foodItems.reduce((acc, foodItem) => {
-        const countries = foodItem.availability.map(
-          (availability) => availability.country
-        );
-        return [...new Set([...acc, ...countries])];
-      }, []);
+    availableCountries(): string[] {
+      return this.foodItems.reduce(
+        (acc: any, foodItem: { availability: any[] }) => {
+          const countries = foodItem.availability.map(
+            (availability: { country: any }) => availability.country
+          );
+          return [...new Set([...acc, ...countries])];
+        },
+        []
+      );
     },
 
     foodItemsInRegion(): Record<string, any>[] {
