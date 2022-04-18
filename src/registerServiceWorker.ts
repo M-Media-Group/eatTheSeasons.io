@@ -32,6 +32,9 @@ if (process.env.NODE_ENV === "production") {
           "New app version is available - would you like to update?"
         )
       ) {
+        caches.keys().then(function (names) {
+          for (const name of names) caches.delete(name);
+        });
         window.location.reload();
       }
     },
