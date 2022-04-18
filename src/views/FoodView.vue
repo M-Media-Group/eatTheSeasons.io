@@ -24,14 +24,12 @@
 import { defineComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import FoodData from "@/data/foodItems.json";
-import MonthSelector from "@/components/MonthSelector.vue";
 
 export default defineComponent({
   name: "FoodView",
 
   components: {
     FoodItem,
-    MonthSelector,
   },
 
   data() {
