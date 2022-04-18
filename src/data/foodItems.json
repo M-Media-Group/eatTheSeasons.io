@@ -21,6 +21,31 @@
         ]
     },
     {
+        "imgUrl": "https://pngfolio.com/images/all_img/copy/1634920598strawberry-transparent.png",
+        "name": "Strawberry",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Fraise",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "imgUrl": "https://www.pngall.com/wp-content/uploads/2/Rhubarb.png",
         "name": "Rhubarb",
         "categories": [

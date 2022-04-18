@@ -6,13 +6,17 @@
       }})
     </h1>
     <FoodItem
-      v-for="food in foodItemsInSeasonAndRegion"
+      v-for="food in orderedFoodItemsInSeasonAndRegion"
       :src="food.imgUrl"
       :msg="food.name"
       :categories="food.categories"
       :localName="getLocalName(food)"
       :key="food.name"
     />
+    <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
+      We couldn't find any foods for this month and region. Check back regularly
+      as we update this list!
+    </div>
   </div>
 </template>
 
@@ -20,12 +24,14 @@
 import { defineComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import FoodData from "@/data/foodItems.json";
+import MonthSelector from "@/components/MonthSelector.vue";
 
 export default defineComponent({
   name: "FoodView",
 
   components: {
     FoodItem,
+    MonthSelector,
   },
 
   data() {
@@ -38,6 +44,15 @@ export default defineComponent({
   },
 
   computed: {
+    availableCountries() {
+      return this.foodItems.reduce((acc, foodItem) => {
+        const countries = foodItem.availability.map(
+          (availability) => availability.country
+        );
+        return [...new Set([...acc, ...countries])];
+      }, []);
+    },
+
     foodItemsInRegion(): Record<string, any>[] {
       return this.foodItems.filter((food: { availability: any[] }) => {
         return (
@@ -68,6 +83,13 @@ export default defineComponent({
             return month === this.selectedMonth;
           });
       });
+    },
+
+    orderedFoodItemsInSeasonAndRegion(): Record<string, any>[] {
+      const foodItems = this.foodItemsInSeasonAndRegion;
+      return foodItems.sort((a, b) =>
+        a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+      );
     },
   },
 
