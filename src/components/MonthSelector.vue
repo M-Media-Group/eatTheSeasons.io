@@ -49,6 +49,7 @@ export default defineComponent({
   display: inline-block;
   text-decoration: underline;
   position: relative;
+  cursor: pointer;
   > ul {
     position: absolute;
     background: white;

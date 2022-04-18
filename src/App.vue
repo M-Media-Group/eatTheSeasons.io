@@ -2,7 +2,7 @@
   <nav>
     <h1 class="logo-text">Eat the Seasons</h1>
     <div>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link> ·
       <router-link to="/about">About</router-link>
     </div>
   </nav>
