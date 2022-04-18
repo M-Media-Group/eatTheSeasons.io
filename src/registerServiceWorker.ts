@@ -19,15 +19,16 @@ if (process.env.NODE_ENV === "production") {
     updatefound() {
       console.log("New content is downloading.");
     },
-    updated() {
+    updated(registration) {
       console.log("New content is available; please refresh.");
-      // if (
-      //   window.confirm(
-      //     "New app version is available - would you like to update?"
-      //   )
-      // ) {
-      //   window.location.reload();
-      // }
+      if (
+        window.confirm(
+          "New app version is available - would you like to update?"
+        )
+      ) {
+        registration.waiting?.postMessage({ type: "SKIP_WAITING" });
+        window.location.reload();
+      }
     },
     offline() {
       console.log(
