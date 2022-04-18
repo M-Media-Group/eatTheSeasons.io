@@ -25,16 +25,14 @@ if (process.env.NODE_ENV === "production") {
       });
       console.log("New content is downloading.");
     },
-    updated() {
+    updated(registration) {
       console.log("New content is available; please refresh.");
       if (
         window.confirm(
           "New app version is available - would you like to update?"
         )
       ) {
-        caches.keys().then(function (names) {
-          for (const name of names) caches.delete(name);
-        });
+        registration.update();
         window.location.reload();
       }
     },
