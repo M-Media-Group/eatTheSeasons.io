@@ -365,5 +365,69 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Eggplant-PNG-HD-Quality.png",
+        "name": "Eggplant",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "L' Aubergine",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Cucumber-PNG-Images-HD.png",
+        "name": "Cucumber",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "le concombre",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Turnip-Transparent-File.png",
+        "name": "Turnips",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Navet",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
