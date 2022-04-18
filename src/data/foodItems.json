@@ -281,5 +281,31 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Celery-PNG-Photo-Image.png",
+        "name": "Celery",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Céleri",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
+                            "March",
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
