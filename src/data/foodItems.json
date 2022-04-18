@@ -429,5 +429,27 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Cauliflower-Transparent-File.png",
+        "name": "Cauliflower",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Chou-fleur",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
