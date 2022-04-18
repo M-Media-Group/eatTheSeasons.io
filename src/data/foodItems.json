@@ -1,0 +1,170 @@
+[
+    {
+        "imgUrl": "https://pngfolio.com/images/all_img/1637340868apple-png.png",
+        "name": "Apple",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Pomme",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngall.com/wp-content/uploads/2/Rhubarb.png",
+        "name": "Rhubarb",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Rhubarbe",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngall.com/wp-content/uploads/2016/04/Blackberry-Fruit-Free-Download-PNG.png",
+        "name": "Blackberry",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Mûre",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngall.com/wp-content/uploads/12/Asparagus-Vegetable-PNG-Image-HD.png",
+        "name": "Asparagus",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "L' Asperge",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Red_chard.jpg/1056px-Red_chard.jpg?20080303040609",
+        "name": "Chard",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Bettes",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://pngimg.com/uploads/spinach/spinach_PNG69.png",
+        "name": "Spinach",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Épinard",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngall.com/wp-content/uploads/9/Radish-PNG-Photo.png",
+        "name": "Radish",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Les Radis",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Lettuce-PNG-Photos.png",
+        "name": "Lettuce",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Laitue",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,7 +1,10 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <h1 class="logo-text">Eat the Seasons</h1>
+    <div>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
   </nav>
   <router-view />
 </template>
@@ -14,9 +17,15 @@
   text-align: center;
   color: #2c3e50;
 }
-
+.logo-text {
+  font-family: Herculanum;
+  margin: 0;
+}
 nav {
-  padding: 30px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   a {
     font-weight: bold;
