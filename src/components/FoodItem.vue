@@ -34,7 +34,7 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 img {
-  height: 60vh;
+  height: 55vh;
   object-fit: scale-down;
   max-width: 100%;
 }

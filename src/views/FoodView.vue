@@ -2,7 +2,7 @@
   <div class="home">
     <h1>
       Eat <MonthSelector v-model="selectedMonth" /> in
-      {{ selectedCountry.toUpperCase() }} ({{
+      {{ getCountryName(selectedCountry) }} ({{
         selectedRegion === "All" ? "all regions" : selectedRegion
       }})
     </h1>
@@ -141,6 +141,13 @@ export default defineComponent({
           );
         }).months;
       return months[months.length - 1];
+    },
+    getCountryName(code: any) {
+      /* Possibly need polyfill for DisplayNames */
+      const regionNames = new (Intl as any).DisplayNames(["en"], {
+        type: "region",
+      });
+      return regionNames.of(code.toUpperCase());
     },
   },
 });
