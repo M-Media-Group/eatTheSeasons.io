@@ -1,9 +1,14 @@
 <template>
   <div class="food-item">
     <img :src="src" />
-    <h2>{{ msg }}</h2>
-    <p v-if="localName">
-      {{ localName }}
+    <h2>
+      {{ msg }}
+      <span v-if="localName"> ({{ localName }}) </span>
+    </h2>
+
+    <p>
+      <span>Available to end of </span>
+      {{ lastMonth }}
     </p>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
@@ -21,6 +26,7 @@ export default defineComponent({
     src: String,
     categories: Array,
     localName: String,
+    lastMonth: String,
   },
 });
 </script>
@@ -41,6 +47,9 @@ img {
 }
 h2 {
   margin-bottom: 0;
+  > span {
+    font-weight: 400;
+  }
 }
 p {
   margin-top: 0;

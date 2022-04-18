@@ -12,6 +12,7 @@
       :msg="food.name"
       :categories="food.categories"
       :localName="getLocalName(food)"
+      :lastMonth="getLastMonthInARowFromFoodItem(food)"
       :key="food.name"
     />
     <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
@@ -124,6 +125,22 @@ export default defineComponent({
           this.selectedCountry.toLowerCase()
         );
       }).localFoodItemName;
+    },
+
+    getLastMonthInARowFromFoodItem(food: { availability: any[] }) {
+      const months = food.availability
+        .find((availability: { country: string }) => {
+          return (
+            availability.country.toLowerCase() ===
+            this.selectedCountry.toLowerCase()
+          );
+        })
+        .regions.find((region: { name: string }) => {
+          return (
+            region.name.toLowerCase() === this.selectedRegion.toLowerCase()
+          );
+        }).months;
+      return months[months.length - 1];
     },
   },
 });
