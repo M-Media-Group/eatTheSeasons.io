@@ -255,5 +255,31 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Carrot-PNG-HD-Quality.png",
+        "name": "Carrot",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Carotte",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
+                            "March",
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
