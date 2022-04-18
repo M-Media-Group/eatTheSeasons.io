@@ -54,7 +54,7 @@
         "availability": [
             {
                 "country": "fr",
-                "localFoodItemName": "Rhubarbe",
+                "localFoodItemName": "La Rhubarbe",
                 "regions": [
                     {
                         "name": "All",
@@ -123,7 +123,7 @@
         "availability": [
             {
                 "country": "fr",
-                "localFoodItemName": "Bettes",
+                "localFoodItemName": "Le Bette",
                 "regions": [
                     {
                         "name": "All",
@@ -144,7 +144,7 @@
         "availability": [
             {
                 "country": "fr",
-                "localFoodItemName": "Épinard",
+                "localFoodItemName": "L'Épinard",
                 "regions": [
                     {
                         "name": "All",
@@ -396,7 +396,7 @@
         "availability": [
             {
                 "country": "fr",
-                "localFoodItemName": "le concombre",
+                "localFoodItemName": "Le Concombre",
                 "regions": [
                     {
                         "name": "All",
@@ -417,7 +417,7 @@
         "availability": [
             {
                 "country": "fr",
-                "localFoodItemName": "Navet",
+                "localFoodItemName": "Le Navet",
                 "regions": [
                     {
                         "name": "All",
