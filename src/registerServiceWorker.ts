@@ -17,24 +17,17 @@ if (process.env.NODE_ENV === "production") {
       console.log("Content has been cached for offline use.");
     },
     updatefound() {
-      // new content clear cache so user gets the new version
-      caches.keys().then((cacheNames) => {
-        cacheNames.forEach((cacheName) => {
-          caches.delete(cacheName);
-        });
-      });
       console.log("New content is downloading.");
     },
-    updated(registration) {
+    updated() {
       console.log("New content is available; please refresh.");
-      if (
-        window.confirm(
-          "New app version is available - would you like to update?"
-        )
-      ) {
-        registration.update();
-        window.location.reload();
-      }
+      // if (
+      //   window.confirm(
+      //     "New app version is available - would you like to update?"
+      //   )
+      // ) {
+      //   window.location.reload();
+      // }
     },
     offline() {
       console.log(
