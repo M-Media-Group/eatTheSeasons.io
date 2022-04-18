@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <h1>
-      Eat {{ selectedMonth }} in {{ selectedCountry.toUpperCase() }} ({{
+      Eat <MonthSelector v-model="selectedMonth" /> in
+      {{ selectedCountry.toUpperCase() }} ({{
         selectedRegion === "All" ? "all regions" : selectedRegion
       }})
     </h1>
@@ -14,8 +15,7 @@
       :key="food.name"
     />
     <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
-      We couldn't find any foods for this month and region. Check back regularly
-      as we update this list!
+      This website was just created today so please bear with us as we add more food, months, and regions!
     </div>
   </div>
 </template>
@@ -24,12 +24,14 @@
 import { defineComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import FoodData from "@/data/foodItems.json";
+import MonthSelector from "@/components/MonthSelector.vue";
 
 export default defineComponent({
   name: "FoodView",
 
   components: {
     FoodItem,
+    MonthSelector,
   },
 
   data() {

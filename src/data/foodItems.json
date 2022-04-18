@@ -59,7 +59,9 @@
                     {
                         "name": "All",
                         "months": [
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -80,7 +82,9 @@
                     {
                         "name": "All",
                         "months": [
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -101,7 +105,9 @@
                     {
                         "name": "All",
                         "months": [
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -143,7 +149,9 @@
                     {
                         "name": "All",
                         "months": [
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -164,7 +172,9 @@
                     {
                         "name": "All",
                         "months": [
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -185,6 +195,30 @@
                     {
                         "name": "All",
                         "months": [
+                            "April",
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/6/Natural-Orange-Fruit-Transparent-PNG.png",
+        "name": "Orange",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "L' Orange",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "March",
                             "April"
                         ]
                     }
