@@ -218,6 +218,36 @@
                     {
                         "name": "All",
                         "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
+                            "March",
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Beet-Transparent-Image.png",
+        "name": "Beet",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Betterave",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
                             "March",
                             "April"
                         ]

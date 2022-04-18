@@ -21,6 +21,13 @@ if (process.env.NODE_ENV === "production") {
     },
     updated() {
       console.log("New content is available; please refresh.");
+      if (
+        window.confirm(
+          "New app version is available - would you like to update?"
+        )
+      ) {
+        window.location.reload();
+      }
     },
     offline() {
       console.log(
