@@ -15,7 +15,8 @@
       :key="food.name"
     />
     <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
-      This website was just created today so please bear with us as we add more food, months, and regions!
+      This website was just created today so please bear with us as we add more
+      food, months, and regions!
     </div>
   </div>
 </template>
@@ -44,6 +45,13 @@ export default defineComponent({
   },
 
   computed: {
+    availableCategories(): string[] {
+      return this.foodItems
+        .map((food) => food.categories)
+        .reduce((acc, cur) => acc.concat(cur), [])
+        .filter((category, index, array) => array.indexOf(category) === index);
+    },
+
     availableCountries(): string[] {
       return this.foodItems.reduce(
         (acc: any, foodItem: { availability: any[] }) => {
