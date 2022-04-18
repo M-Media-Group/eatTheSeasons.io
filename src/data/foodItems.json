@@ -244,12 +244,10 @@
                     {
                         "name": "All",
                         "months": [
-                            "November",
-                            "December",
-                            "January",
-                            "February",
                             "March",
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -275,7 +273,9 @@
                             "January",
                             "February",
                             "March",
-                            "April"
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
@@ -301,7 +301,65 @@
                             "January",
                             "February",
                             "March",
-                            "April"
+                            "April",
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Cabbage-PNG-Photos.png",
+        "name": "Cabbage",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Chou",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/13/Potatoes-PNG-HD-Quality.png",
+        "name": "Potato",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Pomme de Terre",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "November",
+                            "December",
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June"
                         ]
                     }
                 ]
