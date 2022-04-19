@@ -619,5 +619,31 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "http://assets.stickpng.com/images/585ea5abcb11b227491c352a.png",
+        "name": "Brussels sprouts",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "pl",
+                "localFoodItemName": "Brukselka",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
