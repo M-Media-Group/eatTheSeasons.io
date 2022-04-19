@@ -1,6 +1,6 @@
 <template>
   <div class="food-item">
-    <img :src="src" />
+    <img :src="src" :alt="'A picture of a ' + msg" />
     <h2>
       {{ msg }}
       <span v-if="localName"> ({{ localName }}) </span>
