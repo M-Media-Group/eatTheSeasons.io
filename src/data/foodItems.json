@@ -251,6 +251,22 @@
                         ]
                     }
                 ]
+            },
+            {
+                "country": "pl",
+                "localFoodItemName": "Botwina",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September"
+                        ]
+                    }
+                ]
             }
         ]
     },

@@ -146,13 +146,6 @@ export default defineComponent({
         }).months;
       return months[months.length - 1];
     },
-    getCountryName(code: any) {
-      /* Possibly need polyfill for DisplayNames */
-      const regionNames = new (Intl as any).DisplayNames(["en"], {
-        type: "region",
-      });
-      return regionNames.of(code.toUpperCase());
-    },
   },
 });
 </script>
