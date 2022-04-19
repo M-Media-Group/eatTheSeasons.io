@@ -115,10 +115,14 @@ export default defineComponent({
         return;
       }
       this.selectedRegion = "All";
-      this.$router.push({
-        path: this.$route.path,
-        query: { country: this.selectedCountry },
-      });
+      this.updateUrlQueryParams();
+    },
+
+    selectedMonth(newValue: string, oldValue: string) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {
+        return;
+      }
+      this.updateUrlQueryParams();
     },
 
     "$route.query.country": {
@@ -139,22 +143,20 @@ export default defineComponent({
         if (!month) {
           return;
         }
-        this.selectedMonth = month;
+        this.selectedMonth =
+          month[0].toUpperCase() + month.slice(1).toLowerCase();
       },
     },
   },
 
   methods: {
-    changeCountry(country: string) {
-      this.selectedCountry = country;
-    },
-
-    changeRegion(region: string) {
-      this.selectedRegion = region;
-    },
-
-    changeMonth(month: string) {
-      this.selectedMonth = month;
+    updateUrlQueryParams() {
+      this.$router.push({
+        query: {
+          country: this.selectedCountry,
+          month: this.selectedMonth,
+        },
+      });
     },
 
     getLocalName(food: { availability: any[] }) {
