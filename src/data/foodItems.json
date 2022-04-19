@@ -593,5 +593,31 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Broccoli-Free-PNG.png",
+        "name": "Broccoli",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "pl",
+                "localFoodItemName": "Brokuł",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
