@@ -15,29 +15,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Month } from "@/types/foodItem";
+import type { PropType } from "vue";
 
 export default defineComponent({
   name: "MonthSelector",
   props: {
-    modelValue: String,
+    modelValue: {
+      type: String as PropType<Month>,
+      required: true,
+    },
   },
   data() {
     return {
       isOpenDropdown: false,
-      months: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
+      months: Month,
     };
   },
 });

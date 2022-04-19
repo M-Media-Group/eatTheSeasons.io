@@ -18,15 +18,24 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Category, Month } from "@/types/foodItem";
+import type { PropType } from "vue";
 
 export default defineComponent({
   name: "FoodItem",
   props: {
     msg: String,
     src: String,
-    categories: Array,
+    categories: {
+      type: Array as PropType<Category[]>,
+      default: () => [],
+    },
     localName: String,
-    lastMonth: String,
+    lastMonth: {
+      type: String as PropType<Month>,
+      default: "",
+      required: true,
+    },
   },
 });
 </script>

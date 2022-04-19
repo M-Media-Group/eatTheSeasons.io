@@ -15,20 +15,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Country } from "@/types/foodItem";
+import type { PropType } from "vue";
 
 export default defineComponent({
   name: "CountrySelector",
   props: {
-    modelValue: String,
-    availableCountries: Array,
+    modelValue: {
+      type: String as PropType<Country>,
+      required: true,
+    },
   },
   data() {
     return {
       isOpenDropdown: false,
+      availableCountries: Country,
     };
   },
   methods: {
-    getCountryName(code: any) {
+    getCountryName(code: Country): string {
       /* Possibly need polyfill for DisplayNames */
       const regionNames = new (Intl as any).DisplayNames(["en"], {
         type: "region",
