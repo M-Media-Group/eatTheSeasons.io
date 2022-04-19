@@ -15,8 +15,8 @@
       :key="food.name"
     />
     <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
-      This website was just created today so please bear with us as we add more
-      food, months, and regions!
+      This website was created just this week so please bear with us as we add
+      more food, months, and regions!
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ import CountrySelector from "@/components/CountrySelector.vue";
 import {
   Country,
   Month,
-  Availability,
   Category,
   FoodItem as FoodItemTs,
 } from "@/types/foodItem";
@@ -46,7 +45,7 @@ export default defineComponent({
 
   data() {
     return {
-      selectedCountry: "fr",
+      selectedCountry: Country.Fr,
       selectedRegion: "All",
       selectedMonth: new Date().toLocaleString("en-us", { month: "long" }),
       foodItems: FoodData as FoodItemTs[],
@@ -133,7 +132,7 @@ export default defineComponent({
         if (!country || country.toLowerCase() === this.selectedCountry) {
           return;
         }
-        this.selectedCountry = country.toLowerCase();
+        this.selectedCountry = country.toLowerCase() as Country;
       },
     },
 
@@ -160,7 +159,7 @@ export default defineComponent({
       });
     },
 
-    getLocalName(food: { availability: Availability[] }): string {
+    getLocalName(food: FoodItemTs): string {
       return (
         food.availability.find((availability) => {
           return (

@@ -35,10 +35,10 @@ export default defineComponent({
   methods: {
     getCountryName(code: Country): string {
       /* Possibly need polyfill for DisplayNames */
-      const regionNames = new (Intl as any).DisplayNames(["en"], {
+      const countryNames = new (Intl as any).DisplayNames(["en"], {
         type: "region",
       });
-      return regionNames.of(code.toUpperCase());
+      return countryNames.of(code.toUpperCase());
     },
   },
 });
