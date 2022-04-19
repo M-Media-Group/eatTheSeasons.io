@@ -2,9 +2,11 @@
   <div class="home">
     <h1>
       Eat <MonthSelector v-model="selectedMonth" /> in
-      {{ getCountryName(selectedCountry) }} ({{
-        selectedRegion === "All" ? "all regions" : selectedRegion
-      }})
+      <CountrySelector
+        v-model="selectedCountry"
+        :availableCountries="availableCountries"
+      />
+      ({{ selectedRegion === "All" ? "all regions" : selectedRegion }})
     </h1>
     <FoodItem
       v-for="food in orderedFoodItemsInSeasonAndRegion"
@@ -27,6 +29,7 @@ import { defineComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import FoodData from "@/data/foodItems.json";
 import MonthSelector from "@/components/MonthSelector.vue";
+import CountrySelector from "@/components/CountrySelector.vue";
 
 export default defineComponent({
   name: "FoodView",
@@ -34,6 +37,7 @@ export default defineComponent({
   components: {
     FoodItem,
     MonthSelector,
+    CountrySelector,
   },
 
   data() {
@@ -75,7 +79,7 @@ export default defineComponent({
             .find((availability: { country: string }) => {
               return availability.country === this.selectedCountry;
             })
-            .regions.find((region: { name: string }) => {
+            ?.regions.find((region: { name: string }) => {
               return region.name === this.selectedRegion;
             })
         );
@@ -88,7 +92,7 @@ export default defineComponent({
           .find((availability: { country: string }) => {
             return availability.country === this.selectedCountry;
           })
-          .regions.find((region: { name: string }) => {
+          ?.regions.find((region: { name: string }) => {
             return region.name === this.selectedRegion;
           })
           .months.find((month: string) => {

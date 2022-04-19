@@ -384,6 +384,20 @@
                         ]
                     }
                 ]
+            },
+            {
+                "country": "pl",
+                "localFoodItemName": "Bakłażan",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "June",
+                            "July",
+                            "August"
+                        ]
+                    }
+                ]
             }
         ]
     },
