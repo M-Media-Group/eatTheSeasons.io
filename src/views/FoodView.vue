@@ -109,6 +109,41 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    selectedCountry(newValue: string, oldValue: string) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {
+        return;
+      }
+      this.selectedRegion = "All";
+      this.$router.push({
+        path: this.$route.path,
+        query: { country: this.selectedCountry },
+      });
+    },
+
+    "$route.query.country": {
+      immediate: true,
+      deep: true,
+      handler(country: string) {
+        if (!country || country.toLowerCase() === this.selectedCountry) {
+          return;
+        }
+        this.selectedCountry = country.toLowerCase();
+      },
+    },
+
+    "$route.query.month": {
+      immediate: true,
+      deep: true,
+      handler(month: string) {
+        if (!month) {
+          return;
+        }
+        this.selectedMonth = month;
+      },
+    },
+  },
+
   methods: {
     changeCountry(country: string) {
       this.selectedCountry = country;
