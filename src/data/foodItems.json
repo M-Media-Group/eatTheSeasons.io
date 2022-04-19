@@ -451,5 +451,29 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Banana-PNG-Free-Commercial-Use-Images.png",
+        "name": "Banana",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Banane",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
