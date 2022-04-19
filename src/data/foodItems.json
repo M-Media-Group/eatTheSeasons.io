@@ -568,5 +568,30 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Broad-Bean-PNG-Free-File-Download.png",
+        "name": "Broad Bean",
+        "categories": [
+            "Bean"
+        ],
+        "availability": [
+            {
+                "country": "pl",
+                "localFoodItemName": "Bób",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
