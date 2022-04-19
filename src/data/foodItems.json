@@ -475,5 +475,37 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://thumbs.dreamstime.com/b/cress-salad-isolated-roots-90457550.jpg",
+        "name": "Cress",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Cresson",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
