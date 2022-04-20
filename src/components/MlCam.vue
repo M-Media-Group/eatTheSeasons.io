@@ -39,7 +39,7 @@ export default defineComponent({
   mounted() {
     this.video = document.getElementById("webcam");
     this.liveView = document.getElementById("liveView");
-    cocoSsd.load().then((loadedModel: any) => {
+    cocoSsd.load({ base: "lite_mobilenet_v2" }).then((loadedModel: any) => {
       console.log("Model loaded", loadedModel);
       this.model = loadedModel;
     });

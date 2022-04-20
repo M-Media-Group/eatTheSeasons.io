@@ -645,5 +645,27 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Yellow-Lemon-Transparent-Background.png",
+        "name": "Lemon",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Citron",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "January",
+                            "February"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
