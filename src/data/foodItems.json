@@ -24,6 +24,29 @@
                         ]
                     }
                 ]
+            },
+            {
+                "country": "pl",
+                "localFoodItemName": "Jabłko",
+                "regions": [
+                    {
+                        "name": "All",
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ]
+                    }
+                ]
             }
         ]
     },
