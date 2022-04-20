@@ -11,7 +11,7 @@
                 "localFoodItemName": "La Pomme",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "January",
@@ -64,7 +64,7 @@
                 "localFoodItemName": "La Fraise",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -90,7 +90,7 @@
                 "localFoodItemName": "La Rhubarbe",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -114,7 +114,7 @@
                 "localFoodItemName": "La Mûre",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -138,7 +138,7 @@
                 "localFoodItemName": "L' Asperge",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -162,7 +162,7 @@
                 "localFoodItemName": "Le Bette",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April"
@@ -184,7 +184,7 @@
                 "localFoodItemName": "L'Épinard",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -208,7 +208,7 @@
                 "localFoodItemName": "Les Radis",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -232,7 +232,7 @@
                 "localFoodItemName": "La Laitue",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "April",
@@ -248,7 +248,8 @@
         "imgUrl": "https://www.pngplay.com/wp-content/uploads/6/Natural-Orange-Fruit-Transparent-PNG.png",
         "name": "Orange",
         "categories": [
-            "Fruit"
+            "Fruit",
+            "Citrus"
         ],
         "availability": [
             {
@@ -256,7 +257,7 @@
                 "localFoodItemName": "L' Orange",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "November",
@@ -283,7 +284,7 @@
                 "localFoodItemName": "La Betterave",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "March",
@@ -325,7 +326,7 @@
                 "localFoodItemName": "La Carotte",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "November",
@@ -354,7 +355,7 @@
                 "localFoodItemName": "Le Céleri",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "November",
@@ -383,7 +384,7 @@
                 "localFoodItemName": "Le Chou",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "November",
@@ -412,7 +413,7 @@
                 "localFoodItemName": "La Pomme de Terre",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "November",
@@ -441,7 +442,7 @@
                 "localFoodItemName": "L' Aubergine",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "May"
@@ -478,7 +479,7 @@
                 "localFoodItemName": "Le Concombre",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "May"
@@ -500,7 +501,7 @@
                 "localFoodItemName": "Le Navet",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "May",
@@ -523,7 +524,7 @@
                 "localFoodItemName": "Le Chou-fleur",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "May",
@@ -546,7 +547,7 @@
                 "localFoodItemName": "Le Banane",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "January",
@@ -571,7 +572,7 @@
                 "localFoodItemName": "Le Cresson",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "January",
@@ -604,7 +605,7 @@
                 "localFoodItemName": "L' Avocat",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "January",
@@ -708,7 +709,8 @@
         "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Yellow-Lemon-Transparent-Background.png",
         "name": "Lemon",
         "categories": [
-            "Vegetable"
+            "Fruit",
+            "Citrus"
         ],
         "availability": [
             {
@@ -716,7 +718,7 @@
                 "localFoodItemName": "Le Citron",
                 "regions": [
                     {
-                        "name": "All",
+                        "name": "Mainland",
                         "isNative": true,
                         "months": [
                             "January",

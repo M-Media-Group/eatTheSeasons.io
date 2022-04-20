@@ -43,6 +43,7 @@ import {
   Category,
   FoodItem as FoodItemTs,
 } from "@/types/foodItem";
+import { QueryParams as QueryParamsType } from "@/types/queryParams";
 
 export default defineComponent({
   name: "FoodView",
@@ -67,6 +68,7 @@ export default defineComponent({
     isInBeta() {
       return this.$route.query.beta === "true";
     },
+
     availableCategories(): Category[] {
       return this.foodItems
         .map((food) => food.categories)
@@ -83,20 +85,27 @@ export default defineComponent({
       }, []);
     },
 
+    availableRegions(): string[] {
+      return this.getAvailableRegionsForCountry(this.selectedCountry);
+    },
+
+    foodItemsInCountry(): FoodItemTs[] {
+      return this.foodItems.filter((food) => {
+        return food.availability.find((availability) => {
+          return availability.country === this.selectedCountry;
+        });
+      });
+    },
+
     foodItemsInRegion(): FoodItemTs[] {
       return this.foodItems.filter((food) => {
-        return (
-          food.availability.find((availability) => {
+        return food.availability
+          .find((availability) => {
             return availability.country === this.selectedCountry;
-          }) &&
-          food.availability
-            .find((availability) => {
-              return availability.country === this.selectedCountry;
-            })
-            ?.regions.find((region) => {
-              return region.name === this.selectedRegion;
-            })
-        );
+          })
+          ?.regions.find((region) => {
+            return region.name === this.selectedRegion;
+          });
       });
     },
 
@@ -129,12 +138,21 @@ export default defineComponent({
   },
 
   watch: {
-    selectedCountry(newValue: string, oldValue: string) {
-      if (newValue.toLowerCase() === oldValue.toLowerCase()) {
-        return;
-      }
-      this.selectedRegion = "All";
-      this.updateUrlQueryParams();
+    selectedCountry: {
+      immediate: true,
+
+      handler(newValue: string, oldValue: string) {
+        if (oldValue && newValue.toLowerCase() === oldValue.toLowerCase()) {
+          return;
+        }
+
+        // If the region All is in availableRegions, select it, else select the first region
+        this.selectedRegion = this.availableRegions.includes("All")
+          ? "All"
+          : this.availableRegions[0];
+
+        this.updateUrlQueryParams();
+      },
     },
 
     selectedMonth(newValue: string, oldValue: string) {
@@ -170,12 +188,17 @@ export default defineComponent({
 
   methods: {
     updateUrlQueryParams() {
+      let queryParams = {
+        country: this.selectedCountry,
+        month: this.selectedMonth,
+      } as QueryParamsType;
+
+      if (this.isInBeta) {
+        queryParams.beta = true;
+      }
+
       this.$router.push({
-        query: {
-          country: this.selectedCountry,
-          month: this.selectedMonth,
-          beta: this.isInBeta ? "true" : "false",
-        },
+        query: queryParams as Record<string, any>,
       });
     },
 
@@ -187,6 +210,31 @@ export default defineComponent({
             this.selectedCountry.toLowerCase()
           );
         })?.localFoodItemName ?? ""
+      );
+    },
+
+    getAvailableRegionsForCountry(country: Country): string[] {
+      return (
+        this.foodItems
+          ?.filter((food) => {
+            return food.availability.find((availability) => {
+              return availability.country === country;
+            });
+          })
+          ?.map((food) => {
+            return food.availability
+              .find((availability) => {
+                return availability.country === country;
+              })
+              ?.regions.map((region) => {
+                return region.name;
+              });
+          })
+          ?.reduce((acc: any, cur) => acc.concat(cur), [])
+          ?.filter(
+            (region: string, index: number, array: string[]) =>
+              array.indexOf(region) === index
+          ) ?? ["All"]
       );
     },
 
@@ -211,3 +259,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+// Removed the sticky here, realistically users will not be switching months and areas very often so there is no reason to stick this info to the top of the page
+// h1 {
+//   position: sticky;
+//   top: 0px;
+//   background: white;
+//   padding-top: 8px;
+// }
+</style>
