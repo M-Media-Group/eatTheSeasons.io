@@ -22,6 +22,10 @@
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
+    <small
+      >Made with ❤️ by <a href="https://mmediagroup.fr">M Media</a>. Images from
+      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
+    >
   </div>
 </template>
 
