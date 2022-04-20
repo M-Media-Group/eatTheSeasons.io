@@ -18,7 +18,10 @@
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
-    <MlCam v-if="isInBeta" />
+    <MlCam
+      v-if="isInBeta"
+      :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
+    />
   </div>
 </template>
 
@@ -114,6 +117,11 @@ export default defineComponent({
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
       );
     },
+
+    foodItemNamesInSeasonAndRegion(): string[] {
+      const foodItems = this.orderedFoodItemsInSeasonAndRegion;
+      return foodItems.map((food) => food.name);
+    },
   },
 
   watch: {
@@ -162,6 +170,7 @@ export default defineComponent({
         query: {
           country: this.selectedCountry,
           month: this.selectedMonth,
+          beta: this.isInBeta ? "true" : "false",
         },
       });
     },
