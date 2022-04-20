@@ -63,7 +63,21 @@ export default defineComponent({
 
       // getUsermedia parameters.
       const constraints = {
-        video: { facingMode: "environment" },
+        audio: false,
+        video: {
+          facingMode: "environment",
+          width: {
+            min: 640,
+            ideal: this.video?.offsetWidth ?? 1920,
+            max: 1920,
+          },
+          height: { min: 400, ideal: this.video?.offsetHeight ?? 1080 },
+          aspectRatio: {
+            ideal:
+              (this.video?.offsetWidth ?? 1920) /
+              (this.video?.offsetHeight ?? 1080),
+          },
+        },
       };
       // Activate the webcam stream.
       navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
@@ -196,11 +210,13 @@ export default defineComponent({
   float: left;
   width: 100%;
   padding: 8px;
-  cursor: pointer;
+  box-sizing: border-box;
+
   video {
     width: 100%;
     height: auto;
   }
+
   p {
     position: absolute;
     padding: 8px;
