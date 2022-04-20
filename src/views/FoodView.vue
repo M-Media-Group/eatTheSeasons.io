@@ -1,12 +1,17 @@
 <template>
   <div class="home">
     <h1>
-      Eat <MonthSelector v-model="selectedMonth" /> in
+      Eat
+      <span v-if="isInBeta"
+        ><input type="text" placeholder="Anything" v-model="searchTerm" />
+        in</span
+      >
+      <MonthSelector v-model="selectedMonth" /> in
       <CountrySelector v-model="selectedCountry" />
       ({{ selectedRegion === "All" ? "all regions" : selectedRegion }})
     </h1>
     <FoodItem
-      v-for="food in orderedFoodItemsInSeasonAndRegion"
+      v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
       :src="food.imgUrl"
       :name="food.name"
       :categories="food.categories"
@@ -14,7 +19,11 @@
       :lastMonth="getLastMonthInARowFromFoodItem(food)"
       :key="food.name"
     />
-    <div v-if="orderedFoodItemsInSeasonAndRegion.length === 0">
+    <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">
+      <div v-if="searchTerm">
+        No foods found for <strong>{{ searchTerm }}</strong
+        >.
+      </div>
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
@@ -61,6 +70,7 @@ export default defineComponent({
       selectedRegion: "All",
       selectedMonth: new Date().toLocaleString("en-us", { month: "long" }),
       foodItems: FoodData as FoodItemTs[],
+      searchTerm: "",
     };
   },
 
@@ -134,6 +144,17 @@ export default defineComponent({
     foodItemNamesInSeasonAndRegion(): string[] {
       const foodItems = this.orderedFoodItemsInSeasonAndRegion;
       return foodItems.map((food) => food.name);
+    },
+
+    filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
+      const foodItems = this.foodItemsInSeasonAndRegion;
+      return foodItems
+        .filter((food) => {
+          return food.name
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase());
+        })
+        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
     },
   },
 
@@ -268,4 +289,16 @@ export default defineComponent({
 //   background: white;
 //   padding-top: 8px;
 // }
+input {
+  -webkit-font-smoothing: antialiased;
+  color: rgb(44, 62, 80);
+  cursor: pointer;
+  display: inline-block;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  height: 44px;
+  position: relative;
+  text-align: center;
+}
 </style>
