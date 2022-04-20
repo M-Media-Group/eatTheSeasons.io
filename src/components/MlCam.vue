@@ -3,7 +3,7 @@
     <button id="webcamButton" :disabled="!model" @click="enableCam($event)">
       Enable Webcam
     </button>
-    <video id="webcam" ref="webcam" autoplay=""></video>
+    <video id="webcam" ref="webcam" autoplay="" playsinline="true"></video>
   </div>
 </template>
 <script lang="ts">
