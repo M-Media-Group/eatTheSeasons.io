@@ -13,7 +13,14 @@
                     {
                         "name": "All",
                         "months": [
-                            "June"
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "August",
+                            "September",
+                            "October",
+                            "November"
                         ]
                     }
                 ]
