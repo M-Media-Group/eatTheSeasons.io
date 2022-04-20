@@ -3,9 +3,8 @@
     <h1>
       Eat
       <span v-if="isInBeta"
-        ><input type="text" placeholder="Anything" v-model="searchTerm" />
-        in </span
-      >
+        ><input type="text" placeholder="Anything" v-model="searchTerm" /> in
+      </span>
       <MonthSelector v-model="selectedMonth" /> in
       <CountrySelector v-model="selectedCountry" />
       ({{ selectedRegion === "All" ? "all regions" : selectedRegion }})
