@@ -146,12 +146,13 @@ export default defineComponent({
           return;
         }
 
-        // If the region All is in availableRegions, select it, else select the first region
-        this.selectedRegion = this.availableRegions.includes("All")
-          ? "All"
-          : this.availableRegions[0];
-
-        this.updateUrlQueryParams();
+        // Wait for the next tick to get available regions so that availableRegions has been updated
+        this.$nextTick(() => {
+          this.selectedRegion = this.availableRegions.includes("All")
+            ? "All"
+            : this.availableRegions[0];
+          this.updateUrlQueryParams();
+        });
       },
     },
 
