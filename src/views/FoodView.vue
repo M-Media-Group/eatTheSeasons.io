@@ -18,6 +18,7 @@
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
+    <MlCam v-if="isInBeta" />
   </div>
 </template>
 
@@ -27,6 +28,8 @@ import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import FoodData from "@/data/foodItems.json";
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
+import MlCam from "@/components/MlCam.vue";
+
 import {
   Country,
   Month,
@@ -41,6 +44,7 @@ export default defineComponent({
     FoodItem,
     MonthSelector,
     CountrySelector,
+    MlCam,
   },
 
   data() {
@@ -53,6 +57,9 @@ export default defineComponent({
   },
 
   computed: {
+    isInBeta() {
+      return this.$route.query.beta === "true";
+    },
     availableCategories(): Category[] {
       return this.foodItems
         .map((food) => food.categories)
