@@ -4,7 +4,7 @@
       Eat
       <span v-if="isInBeta"
         ><input type="text" placeholder="Anything" v-model="searchTerm" />
-        in</span
+        in </span
       >
       <MonthSelector v-model="selectedMonth" /> in
       <CountrySelector v-model="selectedCountry" />
