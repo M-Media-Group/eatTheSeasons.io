@@ -12,6 +12,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February",
@@ -31,6 +32,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February",
@@ -63,6 +65,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -88,6 +91,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -111,6 +115,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -134,6 +139,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -157,6 +163,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April"
                         ]
@@ -178,6 +185,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -201,6 +209,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -224,6 +233,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "April",
                             "May",
@@ -247,6 +257,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "November",
                             "December",
@@ -273,6 +284,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "March",
                             "April",
@@ -288,6 +300,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May",
                             "June",
@@ -313,6 +326,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "November",
                             "December",
@@ -341,6 +355,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "November",
                             "December",
@@ -369,6 +384,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "November",
                             "December",
@@ -397,6 +413,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "November",
                             "December",
@@ -425,6 +442,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May"
                         ]
@@ -437,6 +455,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "June",
                             "July",
@@ -460,6 +479,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May"
                         ]
@@ -481,6 +501,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May",
                             "June"
@@ -503,6 +524,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May",
                             "June"
@@ -525,6 +547,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February",
@@ -549,6 +572,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February",
@@ -581,6 +605,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February",
@@ -612,6 +637,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "May",
                             "June",
@@ -637,6 +663,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "June",
                             "July",
@@ -651,8 +678,8 @@
         ]
     },
     {
-        "imgUrl": "http://assets.stickpng.com/images/585ea5abcb11b227491c352a.png",
-        "name": "Brussels sprouts",
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Brussel-Sprout-Free-PNG.png",
+        "name": "Brussel sprout",
         "categories": [
             "Vegetable"
         ],
@@ -663,6 +690,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "June",
                             "July",
@@ -689,6 +717,7 @@
                 "regions": [
                     {
                         "name": "All",
+                        "isNative": true,
                         "months": [
                             "January",
                             "February"

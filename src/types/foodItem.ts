@@ -19,6 +19,8 @@ export enum Country {
 export interface Region {
   name: Name;
   months: Month[];
+  isNative: boolean;
+  sourceUrl?: string;
 }
 
 export enum Name {

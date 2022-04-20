@@ -1,8 +1,8 @@
 <template>
-  <div class="food-item">
-    <img :src="src" :alt="'A picture of a ' + msg" />
+  <div class="food-item" :id="name.replace(' ', '-')">
+    <img :src="src" :alt="'A picture of a ' + name" />
     <h2>
-      {{ msg }}
+      {{ name }}
       <span v-if="localName"> ({{ localName }}) </span>
     </h2>
 
@@ -24,7 +24,7 @@ import type { PropType } from "vue";
 export default defineComponent({
   name: "FoodItem",
   props: {
-    msg: String,
+    name: String,
     src: String,
     categories: {
       type: Array as PropType<Category[]>,

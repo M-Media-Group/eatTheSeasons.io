@@ -8,7 +8,7 @@
     <FoodItem
       v-for="food in orderedFoodItemsInSeasonAndRegion"
       :src="food.imgUrl"
-      :msg="food.name"
+      :name="food.name"
       :categories="food.categories"
       :localName="getLocalName(food)"
       :lastMonth="getLastMonthInARowFromFoodItem(food)"
