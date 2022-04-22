@@ -822,5 +822,31 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Grapefruit-Background-PNG-Image.png",
+        "name": "Grapefruit",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Pamplemousse",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": true,
+                        "months": [
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
