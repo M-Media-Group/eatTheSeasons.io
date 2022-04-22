@@ -789,5 +789,38 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Mango-Transparent-Background.png",
+        "name": "Mango",
+        "categories": [
+            "Fruit"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "La Mangue",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": false,
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
