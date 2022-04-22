@@ -3,11 +3,16 @@
     <h1>
       Eat
       <span v-if="isInBeta"
-        ><input type="text" placeholder="Anything" v-model="searchTerm" /> in
+        ><input
+          type="text"
+          placeholder="Anything"
+          v-model="filters.searchTerm"
+        />
+        in
       </span>
-      <MonthSelector v-model="selectedMonth" /> in
-      <CountrySelector v-model="selectedCountry" />
-      ({{ selectedRegion === "All" ? "all regions" : selectedRegion }})
+      <MonthSelector v-model="filters.month" /> in
+      <CountrySelector v-model="filters.country" />
+      ({{ filters.region === "All" ? "all regions" : filters.region }})
     </h1>
     <FoodItem
       v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
@@ -16,11 +21,12 @@
       :categories="food.categories"
       :localName="getLocalName(food)"
       :lastMonth="getLastMonthInARowFromFoodItem(food)"
+      :isNative="checkIsFoodNativeToCountry(food)"
       :key="food.name"
     />
     <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">
-      <div v-if="searchTerm">
-        No foods found for <strong>{{ searchTerm }}</strong
+      <div v-if="filters.searchTerm">
+        No foods found for <strong>{{ filters.searchTerm }}</strong
         >.
       </div>
       This website was created just this week so please bear with us as we add
@@ -65,11 +71,14 @@ export default defineComponent({
 
   data() {
     return {
-      selectedCountry: Country.Fr,
-      selectedRegion: "All",
-      selectedMonth: new Date().toLocaleString("en-us", { month: "long" }),
       foodItems: FoodData as FoodItemTs[],
-      searchTerm: "",
+      filters: {
+        country: Country.Fr,
+        region: "All",
+        month: new Date().toLocaleString("en-us", { month: "long" }),
+        searchTerm: "",
+        showOnlyNative: false,
+      },
     };
   },
 
@@ -95,13 +104,13 @@ export default defineComponent({
     },
 
     availableRegions(): string[] {
-      return this.getAvailableRegionsForCountry(this.selectedCountry);
+      return this.getAvailableRegionsForCountry(this.filters.country);
     },
 
     foodItemsInCountry(): FoodItemTs[] {
       return this.foodItems.filter((food) => {
         return food.availability.find((availability) => {
-          return availability.country === this.selectedCountry;
+          return availability.country === this.filters.country;
         });
       });
     },
@@ -110,10 +119,10 @@ export default defineComponent({
       return this.foodItems.filter((food) => {
         return food.availability
           .find((availability) => {
-            return availability.country === this.selectedCountry;
+            return availability.country === this.filters.country;
           })
           ?.regions.find((region) => {
-            return region.name === this.selectedRegion;
+            return region.name === this.filters.region;
           });
       });
     },
@@ -122,13 +131,13 @@ export default defineComponent({
       return this.foodItems.filter((food) => {
         return food.availability
           .find((availability) => {
-            return availability.country === this.selectedCountry;
+            return availability.country === this.filters.country;
           })
           ?.regions.find((region) => {
-            return region.name === this.selectedRegion;
+            return region.name === this.filters.region;
           })
           ?.months.find((month) => {
-            return month === this.selectedMonth;
+            return month === this.filters.month;
           });
       });
     },
@@ -151,14 +160,14 @@ export default defineComponent({
         .filter((food) => {
           return food.name
             .toLowerCase()
-            .includes(this.searchTerm.toLowerCase());
+            .includes(this.filters.searchTerm.toLowerCase());
         })
         .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
     },
   },
 
   watch: {
-    selectedCountry: {
+    "filters.country": {
       immediate: true,
 
       handler(newValue: string, oldValue: string) {
@@ -168,7 +177,7 @@ export default defineComponent({
 
         // Wait for the next tick to get available regions so that availableRegions has been updated
         this.$nextTick(() => {
-          this.selectedRegion = this.availableRegions.includes("All")
+          this.filters.region = this.availableRegions.includes("All")
             ? "All"
             : this.availableRegions[0];
           this.updateUrlQueryParams();
@@ -176,21 +185,23 @@ export default defineComponent({
       },
     },
 
-    selectedMonth(newValue: string, oldValue: string) {
-      if (newValue.toLowerCase() === oldValue.toLowerCase()) {
-        return;
-      }
-      this.updateUrlQueryParams();
+    "filters.month": {
+      handler(newValue: string, oldValue: string) {
+        if (newValue.toLowerCase() === oldValue.toLowerCase()) {
+          return;
+        }
+        this.updateUrlQueryParams();
+      },
     },
 
     "$route.query.country": {
       immediate: true,
       deep: true,
       handler(country: Country) {
-        if (!country || country.toLowerCase() === this.selectedCountry) {
+        if (!country || country.toLowerCase() === this.filters.country) {
           return;
         }
-        this.selectedCountry = country.toLowerCase() as Country;
+        this.filters.country = country.toLowerCase() as Country;
       },
     },
 
@@ -201,7 +212,7 @@ export default defineComponent({
         if (!month) {
           return;
         }
-        this.selectedMonth =
+        this.filters.month =
           month[0].toUpperCase() + month.slice(1).toLowerCase();
       },
     },
@@ -210,8 +221,8 @@ export default defineComponent({
   methods: {
     updateUrlQueryParams() {
       let queryParams = {
-        country: this.selectedCountry,
-        month: this.selectedMonth,
+        country: this.filters.country,
+        month: this.filters.month,
       } as QueryParamsType;
 
       if (this.isInBeta) {
@@ -228,7 +239,7 @@ export default defineComponent({
         food.availability.find((availability) => {
           return (
             availability.country.toLowerCase() ===
-            this.selectedCountry.toLowerCase()
+            this.filters.country.toLowerCase()
           );
         })?.localFoodItemName ?? ""
       );
@@ -264,18 +275,35 @@ export default defineComponent({
         .find((availability) => {
           return (
             availability.country.toLowerCase() ===
-            this.selectedCountry.toLowerCase()
+            this.filters.country.toLowerCase()
           );
         })
         ?.regions.find((region) => {
           return (
-            region.name.toLowerCase() === this.selectedRegion.toLowerCase()
+            region.name.toLowerCase() === this.filters.region.toLowerCase()
           );
         })?.months;
       if (!months) {
         return "";
       }
       return months[months.length - 1];
+    },
+
+    checkIsFoodNativeToCountry(food: FoodItemTs): boolean {
+      return (
+        food.availability
+          .find((availability) => {
+            return (
+              availability.country.toLowerCase() ===
+              this.filters.country.toLowerCase()
+            );
+          })
+          ?.regions.find((region) => {
+            return (
+              region.name.toLowerCase() === this.filters.region.toLowerCase()
+            );
+          })?.isNative ?? false
+      );
     },
   },
 });

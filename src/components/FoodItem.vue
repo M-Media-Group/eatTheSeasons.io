@@ -5,11 +5,11 @@
       {{ name }}
       <span v-if="localName"> ({{ localName }}) </span>
     </h2>
-
     <p>
       <span>Available to end of </span>
       {{ lastMonth }}
     </p>
+    <div class="badge" v-if="!isNative">Not native</div>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -31,6 +31,7 @@ export default defineComponent({
       default: () => [],
     },
     localName: String,
+    isNative: Boolean,
     lastMonth: {
       type: String as PropType<Month>,
       default: "",
@@ -62,5 +63,12 @@ h2 {
 }
 p {
   margin-top: 0;
+  margin-bottom: 8px;
+}
+.badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgb(70, 70, 70);
+  color: white;
 }
 </style>

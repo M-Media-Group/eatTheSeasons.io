@@ -551,7 +551,7 @@
                 "regions": [
                     {
                         "name": "Mainland",
-                        "isNative": true,
+                        "isNative": false,
                         "months": [
                             "January",
                             "February",
@@ -609,7 +609,7 @@
                 "regions": [
                     {
                         "name": "Mainland",
-                        "isNative": true,
+                        "isNative": false,
                         "months": [
                             "January",
                             "February",
