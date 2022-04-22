@@ -760,5 +760,34 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Fennel-PNG-Photos.png",
+        "name": "Fennel",
+        "categories": [
+            "Vegetable",
+            "Carrot"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Fenouil",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": true,
+                        "months": [
+                            "April",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
