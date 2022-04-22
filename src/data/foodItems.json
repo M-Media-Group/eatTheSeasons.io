@@ -445,7 +445,10 @@
                         "name": "Mainland",
                         "isNative": true,
                         "months": [
-                            "May"
+                            "June",
+                            "July",
+                            "August",
+                            "September"
                         ]
                     }
                 ]
@@ -723,6 +726,35 @@
                         "months": [
                             "January",
                             "February"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Onion-PNG-Clipart-Background.png",
+        "name": "Onion",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "L'Oignon",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": true,
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
                         ]
                     }
                 ]
