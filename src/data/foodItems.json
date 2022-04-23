@@ -848,5 +848,34 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Single-Leek-PNG-Clipart-Background.png",
+        "name": "Leek",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Poireau",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": true,
+                        "months": [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
