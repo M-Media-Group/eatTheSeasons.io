@@ -877,5 +877,32 @@
                 ]
             }
         ]
+    },
+    {
+        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Red-Cabbage-Transparent-File.png",
+        "name": "Red Cabbage",
+        "categories": [
+            "Vegetable"
+        ],
+        "availability": [
+            {
+                "country": "fr",
+                "localFoodItemName": "Le Chou Rouge",
+                "regions": [
+                    {
+                        "name": "Mainland",
+                        "isNative": true,
+                        "months": [
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
