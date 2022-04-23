@@ -387,14 +387,12 @@
                         "name": "Mainland",
                         "isNative": true,
                         "months": [
-                            "November",
-                            "December",
                             "January",
                             "February",
                             "March",
-                            "April",
-                            "May",
-                            "June"
+                            "October",
+                            "November",
+                            "December"
                         ]
                     }
                 ]
