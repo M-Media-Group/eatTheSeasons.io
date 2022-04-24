@@ -16,13 +16,13 @@
     </h1>
     <FoodItem
       v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
-      :src="food.imgUrl"
+      :src="food.image_url"
       :name="food.name"
-      :categories="food.categories"
-      :localName="getLocalName(food)"
+      :categories="getFoodCategoriesForFoodItem(food)"
       :lastMonth="getLastMonthInARowFromFoodItem(food)"
+      :localName="getLocalName(food)"
       :isNative="checkIsFoodNativeToCountry(food)"
-      :key="food.name"
+      :key="food.id"
     />
     <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">
       <div v-if="filters.searchTerm">
@@ -52,12 +52,14 @@ import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
 
 import {
-  Country,
-  Month,
+  CountryCode,
+  MonthName,
   Category,
+  CategoryName,
   FoodItem as FoodItemTs,
 } from "@/types/foodItem";
 import { QueryParams as QueryParamsType } from "@/types/queryParams";
+import { getBestImageUrl } from "@/helpers";
 
 export default defineComponent({
   name: "FoodView",
@@ -73,7 +75,7 @@ export default defineComponent({
     return {
       foodItems: FoodData as FoodItemTs[],
       filters: {
-        country: Country.Fr,
+        country: CountryCode.Fr,
         region: "All",
         month: new Date().toLocaleString("en-us", { month: "long" }),
         searchTerm: "",
@@ -82,25 +84,31 @@ export default defineComponent({
     };
   },
 
+  created() {
+    this.filters.region = this.availableRegions.includes("All")
+      ? "All"
+      : this.availableRegions[0];
+  },
+
   computed: {
     isInBeta() {
       return this.$route.query.beta === "true";
     },
 
-    availableCategories(): Category[] {
-      return this.foodItems
-        .map((food) => food.categories)
-        .reduce((acc, cur) => acc.concat(cur), [])
-        .filter((category, index, array) => array.indexOf(category) === index);
-    },
-
-    availableCountries(): Country[] {
-      return this.foodItems.reduce((acc: any, foodItem) => {
-        const countries = foodItem.availability.map(
-          (availability) => availability.country
-        );
-        return [...new Set([...acc, ...countries])];
-      }, []);
+    availableCategories(): CategoryName[] {
+      return (
+        this.foodItems
+          .reduce(
+            (acc: any, food) =>
+              acc.concat(food.categories.map((c: Category) => c.name)),
+            []
+          )
+          // remove duplicates
+          .filter(
+            (value: any, index: any, self: string | any[]) =>
+              self.indexOf(value) === index
+          )
+      );
     },
 
     availableRegions(): string[] {
@@ -108,38 +116,29 @@ export default defineComponent({
     },
 
     foodItemsInCountry(): FoodItemTs[] {
-      return this.foodItems.filter((food) => {
-        return food.availability.find((availability) => {
-          return availability.country === this.filters.country;
-        });
-      });
+      return this.getFoodItemsInCountry(this.filters.country);
     },
 
     foodItemsInRegion(): FoodItemTs[] {
-      return this.foodItems.filter((food) => {
-        return food.availability
-          .find((availability) => {
-            return availability.country === this.filters.country;
-          })
-          ?.regions.find((region) => {
-            return region.name === this.filters.region;
-          });
-      });
+      return this.foodItemsInCountry.filter((foodItem) =>
+        foodItem.food_regions.find(
+          (foodRegion) => foodRegion.region.name === this.filters.region
+        )
+      );
     },
 
     foodItemsInSeasonAndRegion(): FoodItemTs[] {
-      return this.foodItems.filter((food) => {
-        return food.availability
-          .find((availability) => {
-            return availability.country === this.filters.country;
-          })
-          ?.regions.find((region) => {
-            return region.name === this.filters.region;
-          })
-          ?.months.find((month) => {
-            return month === this.filters.month;
-          });
-      });
+      return this.foodItemsInRegion.filter((foodItem) =>
+        foodItem.food_regions.find(
+          (foodRegion) =>
+            foodRegion.region.name === this.filters.region &&
+            foodRegion.seasons.find(
+              (season) =>
+                season.month_name.toLowerCase() ===
+                this.filters.month.toLowerCase()
+            )
+        )
+      );
     },
 
     orderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
@@ -168,13 +167,10 @@ export default defineComponent({
 
   watch: {
     "filters.country": {
-      immediate: true,
-
       handler(newValue: string, oldValue: string) {
         if (oldValue && newValue.toLowerCase() === oldValue.toLowerCase()) {
           return;
         }
-
         // Wait for the next tick to get available regions so that availableRegions has been updated
         this.$nextTick(() => {
           this.filters.region = this.availableRegions.includes("All")
@@ -184,7 +180,6 @@ export default defineComponent({
         });
       },
     },
-
     "filters.month": {
       handler(newValue: string, oldValue: string) {
         if (newValue.toLowerCase() === oldValue.toLowerCase()) {
@@ -193,22 +188,18 @@ export default defineComponent({
         this.updateUrlQueryParams();
       },
     },
-
     "$route.query.country": {
       immediate: true,
-      deep: true,
-      handler(country: Country) {
+      handler(country: CountryCode) {
         if (!country || country.toLowerCase() === this.filters.country) {
           return;
         }
-        this.filters.country = country.toLowerCase() as Country;
+        this.filters.country = country.toLowerCase() as CountryCode;
       },
     },
-
     "$route.query.month": {
       immediate: true,
-      deep: true,
-      handler(month: Month) {
+      handler(month: MonthName) {
         if (!month) {
           return;
         }
@@ -236,53 +227,60 @@ export default defineComponent({
 
     getLocalName(food: FoodItemTs): string {
       return (
-        food.availability.find((availability) => {
+        food.food_regions.find((foodRegion) => {
           return (
-            availability.country.toLowerCase() ===
+            foodRegion.region.country_code.toLowerCase() ===
             this.filters.country.toLowerCase()
           );
-        })?.localFoodItemName ?? ""
+        })?.local_name ?? ""
       );
     },
 
-    getAvailableRegionsForCountry(country: Country): string[] {
-      return (
-        this.foodItems
-          ?.filter((food) => {
-            return food.availability.find((availability) => {
-              return availability.country === country;
-            });
-          })
-          ?.map((food) => {
-            return food.availability
-              .find((availability) => {
-                return availability.country === country;
-              })
-              ?.regions.map((region) => {
-                return region.name;
-              });
-          })
-          ?.reduce((acc: any, cur) => acc.concat(cur), [])
-          ?.filter(
-            (region: string, index: number, array: string[]) =>
-              array.indexOf(region) === index
-          ) ?? ["All"]
-      );
-    },
-
-    getLastMonthInARowFromFoodItem(food: FoodItemTs): Month | "" {
-      const months = food.availability
-        .find((availability) => {
+    getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
+      return this.foodItems.filter((food) => {
+        return food.food_regions.find((foodRegion) => {
           return (
-            availability.country.toLowerCase() ===
+            foodRegion.region.country_code.toLowerCase() ===
+            country.toLowerCase()
+          );
+        });
+      });
+    },
+
+    getAvailableRegionsForCountry(country: CountryCode): string[] {
+      return this.foodItems
+        .filter((food) => {
+          return food.food_regions.find((foodRegion) => {
+            return (
+              foodRegion.region.country_code.toLowerCase() ===
+              country.toLowerCase()
+            );
+          });
+        })
+        .map((food) => {
+          return (
+            food.food_regions.find((foodRegion) => {
+              return (
+                foodRegion.region.country_code.toLowerCase() ===
+                country.toLowerCase()
+              );
+            })?.region.name ?? ""
+          );
+        })
+        .filter((region, index, array) => array.indexOf(region) === index);
+    },
+
+    getLastMonthInARowFromFoodItem(food: FoodItemTs): MonthName | "" {
+      const months = food.food_regions
+        .find((foodRegion) => {
+          return (
+            foodRegion.region.country_code.toLowerCase() ===
             this.filters.country.toLowerCase()
           );
         })
-        ?.regions.find((region) => {
-          return (
-            region.name.toLowerCase() === this.filters.region.toLowerCase()
-          );
-        })?.months;
+        ?.seasons.map((season) => {
+          return season.month_name;
+        });
       if (!months) {
         return "";
       }
@@ -291,19 +289,23 @@ export default defineComponent({
 
     checkIsFoodNativeToCountry(food: FoodItemTs): boolean {
       return (
-        food.availability
-          .find((availability) => {
-            return (
-              availability.country.toLowerCase() ===
-              this.filters.country.toLowerCase()
-            );
-          })
-          ?.regions.find((region) => {
-            return (
-              region.name.toLowerCase() === this.filters.region.toLowerCase()
-            );
-          })?.isNative ?? false
+        food.food_regions?.find((foodRegion) => {
+          return (
+            foodRegion.region.country_code.toLowerCase() ===
+            this.filters.country.toLowerCase()
+          );
+        })?.grows_in_region ?? false
       );
+    },
+
+    getFoodCategoriesForFoodItem(food: FoodItemTs): string[] {
+      return food.categories.map((foodCategory) => {
+        return foodCategory.name;
+      });
+    },
+
+    async vueGetBestImageUrl(name: string) {
+      return await getBestImageUrl(name);
     },
   },
 });

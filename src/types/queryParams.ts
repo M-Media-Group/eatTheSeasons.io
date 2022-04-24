@@ -1,8 +1,8 @@
-import { Country, Month, Category } from "./foodItem";
+import { CountryCode, MonthName, Category } from "./foodItem";
 
 export interface QueryParams {
-  country?: Country;
-  month?: Month;
+  country?: CountryCode;
+  month?: MonthName;
   categories?: Category[];
   region?: string;
   searchTerm?: string;

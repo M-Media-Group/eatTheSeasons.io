@@ -1,905 +1,3748 @@
 [
     {
-        "imgUrl": "https://pngfolio.com/images/all_img/1637340868apple-png.png",
+        "id": 1,
         "name": "Apple",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://pngfolio.com/images/all_img/1637340868apple-png.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:04.000000Z",
+        "updated_at": "2022-04-24T07:28:04.000000Z",
         "categories": [
-            "Fruit"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "La Pomme",
-                "regions": [
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 1,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 1,
+                "country_region_id": 1,
+                "food_id": 1,
+                "local_name": "La Pomme",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "August",
-                            "September",
-                            "October",
-                            "November"
-                        ]
+                        "id": 1,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 2,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 3,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 4,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 5,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 6,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 7,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 8,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 1,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             },
             {
-                "country": "pl",
-                "localFoodItemName": "Jabłko",
-                "regions": [
+                "id": 2,
+                "country_region_id": 2,
+                "food_id": 1,
+                "local_name": "Jabłko",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
+                        "id": 9,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 10,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 11,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 12,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 13,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 14,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 15,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 16,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 17,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 18,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 19,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 20,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 2,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://pngfolio.com/images/all_img/copy/1634920598strawberry-transparent.png",
-        "name": "Strawberry",
-        "categories": [
-            "Fruit"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Fraise",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngall.com/wp-content/uploads/2/Rhubarb.png",
-        "name": "Rhubarb",
-        "categories": [
-            "Fruit"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Rhubarbe",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngall.com/wp-content/uploads/2016/04/Blackberry-Fruit-Free-Download-PNG.png",
-        "name": "Blackberry",
-        "categories": [
-            "Fruit"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Mûre",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngall.com/wp-content/uploads/12/Asparagus-Vegetable-PNG-Image-HD.png",
+        "id": 5,
         "name": "Asparagus",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngall.com/wp-content/uploads/12/Asparagus-Vegetable-PNG-Image-HD.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:04.000000Z",
+        "updated_at": "2022-04-24T07:28:04.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "L' Asperge",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 5,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 6,
+                "country_region_id": 1,
+                "food_id": 5,
+                "local_name": "L' Asperge",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
+                        "id": 32,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 6,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 33,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 6,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 34,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 6,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Red_chard.jpg/1056px-Red_chard.jpg?20080303040609",
-        "name": "Chard",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Bette",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://pngimg.com/uploads/spinach/spinach_PNG69.png",
-        "name": "Spinach",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "L'Épinard",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngall.com/wp-content/uploads/9/Radish-PNG-Photo.png",
-        "name": "Radish",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Les Radis",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Lettuce-PNG-Photos.png",
-        "name": "Lettuce",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Laitue",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/6/Natural-Orange-Fruit-Transparent-PNG.png",
-        "name": "Orange",
-        "categories": [
-            "Fruit",
-            "Citrus"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "L' Orange",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "November",
-                            "December",
-                            "January",
-                            "February",
-                            "March",
-                            "April"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Beet-Transparent-Image.png",
-        "name": "Beet",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Betterave",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "March",
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            },
-            {
-                "country": "pl",
-                "localFoodItemName": "Botwina",
-                "regions": [
-                    {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Carrot-PNG-HD-Quality.png",
-        "name": "Carrot",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Carotte",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "November",
-                            "December",
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Celery-PNG-Photo-Image.png",
-        "name": "Celery",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Céleri",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "November",
-                            "December",
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Cabbage-PNG-Photos.png",
-        "name": "Cabbage",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Chou",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "October",
-                            "November",
-                            "December"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/13/Potatoes-PNG-HD-Quality.png",
-        "name": "Potato",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Pomme de Terre",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "November",
-                            "December",
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Eggplant-PNG-HD-Quality.png",
-        "name": "Eggplant",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "L' Aubergine",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "June",
-                            "July",
-                            "August",
-                            "September"
-                        ]
-                    }
-                ]
-            },
-            {
-                "country": "pl",
-                "localFoodItemName": "Bakłażan",
-                "regions": [
-                    {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "June",
-                            "July",
-                            "August"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Cucumber-PNG-Images-HD.png",
-        "name": "Cucumber",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Concombre",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "May"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Turnip-Transparent-File.png",
-        "name": "Turnips",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Navet",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Cauliflower-Transparent-File.png",
-        "name": "Cauliflower",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Chou-fleur",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "May",
-                            "June"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Banana-PNG-Free-Commercial-Use-Images.png",
-        "name": "Banana",
-        "categories": [
-            "Fruit"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Banane",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": false,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://thumbs.dreamstime.com/b/cress-salad-isolated-roots-90457550.jpg",
-        "name": "Cress",
-        "categories": [
-            "Vegetable"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "Le Cresson",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Avocado-PNG-Photo-Image.png",
+        "id": 22,
         "name": "Avocado",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/2/Avocado-PNG-Photo-Image.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Fruit"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "L' Avocat",
-                "regions": [
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 22,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 25,
+                "country_region_id": 1,
+                "food_id": 22,
+                "local_name": "L' Avocat",
+                "grows_in_region": false,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": false,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
+                        "id": 118,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 119,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 120,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 121,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 122,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 123,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 124,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 125,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 126,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 127,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 128,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 25,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Broad-Bean-PNG-Free-File-Download.png",
+        "id": 20,
+        "name": "Banana",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/1/Banana-PNG-Free-Commercial-Use-Images.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 20,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 23,
+                "country_region_id": 1,
+                "food_id": 20,
+                "local_name": "Le Banane",
+                "grows_in_region": false,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 102,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 23,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 103,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 23,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 104,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 23,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 105,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 23,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Beet",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Beet-Transparent-Image.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 11,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 12,
+                "country_region_id": 1,
+                "food_id": 11,
+                "local_name": "La Betterave",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 51,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 12,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 52,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 12,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 53,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 12,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 54,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 12,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            },
+            {
+                "id": 13,
+                "country_region_id": 2,
+                "food_id": 11,
+                "local_name": "Botwina",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 55,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 13,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 56,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 13,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 57,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 13,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 58,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 13,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 59,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 13,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Blackberry",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngall.com/wp-content/uploads/2016/04/Blackberry-Fruit-Free-Download-PNG.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:04.000000Z",
+        "updated_at": "2022-04-24T07:28:04.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 4,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 5,
+                "country_region_id": 1,
+                "food_id": 4,
+                "local_name": "La Mûre",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 29,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 5,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 30,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 5,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 31,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 5,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 23,
         "name": "Broad Bean",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Broad-Bean-PNG-Free-File-Download.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Bean"
-        ],
-        "availability": [
             {
-                "country": "pl",
-                "localFoodItemName": "Bób",
-                "regions": [
+                "id": 4,
+                "name": "Bean",
+                "description": null,
+                "created_at": "2022-04-24T07:28:05.000000Z",
+                "updated_at": "2022-04-24T07:28:05.000000Z",
+                "pivot": {
+                    "food_id": 23,
+                    "category_id": 4
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 26,
+                "country_region_id": 2,
+                "food_id": 23,
+                "local_name": "Bób",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September"
-                        ]
+                        "id": 129,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 26,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 130,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 26,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 131,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 26,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 132,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 26,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 133,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 26,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Broccoli-Free-PNG.png",
+        "id": 24,
         "name": "Broccoli",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Broccoli-Free-PNG.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "pl",
-                "localFoodItemName": "Brokuł",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 24,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 27,
+                "country_region_id": 2,
+                "food_id": 24,
+                "local_name": "Brokuł",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November"
-                        ]
+                        "id": 134,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 135,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 136,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 137,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 138,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 139,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 27,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Brussel-Sprout-Free-PNG.png",
+        "id": 25,
         "name": "Brussel sprout",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Brussel-Sprout-Free-PNG.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "pl",
-                "localFoodItemName": "Brukselka",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 25,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 28,
+                "country_region_id": 2,
+                "food_id": 25,
+                "local_name": "Brukselka",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "All",
-                        "isNative": true,
-                        "months": [
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November"
-                        ]
+                        "id": 140,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 141,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 142,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 143,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 144,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 145,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 28,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Yellow-Lemon-Transparent-Background.png",
-        "name": "Lemon",
+        "id": 14,
+        "name": "Cabbage",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/2/Cabbage-PNG-Photos.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Fruit",
-            "Citrus"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "Le Citron",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 14,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 16,
+                "country_region_id": 1,
+                "food_id": 14,
+                "local_name": "Le Chou",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February"
-                        ]
+                        "id": 76,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 77,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 78,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 79,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 80,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 81,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 16,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Onion-PNG-Clipart-Background.png",
-        "name": "Onion",
+        "id": 12,
+        "name": "Carrot",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Carrot-PNG-HD-Quality.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "L'Oignon",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 12,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 14,
+                "country_region_id": 1,
+                "food_id": 12,
+                "local_name": "La Carotte",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
+                        "id": 62,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 63,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 64,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 65,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 66,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 67,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 60,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 61,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 14,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Fennel-PNG-Photos.png",
+        "id": 19,
+        "name": "Cauliflower",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Cauliflower-Transparent-File.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 19,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 22,
+                "country_region_id": 1,
+                "food_id": 19,
+                "local_name": "Le Chou-fleur",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 100,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 22,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 101,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 22,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Celery",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Celery-PNG-Photo-Image.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 13,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 15,
+                "country_region_id": 1,
+                "food_id": 13,
+                "local_name": "Le Céleri",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 70,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 71,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 72,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 73,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 74,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 75,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 68,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 69,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 15,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Chard",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Red_chard.jpg/1056px-Red_chard.jpg?20080303040609",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 6,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 7,
+                "country_region_id": 1,
+                "food_id": 6,
+                "local_name": "Le Bette",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 35,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 7,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Cress",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://thumbs.dreamstime.com/b/cress-salad-isolated-roots-90457550.jpg",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 21,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 24,
+                "country_region_id": 1,
+                "food_id": 21,
+                "local_name": "Le Cresson",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 106,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 107,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 108,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 109,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 110,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 111,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 112,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 113,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 114,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 115,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 116,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 117,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 24,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Cucumber",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Cucumber-PNG-Images-HD.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 17,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 20,
+                "country_region_id": 1,
+                "food_id": 17,
+                "local_name": "Le Concombre",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 97,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 20,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Dandelion",
+        "description": null,
+        "is_raw": true,
+        "image_url": "http://www.pngplay.com/wp-content/uploads/2/White-Dandelion-Transparent-File.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 6,
+                "name": "Flower",
+                "description": null,
+                "created_at": "2022-04-24T07:28:05.000000Z",
+                "updated_at": "2022-04-24T07:28:05.000000Z",
+                "pivot": {
+                    "food_id": 33,
+                    "category_id": 6
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 36,
+                "country_region_id": 1,
+                "food_id": 33,
+                "local_name": "Dandelion",
+                "grows_in_region": false,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Eggplant",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/2/Eggplant-PNG-HD-Quality.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 16,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 18,
+                "country_region_id": 1,
+                "food_id": 16,
+                "local_name": "L' Aubergine",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 90,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 18,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 91,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 18,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 92,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 18,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 93,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 18,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            },
+            {
+                "id": 19,
+                "country_region_id": 2,
+                "food_id": 16,
+                "local_name": "Bakłażan",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 94,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 19,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 95,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 19,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 96,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 19,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 2,
+                    "name": "All",
+                    "local_name": "All",
+                    "country_code": "pl",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "pl",
+                        "name": "pl",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 28,
         "name": "Fennel",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Fennel-PNG-Photos.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable",
-            "Carrot"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "Le Fenouil",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 28,
+                    "category_id": 2
+                }
+            },
+            {
+                "id": 5,
+                "name": "Carrot",
+                "description": null,
+                "created_at": "2022-04-24T07:28:05.000000Z",
+                "updated_at": "2022-04-24T07:28:05.000000Z",
+                "pivot": {
+                    "food_id": 28,
+                    "category_id": 5
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 31,
+                "country_region_id": 1,
+                "food_id": 28,
+                "local_name": "Le Fenouil",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November"
-                        ]
+                        "id": 156,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 157,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 158,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 159,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 160,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 161,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 162,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 31,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Mango-Transparent-Background.png",
-        "name": "Mango",
-        "categories": [
-            "Fruit"
-        ],
-        "availability": [
-            {
-                "country": "fr",
-                "localFoodItemName": "La Mangue",
-                "regions": [
-                    {
-                        "name": "Mainland",
-                        "isNative": false,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/2/Grapefruit-Background-PNG-Image.png",
+        "id": 30,
         "name": "Grapefruit",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/2/Grapefruit-Background-PNG-Image.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Fruit"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "Le Pamplemousse",
-                "regions": [
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 30,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 33,
+                "country_region_id": 1,
+                "food_id": 30,
+                "local_name": "Le Pamplemousse",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June"
-                        ]
+                        "id": 175,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 33,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 176,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 33,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 177,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 33,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 178,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 33,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 179,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 33,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/1/Single-Leek-PNG-Clipart-Background.png",
+        "id": 31,
         "name": "Leek",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/1/Single-Leek-PNG-Clipart-Background.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "Le Poireau",
-                "regions": [
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 31,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 34,
+                "country_region_id": 1,
+                "food_id": 31,
+                "local_name": "Le Poireau",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "September",
-                            "October",
-                            "November",
-                            "December"
-                        ]
+                        "id": 180,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 181,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 182,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 183,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 184,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 185,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 186,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 187,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 34,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     },
     {
-        "imgUrl": "https://www.pngplay.com/wp-content/uploads/10/Red-Cabbage-Transparent-File.png",
-        "name": "Red Cabbage",
+        "id": 26,
+        "name": "Lemon",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/1/Yellow-Lemon-Transparent-Background.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
         "categories": [
-            "Vegetable"
-        ],
-        "availability": [
             {
-                "country": "fr",
-                "localFoodItemName": "Le Chou Rouge",
-                "regions": [
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 26,
+                    "category_id": 1
+                }
+            },
+            {
+                "id": 3,
+                "name": "Citrus",
+                "description": null,
+                "created_at": "2022-04-24T07:28:05.000000Z",
+                "updated_at": "2022-04-24T07:28:05.000000Z",
+                "pivot": {
+                    "food_id": 26,
+                    "category_id": 3
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 29,
+                "country_region_id": 1,
+                "food_id": 26,
+                "local_name": "Le Citron",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
                     {
-                        "name": "Mainland",
-                        "isNative": true,
-                        "months": [
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September"
-                        ]
+                        "id": 146,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 29,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 147,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 29,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
                     }
-                ]
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Lettuce",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Lettuce-PNG-Photos.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 9,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 10,
+                "country_region_id": 1,
+                "food_id": 9,
+                "local_name": "La Laitue",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 42,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 10,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 43,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 10,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 44,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 10,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Mango",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/4/Mango-Transparent-Background.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 29,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 32,
+                "country_region_id": 1,
+                "food_id": 29,
+                "local_name": "La Mangue",
+                "grows_in_region": false,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 163,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 164,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 165,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 166,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 167,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 168,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 169,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 170,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 171,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 172,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 173,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 174,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 32,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Onion",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/2/Onion-PNG-Clipart-Background.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 27,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 30,
+                "country_region_id": 1,
+                "food_id": 27,
+                "local_name": "L'Oignon",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 148,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 149,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 150,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 151,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 152,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 153,
+                        "start_date": "2022-10-01",
+                        "month": 10,
+                        "month_name": "October",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 154,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 155,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 30,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Orange",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/6/Natural-Orange-Fruit-Transparent-PNG.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 10,
+                    "category_id": 1
+                }
+            },
+            {
+                "id": 3,
+                "name": "Citrus",
+                "description": null,
+                "created_at": "2022-04-24T07:28:05.000000Z",
+                "updated_at": "2022-04-24T07:28:05.000000Z",
+                "pivot": {
+                    "food_id": 10,
+                    "category_id": 3
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 11,
+                "country_region_id": 1,
+                "food_id": 10,
+                "local_name": "L' Orange",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 47,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 48,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 49,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 50,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 45,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 46,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 11,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Potato",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/13/Potatoes-PNG-HD-Quality.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 15,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 17,
+                "country_region_id": 1,
+                "food_id": 15,
+                "local_name": "La Pomme de Terre",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 84,
+                        "start_date": "2022-01-01",
+                        "month": 1,
+                        "month_name": "January",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 85,
+                        "start_date": "2022-02-01",
+                        "month": 2,
+                        "month_name": "February",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 86,
+                        "start_date": "2022-03-01",
+                        "month": 3,
+                        "month_name": "March",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 87,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 88,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 89,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 82,
+                        "start_date": "2022-11-01",
+                        "month": 11,
+                        "month_name": "November",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 83,
+                        "start_date": "2022-12-01",
+                        "month": 12,
+                        "month_name": "December",
+                        "food_region_id": 17,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Pumpkin",
+        "description": null,
+        "is_raw": true,
+        "image_url": "http://www.pngplay.com/wp-content/uploads/4/Pumpkin-Seeds-No-Background.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 34,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 37,
+                "country_region_id": 1,
+                "food_id": 34,
+                "local_name": "La Citrouille",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Radish",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngall.com/wp-content/uploads/9/Radish-PNG-Photo.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 8,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 9,
+                "country_region_id": 1,
+                "food_id": 8,
+                "local_name": "Les Radis",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 39,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 9,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 40,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 9,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 41,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 9,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Red Cabbage",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Red-Cabbage-Transparent-File.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 32,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 35,
+                "country_region_id": 1,
+                "food_id": 32,
+                "local_name": "Le Chou Rouge",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 188,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 189,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 190,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 191,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 192,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 193,
+                        "start_date": "2022-09-01",
+                        "month": 9,
+                        "month_name": "September",
+                        "food_region_id": 35,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Rhubarb",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngall.com/wp-content/uploads/2/Rhubarb.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:04.000000Z",
+        "updated_at": "2022-04-24T07:28:04.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 3,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 4,
+                "country_region_id": 1,
+                "food_id": 3,
+                "local_name": "La Rhubarbe",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 26,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 4,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 27,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 4,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 28,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 4,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Spinach",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://pngimg.com/uploads/spinach/spinach_PNG69.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 7,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 8,
+                "country_region_id": 1,
+                "food_id": 7,
+                "local_name": "L'Épinard",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 36,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 8,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 37,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 8,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 38,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 8,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Strawberry",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://pngfolio.com/images/all_img/copy/1634920598strawberry-transparent.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:04.000000Z",
+        "updated_at": "2022-04-24T07:28:04.000000Z",
+        "categories": [
+            {
+                "id": 1,
+                "name": "Fruit",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 2,
+                    "category_id": 1
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 3,
+                "country_region_id": 1,
+                "food_id": 2,
+                "local_name": "La Fraise",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 21,
+                        "start_date": "2022-04-01",
+                        "month": 4,
+                        "month_name": "April",
+                        "food_region_id": 3,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 22,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 3,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 23,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 3,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 24,
+                        "start_date": "2022-07-01",
+                        "month": 7,
+                        "month_name": "July",
+                        "food_region_id": 3,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    },
+                    {
+                        "id": 25,
+                        "start_date": "2022-08-01",
+                        "month": 8,
+                        "month_name": "August",
+                        "food_region_id": 3,
+                        "created_at": "2022-04-24T07:28:04.000000Z",
+                        "updated_at": "2022-04-24T07:28:04.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Turnips",
+        "description": null,
+        "is_raw": true,
+        "image_url": "https://www.pngplay.com/wp-content/uploads/10/Turnip-Transparent-File.png",
+        "kcal": null,
+        "water": null,
+        "protein": null,
+        "fat": null,
+        "carbohydrate": null,
+        "fiber": null,
+        "alcohol": null,
+        "created_at": "2022-04-24T07:28:05.000000Z",
+        "updated_at": "2022-04-24T07:28:05.000000Z",
+        "categories": [
+            {
+                "id": 2,
+                "name": "Vegetable",
+                "description": null,
+                "created_at": "2022-04-24T07:28:04.000000Z",
+                "updated_at": "2022-04-24T07:28:04.000000Z",
+                "pivot": {
+                    "food_id": 18,
+                    "category_id": 2
+                }
+            }
+        ],
+        "food_regions": [
+            {
+                "id": 21,
+                "country_region_id": 1,
+                "food_id": 18,
+                "local_name": "Le Navet",
+                "grows_in_region": true,
+                "created_at": null,
+                "updated_at": null,
+                "seasons": [
+                    {
+                        "id": 98,
+                        "start_date": "2022-05-01",
+                        "month": 5,
+                        "month_name": "May",
+                        "food_region_id": 21,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    },
+                    {
+                        "id": 99,
+                        "start_date": "2022-06-01",
+                        "month": 6,
+                        "month_name": "June",
+                        "food_region_id": 21,
+                        "created_at": "2022-04-24T07:28:05.000000Z",
+                        "updated_at": "2022-04-24T07:28:05.000000Z"
+                    }
+                ],
+                "region": {
+                    "id": 1,
+                    "name": "Mainland",
+                    "local_name": "Mainland",
+                    "country_code": "fr",
+                    "is_entire_country": true,
+                    "created_at": "2022-04-24T07:28:04.000000Z",
+                    "updated_at": "2022-04-24T07:28:04.000000Z",
+                    "country": {
+                        "code": "fr",
+                        "name": "fr",
+                        "local_name": null
+                    }
+                }
             }
         ]
     }
