@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Category, Month } from "@/types/foodItem";
+import { Category, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
     localName: String,
     isNative: Boolean,
     lastMonth: {
-      type: String as PropType<Month>,
+      type: String as PropType<MonthName>,
       default: "",
       required: true,
     },
