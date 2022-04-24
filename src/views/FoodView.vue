@@ -22,6 +22,7 @@
       :lastMonth="getLastMonthInARowFromFoodItem(food)"
       :localName="getLocalName(food)"
       :isNative="checkIsFoodNativeToCountry(food)"
+      :calories="food.kcal"
       :key="food.id"
     />
     <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">
@@ -36,6 +37,10 @@
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
+    <div v-if="isInBeta">
+      <h2>Can you help us with these foods?</h2>
+      <p>If you know when these foods are in season, please let us know!</p>
+    </div>
     <small
       >Made with ❤️ by <a href="https://mmediagroup.fr">M Media</a>. Images from
       <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
@@ -46,7 +51,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
-import FoodData from "@/data/foodItems.json";
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
@@ -81,6 +85,16 @@ export default defineComponent({
         month: new Date().toLocaleString("en-us", { month: "long" }),
         searchTerm: "",
         showOnlyNative: false,
+      },
+      sort: {
+        order: "asc",
+        by: "kcal" as keyof FoodItemTs,
+        options: {
+          kcal: "kcal",
+          name: "name",
+          fat: "fat",
+          carbohydrate: "carbohydrate",
+        },
       },
     };
   },
@@ -154,13 +168,26 @@ export default defineComponent({
 
     filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
       const foodItems = this.foodItemsInSeasonAndRegion;
-      return foodItems
-        .filter((food) => {
-          return food.name
-            .toLowerCase()
-            .includes(this.filters.searchTerm.toLowerCase());
-        })
-        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+      const filteredFoodItems = foodItems.filter((foodItem) =>
+        foodItem.name
+          .toLowerCase()
+          .includes(this.filters.searchTerm.toLowerCase())
+      );
+      // Sort by this.sort.by
+      return filteredFoodItems.sort((a, b) => {
+        const aValue = a[this.sort.by];
+        const bValue = b[this.sort.by];
+        if (aValue === null || bValue === null) {
+          return this.sort.order === "asc" ? 1 : -1;
+        }
+        if (aValue > bValue) {
+          return this.sort.order === "asc" ? 1 : -1;
+        }
+        if (aValue < bValue) {
+          return this.sort.order === "asc" ? -1 : 1;
+        }
+        return 0;
+      });
     },
   },
 

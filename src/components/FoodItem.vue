@@ -6,6 +6,7 @@
       <span v-if="localName"> ({{ localName }}) </span>
     </h2>
     <p>
+      <span v-if="calories">{{ calories }} kcal/100g · </span>
       <span>Available to end of </span>
       {{ lastMonth }}
     </p>
@@ -26,6 +27,7 @@ export default defineComponent({
   props: {
     name: String,
     src: String,
+    calories: Number,
     categories: {
       type: Array as PropType<Category[]>,
       default: () => [],
