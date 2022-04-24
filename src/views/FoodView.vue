@@ -50,6 +50,7 @@ import FoodData from "@/data/foodItems.json";
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
+import axios from "axios";
 
 import {
   CountryCode,
@@ -73,7 +74,7 @@ export default defineComponent({
 
   data() {
     return {
-      foodItems: FoodData as FoodItemTs[],
+      foodItems: [] as FoodItemTs[],
       filters: {
         country: CountryCode.Fr,
         region: "All",
@@ -85,9 +86,7 @@ export default defineComponent({
   },
 
   created() {
-    this.filters.region = this.availableRegions.includes("All")
-      ? "All"
-      : this.availableRegions[0];
+    this.getFoodItems();
   },
 
   computed: {
@@ -210,6 +209,22 @@ export default defineComponent({
   },
 
   methods: {
+    getFoodItems() {
+      axios
+        .get("api/in-season")
+        .then((response) => {
+          this.foodItems = response.data as FoodItemTs[];
+          this.setDefaultRegion();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    setDefaultRegion() {
+      this.filters.region = this.availableRegions.includes("All")
+        ? "All"
+        : this.availableRegions[0];
+    },
     updateUrlQueryParams() {
       let queryParams = {
         country: this.filters.country,
