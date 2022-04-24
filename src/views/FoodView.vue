@@ -23,6 +23,10 @@
       :localName="getLocalName(food)"
       :isNative="checkIsFoodNativeToCountry(food)"
       :calories="food.kcal"
+      :carb="food.carbohydrate"
+      :fat="food.fat"
+      :protein="food.protein"
+      :water="food.water"
       :key="food.id"
     />
     <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">

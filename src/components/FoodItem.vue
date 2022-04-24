@@ -9,6 +9,13 @@
       <span v-if="calories">{{ calories }} kcal/100g · </span>
       <span>Available to end of </span>
       {{ lastMonth }}
+      <NutrientInformation
+        v-if="carb && fat && protein && water"
+        :protein="protein"
+        :carb="carb"
+        :fat="fat"
+        :water="water"
+      />
     </p>
     <div class="badge" v-if="!isNative">Not native</div>
     <!-- <p v-if="categories">
@@ -21,13 +28,21 @@
 import { defineComponent } from "vue";
 import { Category, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
+import NutrientInformation from "./NutrientInformation.vue";
 
 export default defineComponent({
   name: "FoodItem",
+  components: {
+    NutrientInformation,
+  },
   props: {
     name: String,
     src: String,
     calories: Number,
+    carb: Number,
+    fat: Number,
+    protein: Number,
+    water: Number,
     categories: {
       type: Array as PropType<Category[]>,
       default: () => [],
