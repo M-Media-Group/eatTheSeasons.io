@@ -70,7 +70,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 15vh;
 }
 h2 {
   margin-bottom: 0;
