@@ -9,15 +9,15 @@
       <span v-if="calories">{{ calories }} kcal/100g · </span>
       <span>Available to end of </span>
       {{ lastMonth }}
-      <NutrientInformation
-        v-if="carb && fat && protein && water"
-        :protein="protein"
-        :carb="carb"
-        :fat="fat"
-        :water="water"
-      />
     </p>
     <div class="badge" v-if="!isNative">Not native</div>
+    <NutrientInformation
+      v-if="carb && fat && protein && water"
+      :protein="protein"
+      :carb="carb"
+      :fat="fat"
+      :water="water"
+    />
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
