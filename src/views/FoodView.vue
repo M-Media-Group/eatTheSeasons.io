@@ -91,7 +91,7 @@ import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
 import axios from "axios";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 import {
   CountryCode,
@@ -117,7 +117,6 @@ export default defineComponent({
 
   data() {
     return {
-      foodItems: [] as FoodItemTs[],
       foodItemsWithoutSeasons: [] as FoodItemTs[],
       filters: {
         country: CountryCode.Fr,
@@ -140,13 +139,14 @@ export default defineComponent({
   },
 
   created() {
-    this.getFoodItems();
+    this.fetchFoodItems();
     this.getFoodItemsWithoutSeasonality();
   },
 
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+      foodItems: "foodItems/foodItems",
     }),
 
     isOnMobile() {
@@ -159,7 +159,7 @@ export default defineComponent({
 
     availableCategories(): CategoryName[] {
       return (
-        this.foodItems
+        (this.foodItems as FoodItemTs[])
           .reduce(
             (acc: any, food) =>
               acc.concat(food.categories.map((c: Category) => c.name)),
@@ -241,6 +241,10 @@ export default defineComponent({
   },
 
   watch: {
+    foodItems() {
+      this.setDefaultRegion();
+    },
+
     "filters.country": {
       handler(newValue: string, oldValue: string) {
         if (oldValue && newValue.toLowerCase() === oldValue.toLowerCase()) {
@@ -285,17 +289,10 @@ export default defineComponent({
   },
 
   methods: {
-    getFoodItems() {
-      axios
-        .get("api/in-season")
-        .then((response) => {
-          this.foodItems = response.data as FoodItemTs[];
-          this.setDefaultRegion();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+    ...mapActions({
+      fetchFoodItems: "foodItems/fetchFoodItems",
+    }),
+
     getFoodItemsWithoutSeasonality() {
       axios
         .get(
@@ -308,11 +305,13 @@ export default defineComponent({
           console.error(error);
         });
     },
+
     setDefaultRegion() {
       this.filters.region = this.availableRegions.includes("All")
         ? "All"
         : this.availableRegions[0];
     },
+
     updateUrlQueryParams() {
       let queryParams = {
         country: this.filters.country,
@@ -340,7 +339,7 @@ export default defineComponent({
     },
 
     getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
-      return this.foodItems.filter((food) => {
+      return (this.foodItems as FoodItemTs[]).filter((food) => {
         return food.food_regions.find((foodRegion) => {
           return (
             foodRegion.region.country_code.toLowerCase() ===
@@ -351,7 +350,7 @@ export default defineComponent({
     },
 
     getAvailableRegionsForCountry(country: CountryCode): string[] {
-      return this.foodItems
+      return (this.foodItems as FoodItemTs[])
         .filter((food) => {
           return food.food_regions.find((foodRegion) => {
             return (

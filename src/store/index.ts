@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import auth from "./auth";
+import foodItems from "./foodItems";
 
 export default createStore({
   state: {},
@@ -8,5 +9,6 @@ export default createStore({
   actions: {},
   modules: {
     auth,
+    foodItems,
   },
 });
