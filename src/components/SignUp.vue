@@ -6,6 +6,7 @@
       netlify-honeypot="bot-field"
       data-netlify="true"
       @submit.prevent="handleSubmit"
+      v-if="!hasSignedUp"
     >
       <p style="display: none">
         <label>
@@ -20,6 +21,7 @@
       />
       <button type="submit" class="submit-button">Sign up</button>
     </form>
+    <div v-else>Thanks for signing up! You'll get an email when we launch.</div>
     <h1>Food is hard. Let AI help.</h1>
     <p>
       Using advanced machine-learning, we help you find the best food to eat
@@ -116,6 +118,7 @@ export default defineComponent({
   },
   data() {
     return {
+      hasSignedUp: false,
       form: {
         email: "",
       },
@@ -149,7 +152,7 @@ export default defineComponent({
           axiosConfig as any
         )
         .then(() => {
-          alert("Thanks for signing up!");
+          this.hasSignedUp = true;
         });
     },
   },
