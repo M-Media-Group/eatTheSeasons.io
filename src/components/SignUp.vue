@@ -14,6 +14,7 @@
       </p>
       <input
         v-model="form.email"
+        name="email"
         type="email"
         placeholder="Your Email Address"
       />
@@ -142,7 +143,7 @@ export default defineComponent({
         .post(
           "/",
           this.encode({
-            "form-name": "sign-up",
+            "form-name": "signup",
             ...this.form,
           }),
           axiosConfig as any
