@@ -35,8 +35,8 @@
       think about it.
     </p>
     <p>
-      Using AI, we find food for you that is healthy, helps your goals, and most
-      importantly, that you'll enjoy eating.
+      Using Artificial Intelligence algorithms, we find food for you that is
+      healthy, helps your goals, and most importantly, that you'll enjoy eating.
     </p>
     <ul v-if="1 === 0">
       <li>
