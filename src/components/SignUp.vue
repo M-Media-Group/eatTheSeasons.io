@@ -153,6 +153,8 @@ export default defineComponent({
         )
         .then(() => {
           this.hasSignedUp = true;
+          // eslint-disable-next-line no-undef
+          gtag("event", "signup_form_complete");
         });
     },
   },
@@ -201,6 +203,7 @@ input {
   text-align: center;
   border-radius: 0.75em;
   padding: 2rem 0;
+  width: 100%;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Rubik:700&display=swap");
@@ -271,12 +274,21 @@ button {
 }
 
 form {
-  display: grid;
+  display: block;
   grid-auto-flow: column;
   align-content: center;
   align-items: center;
   grid-auto-columns: 1fr 180px;
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
+  gap: 8px;
+}
+
+// Only on larger than mobile, add display grid to form
+@media (min-width: 768px) {
+  form {
+    display: grid;
+  }
 }
 </style>
