@@ -234,6 +234,11 @@ input {
   width: 100%;
 }
 
+form {
+  position: sticky;
+  top: 3rem;
+}
+
 @import url("https://fonts.googleapis.com/css?family=Rubik:700&display=swap");
 
 * {
