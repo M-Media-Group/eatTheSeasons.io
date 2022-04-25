@@ -6,7 +6,7 @@
       netlify-honeypot="bot-field"
       data-netlify="true"
       @submit.prevent="handleSubmit"
-      v-if="!hasSignedUp"
+      v-if="!isSignedUp"
     >
       <p style="display: none">
         <label>
@@ -110,6 +110,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent({
   name: "SignUp",
@@ -118,13 +119,20 @@ export default defineComponent({
   },
   data() {
     return {
-      hasSignedUp: false,
       form: {
         email: "",
       },
     };
   },
+  computed: {
+    ...mapGetters({
+      isSignedUp: "auth/isSignedUp",
+    }),
+  },
   methods: {
+    ...mapActions({
+      signUp: "auth/signUp",
+    }),
     encode(data: {
       [x: string]: string | number | boolean;
       email?: any;
@@ -137,6 +145,7 @@ export default defineComponent({
         .join("&");
     },
     handleSubmit() {
+      this.signUp(true);
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         // Set the baseURL to the current domain
@@ -152,9 +161,7 @@ export default defineComponent({
           axiosConfig as any
         )
         .then(() => {
-          this.hasSignedUp = true;
-          // eslint-disable-next-line no-undef
-          gtag("event", "signup_form_complete");
+          this.signUp(true);
         });
     },
   },

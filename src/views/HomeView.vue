@@ -3,6 +3,7 @@
     <img
       alt="Assorted food"
       src="https://freepngimg.com/thumb/fruit/174250-and-fresh-vegetables-fruits-download-hq.png"
+      height="200"
     />
     <SignUp msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
@@ -19,3 +20,13 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped lang="scss">
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  height: 200px;
+  object-fit: contain;
+}
+</style>

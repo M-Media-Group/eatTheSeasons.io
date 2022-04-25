@@ -14,6 +14,10 @@
       <CountrySelector v-model="filters.country" />
       ({{ filters.region === "All" ? "all regions" : filters.region }})
     </h1>
+    <p v-if="!isSignedUp">
+      <router-link to="/sign-up">Sign up</router-link> to see more information
+      about each food and seasonality.
+    </p>
     <FoodItem
       v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
       :src="food.image_url"
@@ -41,6 +45,22 @@
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
+    <template v-if="isInBeta && foodItemsWithoutSeasons.length > 0">
+      <h2>Other food items</h2>
+      <FoodItem
+        v-for="food in foodItemsWithoutSeasons"
+        :src="food.image_url"
+        :name="food.name"
+        :categories="getFoodCategoriesForFoodItem(food)"
+        :isNative="null"
+        :calories="food.kcal"
+        :carb="food.carbohydrate"
+        :fat="food.fat"
+        :protein="food.protein"
+        :water="food.water"
+        :key="food.id"
+      />
+    </template>
     <div v-if="isInBeta">
       <h2>Can you help us with these foods?</h2>
       <p>If you know when these foods are in season, please let us know!</p>
@@ -59,6 +79,7 @@ import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 import {
   CountryCode,
@@ -83,6 +104,7 @@ export default defineComponent({
   data() {
     return {
       foodItems: [] as FoodItemTs[],
+      foodItemsWithoutSeasons: [] as FoodItemTs[],
       filters: {
         country: CountryCode.Fr,
         region: "All",
@@ -105,9 +127,14 @@ export default defineComponent({
 
   created() {
     this.getFoodItems();
+    this.getFoodItemsWithoutSeasonality();
   },
 
   computed: {
+    ...mapGetters({
+      isSignedUp: "auth/isSignedUp",
+    }),
+
     isInBeta() {
       return this.$route.query.beta === "true";
     },
@@ -251,6 +278,18 @@ export default defineComponent({
           console.error(error);
         });
     },
+    getFoodItemsWithoutSeasonality() {
+      axios
+        .get(
+          "api/foods?page=1&per_page=500&scopes[]=raw&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen"
+        )
+        .then((response) => {
+          this.foodItemsWithoutSeasons = response.data.data as FoodItemTs[];
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     setDefaultRegion() {
       this.filters.region = this.availableRegions.includes("All")
         ? "All"
@@ -345,6 +384,9 @@ export default defineComponent({
     },
 
     getFoodCategoriesForFoodItem(food: FoodItemTs): string[] {
+      if (!food.categories) {
+        return [];
+      }
       return food.categories.map((foodCategory) => {
         return foodCategory.name;
       });
@@ -375,5 +417,10 @@ input {
   height: 44px;
   position: relative;
   text-align: center;
+}
+
+h2 {
+  margin-top: 15rem;
+  margin-bottom: 10rem;
 }
 </style>

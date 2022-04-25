@@ -1,8 +1,7 @@
 <template>
   <nav>
-    <h1 class="logo-text">Eat the Seasons</h1>
+    <h1 class="logo-text"><router-link to="/">Eat the Seasons</router-link></h1>
     <div>
-      <router-link to="/">Home</router-link> ·
       <!-- <router-link to="/about">About</router-link> -->
       <router-link to="/sign-up">Sign up</router-link>
     </div>

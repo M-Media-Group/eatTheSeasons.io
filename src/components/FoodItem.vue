@@ -12,7 +12,13 @@
     </p>
     <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
     <NutrientInformation
-      v-if="carb !== null && fat !== null && protein !== null && water !== null"
+      v-if="
+        isSignedUp &&
+        carb !== null &&
+        fat !== null &&
+        protein !== null &&
+        water !== null
+      "
       :protein="protein"
       :carb="carb"
       :fat="fat"
@@ -29,6 +35,7 @@ import { defineComponent } from "vue";
 import { Category, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "FoodItem",
@@ -54,6 +61,11 @@ export default defineComponent({
       default: "",
       required: true,
     },
+  },
+  computed: {
+    ...mapGetters({
+      isSignedUp: "auth/isSignedUp",
+    }),
   },
 });
 </script>
