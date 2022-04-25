@@ -135,6 +135,8 @@ export default defineComponent({
     handleSubmit() {
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
+        // Set the baseURL to the current domain
+        baseURL: window.location.origin,
       };
       axios
         .post(
