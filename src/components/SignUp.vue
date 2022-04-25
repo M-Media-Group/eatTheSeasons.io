@@ -22,22 +22,43 @@
       <button type="submit" class="submit-button">Sign up</button>
     </form>
     <div v-else>Thanks for signing up! You'll get an email when we launch.</div>
-    <h1>Food is hard. Let AI help.</h1>
-    <p>
-      Using advanced machine-learning, we help you find the best food to eat
-      based on your goals, preferences, seasonality, and what you've already
-      eaten.
-    </p>
-    <p>
-      With so many food types, nutrients, calories, and so on, it's hard to know
-      what to eat. Worst of all, by the time you actually start thinking about
-      food, you're often hangry, so you don't have the time or energy to really
-      think about it.
-    </p>
-    <p>
-      Using Artificial Intelligence algorithms, we find food for you that is
-      healthy, helps your goals, and most importantly, that you'll enjoy eating.
-    </p>
+    <template v-if="$route.query.nai">
+      <h1>Food is hard. Let AI help.</h1>
+      <p>
+        Using advanced machine-learning, we help you find the best food to eat
+        based on your goals, preferences, seasonality, and what you've already
+        eaten.
+      </p>
+      <p>
+        With so many food types, nutrients, calories, and so on, it's hard to
+        know what to eat. Worst of all, by the time you actually start thinking
+        about food, you're often hangry, so you don't have the time or energy to
+        really think about it.
+      </p>
+      <p>
+        Using Artificial Intelligence algorithms, we find food for you that is
+        healthy, helps your goals, and most importantly, that you'll enjoy
+        eating.
+      </p>
+    </template>
+    <template v-else>
+      <h1>Eat fresh, local, and healthy.</h1>
+      <p>
+        Find the best food to eat based on your goals, preferences, seasonality,
+        and what you've already eaten.
+      </p>
+      <p>
+        With so many food types, nutrients, calories, and so on, it's hard to
+        know what to eat. Worst of all, by the time you actually start thinking
+        about food, you're often hangry, so you don't have the time or energy to
+        really think about it.
+      </p>
+      <p>
+        Using an extensive database of local produce, we help you choose what
+        foods to buy and eat. You'll be eating healthier food while also
+        supporting the local farmers.
+      </p>
+    </template>
     <ul v-if="1 === 0">
       <li>
         <a
