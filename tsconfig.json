@@ -15,7 +15,8 @@
     "resolveJsonModule": true,
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "gtag.js"
     ],
     "paths": {
       "@/*": [
