@@ -5,13 +5,18 @@
       method="POST"
       netlify-honeypot="bot-field"
       data-netlify="true"
+      @submit.prevent="handleSubmit"
     >
       <p style="display: none">
         <label>
           Don't fill this out if you're human: <input name="bot-field" />
         </label>
       </p>
-      <input type="email" placeholder="Your Email Address" />
+      <input
+        v-model="form.email"
+        type="email"
+        placeholder="Your Email Address"
+      />
       <button type="submit" class="submit-button">Sign up</button>
     </form>
     <h1>Food is hard. Let AI help.</h1>
@@ -101,11 +106,49 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "SignUp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      form: {
+        email: "",
+      },
+    };
+  },
+  methods: {
+    encode(data: {
+      [x: string]: string | number | boolean;
+      email?: any;
+      "form-name": string;
+    }) {
+      return Object.keys(data)
+        .map(
+          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+        )
+        .join("&");
+    },
+    handleSubmit() {
+      const axiosConfig = {
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios
+        .post(
+          "/",
+          this.encode({
+            "form-name": "sign-up",
+            ...this.form,
+          }),
+          axiosConfig as any
+        )
+        .then(() => {
+          alert("Thanks for signing up!");
+        });
+    },
   },
 });
 </script>

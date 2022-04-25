@@ -1,18 +1,18 @@
 <template>
   <div class="food-item" :id="name.replace(' ', '-')">
-    <img :src="src" :alt="'A picture of a ' + name" />
+    <img v-if="src" :src="src" :alt="'A picture of a ' + name" />
     <h2>
       {{ name }}
       <span v-if="localName"> ({{ localName }}) </span>
     </h2>
     <p>
       <span v-if="calories">{{ calories }} kcal/100g · </span>
-      <span>Available to end of </span>
+      <span v-if="lastMonth">Available to end of </span>
       {{ lastMonth }}
     </p>
-    <div class="badge" v-if="!isNative">Not native</div>
+    <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
     <NutrientInformation
-      v-if="carb && fat && protein && water"
+      v-if="carb !== null && fat !== null && protein !== null && water !== null"
       :protein="protein"
       :carb="carb"
       :fat="fat"
