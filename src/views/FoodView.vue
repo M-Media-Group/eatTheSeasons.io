@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div class="main-banner" v-if="!isSignedUp && !isOnMobile">
+      <SignUp />
+    </div>
     <h1>
       Eat
       <span v-if="isInBeta"
@@ -65,6 +68,15 @@
       <h2>Can you help us with these foods?</h2>
       <p>If you know when these foods are in season, please let us know!</p>
     </div>
+    <div
+      class="main-banner"
+      v-if="
+        !isSignedUp &&
+        (isOnMobile || filteredAndOrderedFoodItemsInSeasonAndRegion.length > 3)
+      "
+    >
+      <SignUp />
+    </div>
     <small
       >Made with ❤️ by <a href="https://mmediagroup.fr">M Media</a>. Images from
       <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
@@ -90,6 +102,7 @@ import {
 } from "@/types/foodItem";
 import { QueryParams as QueryParamsType } from "@/types/queryParams";
 import { getBestImageUrl } from "@/helpers";
+import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
 
 export default defineComponent({
   name: "FoodView",
@@ -99,6 +112,7 @@ export default defineComponent({
     MonthSelector,
     CountrySelector,
     MlCam,
+    SignUp,
   },
 
   data() {
@@ -134,6 +148,10 @@ export default defineComponent({
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
     }),
+
+    isOnMobile() {
+      return window.innerWidth < 768;
+    },
 
     isInBeta() {
       return this.$route.query.beta === "true";
@@ -422,5 +440,12 @@ input {
 h2 {
   margin-top: 15rem;
   margin-bottom: 10rem;
+}
+
+.main-banner {
+  background: #d9ffdc;
+  /* color: white; */
+  padding-top: 4rem;
+  padding-bottom: 3rem;
 }
 </style>

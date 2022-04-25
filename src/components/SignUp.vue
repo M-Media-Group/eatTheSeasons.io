@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <form
       name="signup"
       method="POST"
@@ -59,6 +59,7 @@
         supporting the local farmers.
       </p>
     </template>
+    <p>Sign up now to get notified when we launch!</p>
     <ul v-if="1 === 0">
       <li>
         <a
@@ -166,7 +167,6 @@ export default defineComponent({
         .join("&");
     },
     handleSubmit() {
-      this.signUp(true);
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         // Set the baseURL to the current domain

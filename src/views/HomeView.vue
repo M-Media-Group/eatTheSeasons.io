@@ -5,7 +5,7 @@
       src="https://freepngimg.com/thumb/fruit/174250-and-fresh-vegetables-fruits-download-hq.png"
       height="200"
     />
-    <SignUp msg="Welcome to Your Vue.js + TypeScript App" />
+    <SignUp />
   </div>
 </template>
 
