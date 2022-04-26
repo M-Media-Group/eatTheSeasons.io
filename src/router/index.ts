@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FoodView from "../views/FoodView.vue";
-import ProgressView from "../views/ProgressView.vue";
+// import ProgressView from "../views/ProgressView.vue";
 import SearchView from "../views/SearchView.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -10,11 +10,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "sign-up",
     component: HomeView,
   },
-  {
-    path: "/progress",
-    name: "progress",
-    component: ProgressView,
-  },
+  // {
+  //   path: "/progress",
+  //   name: "progress",
+  //   component: ProgressView,
+  // },
   {
     path: "/search",
     name: "search",
