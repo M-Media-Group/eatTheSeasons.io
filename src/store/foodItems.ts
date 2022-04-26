@@ -122,13 +122,23 @@ export default {
       state.foodItems = value;
     },
     ADD_FOOD_ITEM(state: { foodItems: FoodItemTs[] }, value: FoodItemTs): void {
-      state.foodItems.push(value);
+      // Add the food item if the food item with the ID does not exist
+      if (!state.foodItems.find((foodItem) => foodItem.id === value.id)) {
+        state.foodItems.push(value);
+      }
     },
     ADD_EATEN_FOOD_ITEM(
       state: {
+        foodItems: FoodItemTs[];
         eatenFoodItems: { eaten_id: number; food_id: number; grams: number }[];
       },
-      value: { eaten_id: number; food_id: number; grams: number; date: Date }
+      {
+        value,
+        shouldSave = false,
+      }: {
+        value: { eaten_id: number; food_id: number; grams: number; date: Date };
+        shouldSave?: boolean;
+      }
     ): void {
       // Add the current date to the value
       if (!value.date) {
@@ -147,7 +157,7 @@ export default {
         return;
       }
       state.eatenFoodItems.push(value);
-      if (process.env.VUE_APP_USE_INDEXED_DB == "true") {
+      if (process.env.VUE_APP_USE_INDEXED_DB == "true" && shouldSave) {
         addToIndexedDB(value);
       }
     },
@@ -170,7 +180,7 @@ export default {
     setFoodItems({ commit }: { commit: Commit }, value: boolean): void {
       commit("SET_FOOD_ITEMS", value);
     },
-    fetchFoodItems({ commit }: { commit: Commit }): void {
+    fetchFoodItems({ state, dispatch, commit }: any): void {
       axios
         .get("api/in-season")
         .then((response) => {
@@ -189,30 +199,66 @@ export default {
           (response.data.data as FoodItemTs[]).forEach((element) => {
             commit("ADD_FOOD_ITEM", element);
           });
+          dispatch("fetchEatenFoodItems");
         })
         .catch((error) => {
           console.error(error);
         });
-
+    },
+    fetchEatenFoodItems({ state, dispatch, commit }: any): void {
       // Get the eaten food items from the indexedDB
       if (process.env.VUE_APP_USE_INDEXED_DB == "true") {
         getFromIndexedDB("eatenFoodItems").then((data) => {
           for (const eatenFoodItem of data) {
             // Convert the date string to JS Date object
             eatenFoodItem.date = new Date(eatenFoodItem.date);
-            commit("ADD_EATEN_FOOD_ITEM", eatenFoodItem);
+            commit("ADD_EATEN_FOOD_ITEM", {
+              value: eatenFoodItem,
+              shouldSave: false,
+            });
+            // If the food item with the ID does not exist, add it
+            if (
+              !state.foodItems.find(
+                (foodItem: FoodItemTs) => foodItem.id === eatenFoodItem.food_id
+              )
+            ) {
+              // Call the search food item action
+              dispatch("searchFoodItems", {
+                searchTerm: eatenFoodItem.food_id.toString(),
+                searchField: "id",
+              });
+            }
           }
         });
       }
     },
+
     addFoodItem({ commit }: { commit: Commit }, value: FoodItemTs): void {
       commit("ADD_FOOD_ITEM", value);
+    },
+    searchFoodItems(
+      { commit }: { commit: Commit },
+      {
+        searchTerm,
+        searchField = "name",
+      }: { searchTerm: string; searchField?: string }
+    ): void {
+      axios
+        .get(
+          `/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients`
+        )
+        .then((response) => {
+          // For each item, add it addFoodItem
+          response.data.data.forEach((foodItem: FoodItemTs) => {
+            commit("ADD_FOOD_ITEM", foodItem);
+          });
+        });
     },
     addEatenFoodItem(
       { commit }: { commit: Commit },
       value: { food_id: number; grams: number }
     ): void {
-      commit("ADD_EATEN_FOOD_ITEM", value);
+      commit("ADD_EATEN_FOOD_ITEM", { value: value, shouldSave: true });
     },
     deleteEatenFoodItem({ commit }: { commit: Commit }, id: number): void {
       commit("DELETE_EATEN_FOOD_ITEM", id);

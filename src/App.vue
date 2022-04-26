@@ -4,6 +4,7 @@
     <div>
       <template v-if="isSignedUp">
         <router-link to="/about">About</router-link> ·
+        <router-link to="/search">Search</router-link> ·
         <router-link v-if="supportsIndexedDB" to="/progress"
           >Progress</router-link
         >

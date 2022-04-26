@@ -94,7 +94,7 @@ export function addToIndexedDB(
       eaten_id: value.eaten_id,
       food_id: value.food_id,
       grams: value.grams,
-      date: new Date().toISOString(),
+      date: new Date(),
     };
     store.put(data);
   };
