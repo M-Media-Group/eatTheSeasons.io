@@ -24,6 +24,37 @@
       :fat="fat"
       :water="water"
     />
+    <form
+      v-if="isSignedUp && id && supportsIndexedDB"
+      @submit.prevent
+      style="margin-top: 3rem"
+    >
+      <label>
+        <input
+          type="number"
+          min="0"
+          v-model.number="amount"
+          placeholder="Amount"
+        />
+        <span>g</span>
+      </label>
+      <button
+        type="submit"
+        @click="addFoodItem({ food_id: id, grams: amount })"
+      >
+        Add to eaten foods
+      </button>
+      <template v-if="amount > 0">
+        <hr />
+        Protein eaten: {{ (protein / 100) * amount }}g
+        <br />
+        Carbohydrates eaten: {{ (carb / 100) * amount }}g
+        <br />
+        Fat eaten: {{ (fat / 100) * amount }}g
+        <br />
+        Calories eaten: {{ (calories / 100) * amount }}kcal
+      </template>
+    </form>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -35,7 +66,7 @@ import { defineComponent } from "vue";
 import { Category, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent({
   name: "FoodItem",
@@ -43,6 +74,7 @@ export default defineComponent({
     NutrientInformation,
   },
   props: {
+    id: Number,
     name: String,
     src: String,
     calories: Number,
@@ -55,16 +87,29 @@ export default defineComponent({
       default: () => [],
     },
     localName: String,
-    isNative: Boolean,
+    isNative: Boolean || null,
     lastMonth: {
       type: String as PropType<MonthName>,
       default: "",
-      required: true,
+      required: false,
     },
+  },
+  data() {
+    return {
+      amount: 0,
+    };
   },
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+    }),
+    supportsIndexedDB() {
+      return process.env.VUE_APP_USE_INDEXED_DB == "true";
+    },
+  },
+  methods: {
+    ...mapActions({
+      addFoodItem: "foodItems/addEatenFoodItem",
     }),
   },
 });
@@ -99,5 +144,10 @@ p {
   border-radius: 8px;
   background: rgb(70, 70, 70);
   color: white;
+}
+form {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8px;
 }
 </style>

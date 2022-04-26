@@ -21,37 +21,60 @@
       <router-link to="/sign-up">Sign up</router-link> to see more information
       about each food and seasonality.
     </p>
-    <FoodItem
-      v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
-      :src="food.image_url"
-      :name="food.name"
-      :categories="getFoodCategoriesForFoodItem(food)"
-      :lastMonth="getLastMonthInARowFromFoodItem(food)"
-      :localName="getLocalName(food)"
-      :isNative="checkIsFoodNativeToCountry(food)"
-      :calories="food.kcal"
-      :carb="food.carbohydrate"
-      :fat="food.fat"
-      :protein="food.protein"
-      :water="food.water"
-      :key="food.id"
-    />
-    <div v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length === 0">
-      <div v-if="filters.searchTerm">
+    <template v-if="!filters.searchTerm">
+      <FoodItem
+        v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
+        :id="food.id"
+        :src="food.image_url"
+        :name="food.name"
+        :categories="getFoodCategoriesForFoodItem(food)"
+        :lastMonth="getLastMonthInARowFromFoodItem(food)"
+        :localName="getLocalName(food)"
+        :isNative="checkIsFoodNativeToCountry(food)"
+        :calories="food.kcal"
+        :carb="food.carbohydrate"
+        :fat="food.fat"
+        :protein="food.protein"
+        :water="food.water"
+        :key="food.id"
+      />
+    </template>
+    <div
+      v-else-if="foodItemsMatchingSearchTerm(filters.searchTerm).length === 0"
+    >
+      <div>
         No foods found for <strong>{{ filters.searchTerm }}</strong
         >.
       </div>
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
+    <template v-else>
+      <FoodItem
+        v-for="food in foodItemsMatchingSearchTerm(filters.searchTerm)"
+        :id="food.id"
+        :src="food.image_url"
+        :name="food.name"
+        :categories="getFoodCategoriesForFoodItem(food)"
+        :isNative="checkIsFoodNativeToCountry(food)"
+        :calories="food.kcal"
+        :carb="food.carbohydrate"
+        :fat="food.fat"
+        :protein="food.protein"
+        :water="food.water"
+        :key="food.id"
+      />
+    </template>
     <MlCam
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
-    <template v-if="isInBeta && foodItemsWithoutSeasons.length > 0">
-      <h2>Other food items</h2>
+    <div v-if="isInBeta">
+      <h2>Can you help us with these foods?</h2>
+      <p>If you know when these foods are in season, please let us know!</p>
       <FoodItem
         v-for="food in foodItemsWithoutSeasons"
+        :id="food.id"
         :src="food.image_url"
         :name="food.name"
         :categories="getFoodCategoriesForFoodItem(food)"
@@ -63,10 +86,6 @@
         :water="food.water"
         :key="food.id"
       />
-    </template>
-    <div v-if="isInBeta">
-      <h2>Can you help us with these foods?</h2>
-      <p>If you know when these foods are in season, please let us know!</p>
     </div>
     <div
       class="main-banner"
@@ -117,7 +136,6 @@ export default defineComponent({
 
   data() {
     return {
-      foodItemsWithoutSeasons: [] as FoodItemTs[],
       filters: {
         country: CountryCode.Fr,
         region: "All",
@@ -138,15 +156,17 @@ export default defineComponent({
     };
   },
 
-  created() {
-    this.fetchFoodItems();
-    this.getFoodItemsWithoutSeasonality();
-  },
-
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
       foodItems: "foodItems/foodItems",
+      foodItemsWithoutSeasons: "foodItems/foodItemsWithoutSeasons",
+      eatenFoodItems: "foodItems/eatenFoodItems",
+      proteinEaten: "foodItems/proteinEaten",
+      fatEaten: "foodItems/fatEaten",
+      carbEaten: "foodItems/carbEaten",
+      caloriesEaten: "foodItems/caloriesEaten",
+      foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
     }),
 
     isOnMobile() {
@@ -183,7 +203,7 @@ export default defineComponent({
 
     foodItemsInRegion(): FoodItemTs[] {
       return this.foodItemsInCountry.filter((foodItem) =>
-        foodItem.food_regions.find(
+        foodItem.food_regions?.find(
           (foodRegion) => foodRegion.region.name === this.filters.region
         )
       );
@@ -191,7 +211,7 @@ export default defineComponent({
 
     foodItemsInSeasonAndRegion(): FoodItemTs[] {
       return this.foodItemsInRegion.filter((foodItem) =>
-        foodItem.food_regions.find(
+        foodItem.food_regions?.find(
           (foodRegion) =>
             foodRegion.region.name === this.filters.region &&
             foodRegion.seasons.find(
@@ -241,8 +261,12 @@ export default defineComponent({
   },
 
   watch: {
-    foodItems() {
-      this.setDefaultRegion();
+    // Watch foodItems immediate
+    foodItems: {
+      immediate: true,
+      handler() {
+        this.setDefaultRegion();
+      },
     },
 
     "filters.country": {
@@ -289,23 +313,6 @@ export default defineComponent({
   },
 
   methods: {
-    ...mapActions({
-      fetchFoodItems: "foodItems/fetchFoodItems",
-    }),
-
-    getFoodItemsWithoutSeasonality() {
-      axios
-        .get(
-          "api/foods?page=1&per_page=500&scopes[]=raw&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen"
-        )
-        .then((response) => {
-          this.foodItemsWithoutSeasons = response.data.data as FoodItemTs[];
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
     setDefaultRegion() {
       this.filters.region = this.availableRegions.includes("All")
         ? "All"
@@ -329,7 +336,7 @@ export default defineComponent({
 
     getLocalName(food: FoodItemTs): string {
       return (
-        food.food_regions.find((foodRegion) => {
+        food.food_regions?.find((foodRegion) => {
           return (
             foodRegion.region.country_code.toLowerCase() ===
             this.filters.country.toLowerCase()
@@ -340,7 +347,7 @@ export default defineComponent({
 
     getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
       return (this.foodItems as FoodItemTs[]).filter((food) => {
-        return food.food_regions.find((foodRegion) => {
+        return food.food_regions?.find((foodRegion) => {
           return (
             foodRegion.region.country_code.toLowerCase() ===
             country.toLowerCase()
@@ -352,7 +359,7 @@ export default defineComponent({
     getAvailableRegionsForCountry(country: CountryCode): string[] {
       return (this.foodItems as FoodItemTs[])
         .filter((food) => {
-          return food.food_regions.find((foodRegion) => {
+          return food.food_regions?.find((foodRegion) => {
             return (
               foodRegion.region.country_code.toLowerCase() ===
               country.toLowerCase()
@@ -361,7 +368,7 @@ export default defineComponent({
         })
         .map((food) => {
           return (
-            food.food_regions.find((foodRegion) => {
+            food.food_regions?.find((foodRegion) => {
               return (
                 foodRegion.region.country_code.toLowerCase() ===
                 country.toLowerCase()
@@ -389,14 +396,14 @@ export default defineComponent({
       return months[months.length - 1];
     },
 
-    checkIsFoodNativeToCountry(food: FoodItemTs): boolean {
+    checkIsFoodNativeToCountry(food: FoodItemTs): boolean | null {
       return (
         food.food_regions?.find((foodRegion) => {
           return (
             foodRegion.region.country_code.toLowerCase() ===
             this.filters.country.toLowerCase()
           );
-        })?.grows_in_region ?? false
+        })?.grows_in_region ?? null
       );
     },
 

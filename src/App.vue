@@ -2,7 +2,12 @@
   <nav>
     <h1 class="logo-text"><router-link to="/">Eat the Seasons</router-link></h1>
     <div>
-      <router-link v-if="isSignedUp" to="/about">About</router-link>
+      <template v-if="isSignedUp">
+        <router-link to="/about">About</router-link> ·
+        <router-link v-if="supportsIndexedDB" to="/progress"
+          >Progress</router-link
+        >
+      </template>
       <router-link v-else to="/sign-up">Sign up</router-link>
     </div>
   </nav>
@@ -11,12 +16,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { deleteIndexedDB } from "./helpers";
 
 export default defineComponent({
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+    }),
+    supportsIndexedDB() {
+      return process.env.VUE_APP_USE_INDEXED_DB == "true";
+    },
+  },
+  created() {
+    // deleteIndexedDB();
+    this.fetchFoodItems();
+  },
+  methods: {
+    ...mapActions({
+      fetchFoodItems: "foodItems/fetchFoodItems",
     }),
   },
 });
