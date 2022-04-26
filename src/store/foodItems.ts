@@ -147,7 +147,7 @@ export default {
         return;
       }
       state.eatenFoodItems.push(value);
-      if (process.env.VUE_APP_USE_INDEXED_DB) {
+      if (process.env.VUE_APP_USE_INDEXED_DB == "true") {
         addToIndexedDB(value);
       }
     },
@@ -161,7 +161,7 @@ export default {
         (eatenFoodItem) => eatenFoodItem.eaten_id === id
       );
       state.eatenFoodItems.splice(index, 1);
-      if (process.env.VUE_APP_USE_INDEXED_DB) {
+      if (process.env.VUE_APP_USE_INDEXED_DB == "true") {
         deleteFromIndexedDB(id);
       }
     },
@@ -195,7 +195,7 @@ export default {
         });
 
       // Get the eaten food items from the indexedDB
-      if (process.env.VUE_APP_USE_INDEXED_DB) {
+      if (process.env.VUE_APP_USE_INDEXED_DB == "true") {
         getFromIndexedDB("eatenFoodItems").then((data) => {
           for (const eatenFoodItem of data) {
             // Convert the date string to JS Date object
