@@ -4,16 +4,7 @@
       <SignUp />
     </div>
     <h1>
-      Eat
-      <span v-if="isInBeta"
-        ><input
-          type="text"
-          placeholder="Anything"
-          v-model="filters.searchTerm"
-        />
-        in
-      </span>
-      <MonthSelector v-model="filters.month" /> in
+      Eat <MonthSelector v-model="filters.month" /> in
       <CountrySelector v-model="filters.country" />
       ({{ filters.region === "All" ? "all regions" : filters.region }})
     </h1>

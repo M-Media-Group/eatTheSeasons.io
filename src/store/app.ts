@@ -4,12 +4,12 @@ import router from "@/router";
 export default {
   namespaced: true,
   state: {
-    isInBeta: router.currentRoute.value.query.beta === "true",
+    isInBeta: false, // Currently not used
     supportsIndexedDB: process.env.VUE_APP_USE_INDEXED_DB === "true",
   },
   getters: {
-    isInBeta(state: { isInBeta: boolean }): boolean {
-      return state.isInBeta;
+    isInBeta(): boolean {
+      return router.currentRoute.value.query.beta === "true";
     },
     supportsIndexedDB(state: { supportsIndexedDB: boolean }): boolean {
       return state.supportsIndexedDB;

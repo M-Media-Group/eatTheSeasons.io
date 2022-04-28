@@ -10,7 +10,7 @@ $dark-green: darken($green, 10%);
 $green-border: $dark-green;
 $green-shadow: #9ecba3;
 $transiton-timing: 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
-
+$mobileBreakpoint: $baseNumber * 96 + px;
 // Declare the vars above as CSS variables
 :root {
     --bg: #{$bg};
@@ -41,7 +41,7 @@ html {
 }
 
 nav {
-    padding: 16px;
+    padding: $baseNumber * 2 + px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -65,7 +65,7 @@ h2 {
 }
 
 h3 {
-    margin: 40px 0 0;
+    margin: $baseNumber * 5 + px 0 0;
 }
 
 ul {
@@ -87,7 +87,7 @@ a {
 
 p {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: $baseNumber + px;
 }
 
 table {
@@ -109,18 +109,20 @@ tr:nth-last-child(2) {
     text-decoration: underline;
     position: relative;
     cursor: pointer;
+    z-index: 1;
 
     > ul {
         position: absolute;
         background: var(--bg);
         border-radius: $borderRadius;
-        padding: 16px;
-        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+        padding: $baseNumber * 2 + px;
+        box-shadow: 0px $baseNumber + px $baseNumber + px rgba(0, 0, 0, 0.1);
         list-style: none;
-        top: 8px;
+        top: $baseNumber + px;
         left: -50%;
 
         > li {
+            width: 100%;
             &:hover {
                 cursor: pointer;
                 text-decoration: underline;
@@ -130,42 +132,43 @@ tr:nth-last-child(2) {
 }
 
 .badge {
-    padding: 4px 8px;
+    padding: $baseNumber / 2 + px $baseNumber + px;
     border-radius: $borderRadius;
     background: rgb(70, 70, 70);
     color: white;
+    margin: $baseNumber + px;
 }
 
 form {
     display: grid;
     grid-auto-flow: column;
-    gap: 8px;
+    gap: $baseNumber + px;
 }
 
 .bar {
     background: black;
-    width: 300px;
+    width: $baseNumber * 40 + px;
     max-width: 100%;
     min-width: 50vw;
     margin: 0 auto;
-    height: 8px;
+    height: $baseNumber + px;
     border-radius: $borderRadius;
     display: flex;
-    margin-top: 8px;
+    margin-top: $baseNumber + px;
 }
 
 .bar > small {
     width: 25%;
     height: 100%;
     position: relative;
-    padding-top: 8px;
+    padding-top: $baseNumber + px;
     box-sizing: border-box;
 }
 
 .bar > small::after {
     // content: attr(class);
     position: absolute;
-    top: 16px;
+    top: $baseNumber * 2 + px;
     text-align: center;
     left: 35%;
 }
@@ -200,9 +203,9 @@ input {
     cursor: pointer;
     display: inline-block;
     font-family: Avenir, Helvetica, Arial, sans-serif;
-    font-size: 32px;
+    font-size: $baseNumber * 4 + px;
     font-weight: 700;
-    height: 44px;
+    height: $baseNumber * 6 + px;
     position: relative;
     text-align: center;
     border-radius: $borderRadius;
@@ -230,7 +233,7 @@ button {
     font-family: inherit;
     margin-top: -0.5rem;
     border-radius: $borderRadius;
-    max-height: 72px;
+    max-height: $baseNumber * 9 + px;
     padding: 0.7em 1em;
     margin: $baseNumber + px;
     background: var(--bg);
@@ -293,7 +296,7 @@ button {
 }
 
 // Only on larger than mobile, add display grid to form
-@media (min-width: 768px) {
+@media (min-width: $mobileBreakpoint) {
     form {
         display: grid;
     }

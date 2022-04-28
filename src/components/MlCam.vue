@@ -178,7 +178,7 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style scoped lang="scss">
 /**
  * @license
  * Copyright 2018 Google LLC. All Rights Reserved.

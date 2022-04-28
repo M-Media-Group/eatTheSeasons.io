@@ -1,6 +1,10 @@
 <template>
   <nav>
-    <h1 class="logo-text"><router-link to="/">Eat the Seasons</router-link></h1>
+    <h1 class="logo-text">
+      <router-link to="/"
+        >Eat the Seasons <span v-if="isInBeta">(beta)</span></router-link
+      >
+    </h1>
     <div>
       <template v-if="isSignedUp">
         <router-link to="/search">Search</router-link> ·
@@ -31,6 +35,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+      isInBeta: "app/isInBeta",
       supportsIndexedDB: "app/supportsIndexedDB",
     }),
   },

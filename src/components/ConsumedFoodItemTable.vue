@@ -41,7 +41,7 @@
           <td>{{ item.kcal?.toFixed(expand ? 2 : 0) }}kcal</td>
           <td>
             <button @click="deleteConsumedItem(item.id)">Remove</button>
-            <button @click="copyToFormFromFoodItemId(item.id)">Copy</button>
+            <!-- <button @click="copyToFormFromFoodItemId(item.id)">Copy</button> -->
           </td>
         </tr>
         <!-- And a total row -->
