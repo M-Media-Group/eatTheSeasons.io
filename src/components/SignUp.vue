@@ -49,7 +49,7 @@
           >see nutritional info for each food, track your food intake, and get
           suggested foods based on macronutrients you're missing</b
         >
-        <span v-if="supportsIndexedDB"> (currently in beta testing)</span>.
+        <span v-if="!supportsIndexedDB"> (currently in beta testing)</span>.
       </p>
       <p>
         Find the best food to eat based on your goals, preferences, seasonality,
