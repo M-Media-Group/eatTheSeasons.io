@@ -15,9 +15,10 @@
       :showAddForm="true"
     />
   </div>
-  <div v-else>
-    There's no suggested foods to show now. Track more of your food in
-    <router-link to="/search">Search</router-link> to get more results
+  <div v-else style="margin-bottom: 5rem">
+    There's no suggested foods to show at this time. Find and add any food you
+    ate in
+    <router-link to="/search">Search</router-link> to get more results.
   </div>
 </template>
 

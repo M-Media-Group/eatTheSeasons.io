@@ -152,6 +152,9 @@ export default {
       //   For each key in value object, store the value in localStorage
       for (const key in value) {
         localStorage.setItem(`goals.${key}`, value[key].toString());
+        gtag("event", "udpate_goals_" + key, {
+          value: value[key],
+        });
       }
     },
   },

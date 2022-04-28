@@ -27,7 +27,7 @@
         type="text"
         min="0"
         v-model.number="form.carbohydrate"
-        placeholder="carbohydrate"
+        placeholder="carb"
       />
     </label>
     <label>

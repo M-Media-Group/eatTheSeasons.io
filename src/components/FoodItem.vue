@@ -67,7 +67,7 @@
         <br />
         Fat eaten: {{ (fat / 100) * amount }}g
         <br />
-        Calories eaten: {{ (calories / 100) * amount }}kcal
+        Calories eaten: {{ ((calories / 100) * amount).toFixed(2) }}kcal
       </template>
     </form>
     <!-- <p v-if="categories">
