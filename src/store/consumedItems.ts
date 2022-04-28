@@ -207,17 +207,22 @@ export default {
         consumedItem.id = highestId + 1;
       }
       if (consumedItem.food_id) {
-        await dispatch(
-          "foodItems/searchFoodItems",
-          {
-            searchTerm: consumedItem.food_id.toString(),
-            searchField: "id",
-          },
-          { root: true }
-        );
-        const foodItem = rootGetters["foodItems/allFoodItems"].find(
+        let foodItem = rootGetters["foodItems/allFoodItems"].find(
           (foodItem: FoodItemTs) => foodItem.id === consumedItem.food_id
         );
+        if (!foodItem) {
+          await dispatch(
+            "foodItems/searchFoodItems",
+            {
+              searchTerm: consumedItem.food_id.toString(),
+              searchField: "id",
+            },
+            { root: true }
+          );
+          foodItem = rootGetters["foodItems/allFoodItems"].find(
+            (foodItem: FoodItemTs) => foodItem.id === consumedItem.food_id
+          );
+        }
         if (foodItem) {
           if (!consumedItem.kcal) {
             consumedItem.kcal = (foodItem.kcal / 100) * consumedItem.grams;
