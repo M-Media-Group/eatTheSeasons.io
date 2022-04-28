@@ -71,11 +71,16 @@ h3 {
 ul {
     list-style-type: none;
     padding: 0;
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
 }
 
-li {
-    display: inline-block;
-    margin: 0 10px;
+ol {
+    li {
+        text-align: left;
+    }
 }
 
 a {
@@ -143,6 +148,8 @@ form {
     display: grid;
     grid-auto-flow: column;
     gap: $baseNumber + px;
+    // grid-template-columns: 3fr 1fr;
+    margin: 0 auto;
 }
 
 .bar {
@@ -256,6 +263,7 @@ button {
         border-radius: $borderRadius;
         transform-style: preserve-3d;
         transition: transform $transiton-timing;
+        margin-top: -($baseNumber/2) + px;
 
         &::before {
             position: absolute;
@@ -315,6 +323,13 @@ button {
     /* color: white; */
     padding-top: 4rem;
     padding-bottom: 3rem;
+    div {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+    input {
+        background: white;
+    }
 }
 
 img {

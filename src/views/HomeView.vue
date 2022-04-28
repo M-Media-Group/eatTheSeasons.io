@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="main-banner">
     <img
       alt="Assorted food"
       src="https://freepngimg.com/thumb/fruit/174250-and-fresh-vegetables-fruits-download-hq.png"

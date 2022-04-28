@@ -44,6 +44,14 @@
     <template v-else>
       <h1>Eat fresh, local, and healthy.</h1>
       <p>
+        When you sign up, you'll be able to
+        <b
+          >see nutritional info for each food, track your food intake, and get
+          suggested foods based on macronutrients you're missing</b
+        >
+        <span v-if="supportsIndexedDB"> (currently in beta testing)</span>.
+      </p>
+      <p>
         Find the best food to eat based on your goals, preferences, seasonality,
         and what you've already eaten.
       </p>
@@ -149,6 +157,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+      supportsIndexedDB: "app/supportsIndexedDB",
     }),
   },
   methods: {

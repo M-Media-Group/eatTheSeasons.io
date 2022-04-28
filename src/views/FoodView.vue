@@ -96,7 +96,6 @@ import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
 import MlCam from "@/components/MlCam.vue";
-import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 
 import {
