@@ -52,6 +52,14 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "SettingsView" */ "../views/SettingsView.vue"
       ),
   },
+  {
+    path: "/onboarding",
+    name: "onboarding",
+    component: () =>
+      import(
+        /* webpackChunkName: "OnboardingView" */ "../views/OnboardingView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({

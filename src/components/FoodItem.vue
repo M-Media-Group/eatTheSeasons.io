@@ -1,25 +1,36 @@
 <template>
-  <div class="food-item" :id="name.replace(' ', '-')">
+  <div class="food-item grid" :id="name.replace(' ', '-')">
     <img v-if="src" :src="src" :alt="'A picture of a ' + name" />
-    <h2>
-      {{ name }}
-      <span v-if="localName"> ({{ localName }}) </span>
-    </h2>
-    <p>
-      <span v-if="calories">{{ calories }} kcal/100g · </span>
-      <span v-if="lastMonth">Available to end of </span>
-      {{ lastMonth }}
-    </p>
-    <div
-      class="badge"
-      style="background: rgb(77 71 245)"
-      v-if="timesConsumedToday"
-    >
-      Eaten {{ timesConsumedToday }} times today
+    <div>
+      <h2>
+        {{ name }}
+        <span v-if="localName"> ({{ localName }}) </span>
+      </h2>
+      <p v-if="calories || lastMonth">
+        <span v-if="calories">{{ calories }} kcal/100g · </span>
+        <span v-if="lastMonth">Available to end of </span>
+        {{ lastMonth }}
+      </p>
     </div>
-    <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
-    <div class="badge" v-if="helpsReachGoals" style="background: #1e8429">
-      Good for your nutritional needs today
+    <div
+      class="badges"
+      v-if="
+        timesConsumedToday ||
+        (isNative !== null && !isNative) ||
+        helpsReachGoals
+      "
+    >
+      <div
+        class="badge"
+        style="background: rgb(77 71 245)"
+        v-if="timesConsumedToday"
+      >
+        Eaten {{ timesConsumedToday }} times today
+      </div>
+      <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
+      <div class="badge" v-if="helpsReachGoals" style="background: #1e8429">
+        Good for your nutritional needs today
+      </div>
     </div>
     <NutrientInformation
       v-if="
@@ -37,7 +48,6 @@
     <form
       v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
       @submit.prevent
-      style="margin-top: 3rem"
     >
       <label>
         <input

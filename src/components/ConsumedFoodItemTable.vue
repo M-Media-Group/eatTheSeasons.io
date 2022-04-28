@@ -24,7 +24,7 @@
           <td>
             <router-link
               v-if="item.food_id"
-              :to="`/search?searchTerm=${item.name}`"
+              :to="`/search?searchTerm=${item.name}#${item.name}`"
             >
               {{ item.name }}
             </router-link>

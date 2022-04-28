@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid">
     <h1>Suggested food</h1>
     <SuggestedFoodItems />
   </div>
@@ -10,7 +10,7 @@ import { defineComponent } from "vue";
 import SuggestedFoodItems from "@/components/SuggestedFoodItems.vue"; // @ is an alias to /src
 
 export default defineComponent({
-  name: "FoodView",
+  name: "SuggestedFoodView",
 
   components: {
     SuggestedFoodItems,

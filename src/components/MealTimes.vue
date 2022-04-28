@@ -1,46 +1,48 @@
 <template>
-  <div
-    v-for="(meal, key, index) in meals"
-    :key="meal"
-    :style="{
-      opacity: meal.date < new Date() ? 0.5 : 1,
-    }"
-  >
-    <h3>
-      {{ meal.date.toLocaleTimeString() }} -
-      {{
-        key
-          .replace(/([A-Z])/g, " $1")
-          // uppercase the first character
-          .replace(/^./, function (str) {
-            return str.toUpperCase();
-          })
-      }}
-    </h3>
-    <p v-if="meal.date >= new Date()">
-      Calories actually allowed:
-      {{ (mealTotalCaloriesPerMeal[index] - caloriesEaten).toFixed(0) }}kcal
-      <br />
-      <small>
-        (Total caloric intake after meal:
-        {{ mealTotalCaloriesPerMeal[index] }}kcal,
-        {{ (meal.caloricPercentage / 100) * goals.calories }}kcal normally
-        allocated for this meal)
-        <span v-if="meal.date < new Date()"> - Done</span>
-      </small>
-    </p>
-    <p v-else>
-      Calories eaten by mealtime:
-      {{ Math.round(caloriesConsumedByGivenTime(meal.date)) }} /
-      {{ mealTotalCaloriesPerMeal[index] }} kcal
-      <br />
-      <small>
-        (Total caloric intake after meal:
-        {{ mealTotalCaloriesPerMeal[index] }}kcal,
-        {{ (meal.caloricPercentage / 100) * goals.calories }}kcal normally
-        allocated for this meal)
-      </small>
-    </p>
+  <div class="grid">
+    <div
+      v-for="(meal, key, index) in meals"
+      :key="meal"
+      :style="{
+        opacity: meal.date < new Date() ? 0.5 : 1,
+      }"
+    >
+      <h3>
+        {{ meal.date.toLocaleTimeString() }} -
+        {{
+          key
+            .replace(/([A-Z])/g, " $1")
+            // uppercase the first character
+            .replace(/^./, function (str) {
+              return str.toUpperCase();
+            })
+        }}
+      </h3>
+      <p v-if="meal.date >= new Date()">
+        Calories actually allowed:
+        {{ (mealTotalCaloriesPerMeal[index] - caloriesEaten).toFixed(0) }}kcal
+        <br />
+        <small>
+          (Expected total calories after meal:
+          {{ mealTotalCaloriesPerMeal[index] }}kcal,
+          {{ (meal.caloricPercentage / 100) * goals.calories }}kcal normally
+          allocated for this meal)
+          <span v-if="meal.date < new Date()"> - Done</span>
+        </small>
+      </p>
+      <p v-else>
+        Calories eaten by mealtime:
+        {{ Math.round(caloriesConsumedByGivenTime(meal.date)) }} /
+        {{ mealTotalCaloriesPerMeal[index] }} kcal
+        <br />
+        <small>
+          (Expected total calories after meal:
+          {{ mealTotalCaloriesPerMeal[index] }}kcal,
+          {{ (meal.caloricPercentage / 100) * goals.calories }}kcal normally
+          allocated for this meal)
+        </small>
+      </p>
+    </div>
   </div>
 </template>
 

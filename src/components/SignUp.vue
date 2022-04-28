@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid">
     <form
       name="signup"
       method="POST"
@@ -177,7 +177,9 @@ export default defineComponent({
     },
     handleSubmit() {
       if (process.env.NODE_ENV !== "production") {
-        return this.signUp(true);
+        this.signUp(true);
+        this.$router.push("/onboarding");
+        return;
       }
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -195,6 +197,7 @@ export default defineComponent({
         )
         .then(() => {
           this.signUp(true);
+          this.$router.push("/onboarding");
         });
     },
   },

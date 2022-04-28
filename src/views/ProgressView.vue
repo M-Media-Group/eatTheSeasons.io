@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="grid">
     <SignUp v-if="!isSignedUp" />
     <HealthTracker v-else />
   </div>

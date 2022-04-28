@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid">
     <h1>Settings</h1>
     <h2>Your goals</h2>
     <GoalSettings />

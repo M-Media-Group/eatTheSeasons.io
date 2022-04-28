@@ -1,5 +1,5 @@
 <template>
-  <div class="home" v-if="isSignedUp">
+  <div class="grid" v-if="isSignedUp">
     <h1>
       Find
       <input
@@ -22,7 +22,7 @@
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
-    <template v-else>
+    <div class="grid big-gap" v-else>
       <FoodItem
         v-for="food in foodItemsMatchingSearchTerm(filters.searchTerm).slice(
           0,
@@ -41,7 +41,7 @@
         :key="food.id"
         :showAddForm="true"
       />
-    </template>
+    </div>
     <div
       class="main-banner"
       v-if="
@@ -113,7 +113,10 @@ export default defineComponent({
 
   watch: {
     "filters.searchTerm": {
-      handler(searchTerm) {
+      handler(searchTerm, oldTerm) {
+        if (searchTerm === oldTerm) {
+          return;
+        }
         if (searchTerm.length > 0) {
           // Update URL with search term
           this.$router.push({

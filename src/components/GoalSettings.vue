@@ -1,12 +1,12 @@
 <template>
-  <form style="max-width: 600px">
+  <form style="max-width: 600px" class="grid">
     <label>
       <input type="number" v-model.number="caloricGoal" />
-      kcal
+      target kilocalories per day
     </label>
     <label>
       <input type="number" v-model.number="proteinPercent" />
-      % protein
+      % proteins
     </label>
     <label>
       <input type="number" v-model.number="carbPercent" />
@@ -14,17 +14,16 @@
     </label>
     <label>
       <input type="number" v-model.number="fatPercent" />
-      % fat
+      % fats
     </label>
-  </form>
-  <form style="max-width: 600px; display: block">
+
     <label style="width: 100%">
       <input type="text" v-model="firstMealTime" />
       first meal time
     </label>
     <label style="width: 100%">
       <input type="number" v-model.number="mealTimeSeparationInMinutes" />
-      meal time seperation (in minutes)
+      average time between meals/snacks (in minutes)
     </label>
   </form>
 </template>

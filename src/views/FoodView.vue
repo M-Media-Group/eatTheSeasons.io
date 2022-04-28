@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="grid">
     <div class="main-banner" v-if="!isSignedUp && !isOnMobile">
       <SignUp />
     </div>
@@ -12,7 +12,7 @@
       <router-link to="/sign-up">Sign up</router-link> to see more information
       about each food and seasonality.
     </p>
-    <template v-if="!filters.searchTerm">
+    <div class="grid big-gap">
       <FoodItem
         v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
         :id="food.id"
@@ -29,33 +29,8 @@
         :water="food.water"
         :key="food.id"
       />
-    </template>
-    <div
-      v-else-if="foodItemsMatchingSearchTerm(filters.searchTerm).length === 0"
-    >
-      <div>
-        No foods found for <strong>{{ filters.searchTerm }}</strong
-        >.
-      </div>
-      This website was created just this week so please bear with us as we add
-      more food, months, and regions!
     </div>
-    <template v-else>
-      <FoodItem
-        v-for="food in foodItemsMatchingSearchTerm(filters.searchTerm)"
-        :id="food.id"
-        :src="food.image_url"
-        :name="food.name"
-        :categories="getFoodCategoriesForFoodItem(food)"
-        :isNative="checkIsFoodNativeToCountry(food)"
-        :calories="food.kcal"
-        :carb="food.carbohydrate"
-        :fat="food.fat"
-        :protein="food.protein"
-        :water="food.water"
-        :key="food.id"
-      />
-    </template>
+
     <MlCam
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"

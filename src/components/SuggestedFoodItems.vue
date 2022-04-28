@@ -1,5 +1,5 @@
 <template>
-  <div v-if="findFoodItems.length > 0">
+  <div v-if="findFoodItems.length > 0" class="grid big-gap">
     <FoodItem
       v-for="food in findFoodItems.slice(0, resultsLimit)"
       :key="food.id"
@@ -30,8 +30,7 @@
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from "vue";
-import { mapGetters, mapActions } from "vuex";
-import FoodItem from "./FoodItem.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "SuggestedFoodItems",
@@ -48,6 +47,7 @@ export default defineComponent({
 
       // A component to use if the load fails
       // errorComponent: ErrorComponent,
+
       // The error component will be displayed if a timeout is
       // provided and exceeded. Default: Infinity.
 
