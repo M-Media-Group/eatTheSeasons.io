@@ -25,17 +25,23 @@
     </template>
 
     <template v-else-if="step === 2">
-      <div>
-        <h1>You're done! Add your first food item.</h1>
-        <p>
-          Great job! You're all set and ready to go - add your first food item
-          to get started.
-        </p>
+      <div class="grid">
+        <div>
+          <h1>You're done! Here's your meal schedule for the day.</h1>
+          <p>
+            Great job! You're all set and ready to go - add your first food item
+            to get started. Below you'll see your meal schedule.
+          </p>
+        </div>
+        <MealTimes />
+        <router-link class="submit-button" to="/search"
+          ><button class="submit-button">
+            Add your first food to the tracker
+          </button></router-link
+        >
       </div>
-      <router-link class="submit-button" to="/search"
-        ><button class="submit-button">Find food</button></router-link
-      >
     </template>
+
     <button class="submit-button" v-if="step < 2" @click="step++">Next</button>
   </div>
 </template>
@@ -43,11 +49,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GoalSettings from "@/components/GoalSettings.vue"; // @ is an alias to /src
+import MealTimes from "@/components/MealTimes.vue"; // @ is an alias to /src
 
 export default defineComponent({
   name: "SettingsView",
   components: {
     GoalSettings,
+    MealTimes,
   },
   data() {
     return {
