@@ -8,9 +8,9 @@ export default {
     goals: {
       calories: parseFloat(localStorage.getItem("goals.calories") ?? "1000"),
       proteinPercent: parseFloat(
-        localStorage.getItem("goals.proteinPercent") ?? "40"
+        localStorage.getItem("goals.proteinPercent") ?? "30"
       ),
-      fatPercent: parseFloat(localStorage.getItem("goals.fatPercent") ?? "20"),
+      fatPercent: parseFloat(localStorage.getItem("goals.fatPercent") ?? "30"),
       carbsPercent: parseFloat(
         localStorage.getItem("goals.carbsPercent") ?? "40"
       ),
