@@ -120,6 +120,10 @@ export default defineComponent({
               searchTerm,
             },
           });
+          // eslint-disable-next-line no-undef
+          gtag("event", "search", {
+            search_term: searchTerm,
+          });
           if (this.foodItemsMatchingSearchTerm(searchTerm).length > 10) {
             return;
           }

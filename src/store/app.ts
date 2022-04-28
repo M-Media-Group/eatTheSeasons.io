@@ -12,7 +12,7 @@ export default {
       return router.currentRoute.value.query.beta === "true";
     },
     supportsIndexedDB(state: { supportsIndexedDB: boolean }): boolean {
-      return state.supportsIndexedDB;
+      return state.supportsIndexedDB && !!window.indexedDB;
     },
   },
   mutations: {

@@ -6,13 +6,19 @@ export default {
   state: {
     isSignedUp: localStorage.getItem("isSignedUp") === "true" ? true : false,
     goals: {
-      calories: 1000,
-      proteinPercent: 40,
-      fatPercent: 20,
-      carbsPercent: 40,
-      mealsPerDay: 5,
-      firstMealTime: "08:45",
-      mealTimeSeparationInMinutes: 150,
+      calories: parseFloat(localStorage.getItem("goals.calories") ?? "1000"),
+      proteinPercent: parseFloat(
+        localStorage.getItem("goals.proteinPercent") ?? "40"
+      ),
+      fatPercent: parseFloat(localStorage.getItem("goals.fatPercent") ?? "20"),
+      carbsPercent: parseFloat(
+        localStorage.getItem("goals.carbsPercent") ?? "40"
+      ),
+      mealsPerDay: parseFloat(localStorage.getItem("goals.mealsPerDay") ?? "5"),
+      firstMealTime: localStorage.getItem("goals.firstMealTime") ?? "08:45",
+      mealTimeSeparationInMinutes: parseFloat(
+        localStorage.getItem("goals.mealTimeSeparationInMinutes") ?? "150"
+      ),
       mealTimeDurationInMinutes: 30,
     },
   },
@@ -132,10 +138,21 @@ export default {
       localStorage.setItem("isSignedUp", value.toString());
       gtag("event", "signup_form_complete");
     },
+    SET_GOALS(state: { goals: unknown }, value: unknown): void {
+      state.goals = value;
+    },
   },
   actions: {
     signUp({ commit }: { commit: Commit }, value: boolean): void {
       commit("SET_SIGNED_UP", value);
+    },
+    setGoals({ commit }: { commit: Commit }, value: any[]): void {
+      console.log("CALLED COMMIT", value);
+      commit("SET_GOALS", value);
+      //   For each key in value object, store the value in localStorage
+      for (const key in value) {
+        localStorage.setItem(`goals.${key}`, value[key].toString());
+      }
     },
   },
 };

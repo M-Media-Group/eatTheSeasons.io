@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
 import AddConsumedItemForm from "./AddConsumedItemForm.vue";
 import type { PropType } from "vue";

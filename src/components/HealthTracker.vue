@@ -11,7 +11,7 @@
     </h1>
     <h1 v-else>You ate {{ Math.round(caloriesEaten) }} kilocalories today</h1>
     <template v-if="caloriesEaten !== 0">
-      Here's your macronutrient distribution; goals compared to actual:
+      Here's your daily macronutrient distribution; goals compared to actual:
       <NutrientInformation
         :protein="goals.proteinPercent"
         :carb="goals.carbsPercent"
@@ -66,14 +66,10 @@ export default defineComponent({
       nutrientRatio: "auth/nutrientRatio",
       findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
     }),
-
     // Find foodItems with similar ratios as in currentVsGoals
 
     hasExceededCalories() {
-      return (
-        (this as any).caloriesEaten.toFixed(2) - (this as any).goals.calories >
-        500
-      );
+      return (this as any).caloriesEaten.toFixed(2) - this.goals.calories > 500;
     },
   },
   methods: {

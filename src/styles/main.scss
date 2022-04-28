@@ -145,7 +145,6 @@ tr:nth-last-child(2) {
 }
 
 form {
-    display: grid;
     grid-auto-flow: column;
     gap: $baseNumber + px;
     // grid-template-columns: 3fr 1fr;
