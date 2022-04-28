@@ -6,6 +6,7 @@ export default {
   state: {
     isInBeta: false, // Currently not used
     supportsIndexedDB: process.env.VUE_APP_USE_INDEXED_DB === "true",
+    resultsLimit: 30,
   },
   getters: {
     isInBeta(): boolean {
@@ -13,6 +14,9 @@ export default {
     },
     supportsIndexedDB(state: { supportsIndexedDB: boolean }): boolean {
       return state.supportsIndexedDB && !!window.indexedDB;
+    },
+    resultsLimit(state: { resultsLimit: number }): number {
+      return state.resultsLimit;
     },
   },
   mutations: {

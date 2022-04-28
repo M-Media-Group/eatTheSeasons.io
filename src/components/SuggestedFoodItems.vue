@@ -1,7 +1,7 @@
 <template>
   <div v-if="findFoodItems.length > 0">
     <FoodItem
-      v-for="food in findFoodItems.slice(0, 200)"
+      v-for="food in findFoodItems.slice(0, resultsLimit)"
       :key="food.id"
       :id="food.id"
       :src="food.image_url"
@@ -14,6 +14,12 @@
       :water="food.water"
       :showAddForm="true"
     />
+    <template v-if="findFoodItems.length - resultsLimit > 0">
+      <p>
+        ... and {{ findFoodItems.length - resultsLimit }} more. Use
+        <router-link to="/search">Search</router-link> to find more foods.
+      </p>
+    </template>
   </div>
   <div v-else style="margin-bottom: 5rem">
     There's no suggested foods to show at this time. Find and add any food you
@@ -28,7 +34,7 @@ import { mapGetters, mapActions } from "vuex";
 import FoodItem from "./FoodItem.vue";
 
 export default defineComponent({
-  name: "HealthTracker",
+  name: "SuggestedFoodItems",
   components: {
     FoodItem: defineAsyncComponent({
       // the loader function
@@ -38,7 +44,7 @@ export default defineComponent({
       // loadingComponent: LoadingComponent,
 
       // Delay before showing the loading component. Default: 200ms.
-      delay: 200,
+      delay: 0,
 
       // A component to use if the load fails
       // errorComponent: ErrorComponent,
@@ -52,6 +58,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
+      resultsLimit: "app/resultsLimit",
     }),
   },
 });

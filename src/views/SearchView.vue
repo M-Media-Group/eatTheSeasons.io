@@ -26,7 +26,7 @@
       <FoodItem
         v-for="food in foodItemsMatchingSearchTerm(filters.searchTerm).slice(
           0,
-          50
+          resultsLimit
         )"
         :id="food.id"
         :src="food.image_url"
@@ -107,6 +107,7 @@ export default defineComponent({
       isSignedUp: "auth/isSignedUp",
       foodItems: "foodItems/foodItems",
       foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
+      resultsLimit: "app/resultsLimit",
     }),
   },
 

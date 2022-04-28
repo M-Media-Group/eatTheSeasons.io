@@ -20,12 +20,16 @@
     </div>
   </nav>
   <router-view />
-  <small>
-    <router-link v-if="supportsIndexedDB" to="/settings">Settings</router-link>
-    · <router-link to="/about">About</router-link> · Made with ❤️ by
-    <a href="https://mmediagroup.fr">M Media</a> · Images from
-    <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
-  >
+  <div style="margin-top: 5rem">
+    <small>
+      <router-link v-if="supportsIndexedDB" to="/settings"
+        >Settings</router-link
+      >
+      · <router-link to="/about">About</router-link> · Made with ❤️ by
+      <a href="https://mmediagroup.fr">M Media</a> · Images from
+      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
+    >
+  </div>
 </template>
 
 <script lang="ts">
