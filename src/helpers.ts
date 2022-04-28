@@ -1,5 +1,6 @@
 // Get the translated string using fetch()
 
+import { consumedItem } from "./types/consumedItem";
 import { Country } from "./types/foodItem";
 
 export async function getTranslatedString(
@@ -49,29 +50,44 @@ export async function getBestImageUrl(foodItemName: string) {
   return finalImageUrl;
 }
 
+export function addMinutes(time: string, minutes: number) {
+  return new Date(new Date(time).getTime() + minutes * 60000).toTimeString();
+}
+
 export function updateIndexedDB(table: string, event: any) {
   const db = event.target.result;
   console.log("upgrade", db);
   const objectStore = db.createObjectStore(table, {
-    keyPath: "eaten_id",
+    keyPath: "id",
   });
-  objectStore.createIndex("eaten_id", "eaten_id", { unique: true });
+  objectStore.createIndex("id", "id", { unique: true });
+  objectStore.createIndex("name", "name", { unique: false });
+  objectStore.createIndex("description", "description", {
+    unique: false,
+  });
   objectStore.createIndex("food_id", "food_id", { unique: false });
   objectStore.createIndex("grams", "grams", { unique: false });
-  objectStore.createIndex("date", "date", { unique: false });
+  objectStore.createIndex("kcal", "kcal", { unique: false });
+  objectStore.createIndex("water", "water", { unique: false });
+  objectStore.createIndex("protein", "protein", { unique: false });
+  objectStore.createIndex("carbohydrate", "carbohydrate", { unique: false });
+  objectStore.createIndex("fat", "fat", { unique: false });
+  objectStore.createIndex("fiber", "fiber", { unique: false });
+  objectStore.createIndex("alcohol", "alcohol", { unique: false });
+  objectStore.createIndex("created_at", "created_at", { unique: false });
+  objectStore.createIndex("updated_at", "updated_at", { unique: false });
 }
 
 export function addToIndexedDB(
-  value: {
-    eaten_id: number;
-    food_id: number;
-    grams: number;
-    date: Date;
-  },
+  value: consumedItem,
   table = "eatenFoodItems",
   dbName = "foodie"
 ) {
   console.log("addToIndexedDB", value);
+
+  // Drop the foodItem from value
+  delete value.foodItem;
+
   // Add record to indexeddb
   if (!window.indexedDB) {
     console.log(
@@ -90,13 +106,8 @@ export function addToIndexedDB(
     console.log("add", db);
     const tx = db.transaction(table, "readwrite");
     const store = tx.objectStore(table);
-    const data = {
-      eaten_id: value.eaten_id,
-      food_id: value.food_id,
-      grams: value.grams,
-      date: new Date(),
-    };
-    store.put(data);
+    console.log("Store result", store, value);
+    store.put(value);
   };
 }
 

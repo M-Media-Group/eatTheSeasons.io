@@ -119,12 +119,11 @@ export default defineComponent({
             //   Math.round(parseFloat(predictions[n].score) * 100) +
             //   "% confidence.";
 
-            const isInSeason = this.seasonalFoodNames.find(
-              (foodName) =>
-                foodName.toLowerCase() === predictions[n].class.toLowerCase()
-            )
-              ? true
-              : false;
+            const isInSeason =
+              this.seasonalFoodNames.findIndex(
+                (foodName) =>
+                  foodName.toLowerCase() === predictions[n].class.toLowerCase()
+              ) !== -1;
 
             if (isInSeason) {
               p.innerText = "In season: " + predictions[n].class;

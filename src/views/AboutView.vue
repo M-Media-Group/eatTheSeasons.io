@@ -21,10 +21,3 @@
     </p>
   </div>
 </template>
-<style scoped>
-img {
-  height: 30vh;
-  object-fit: scale-down;
-  max-width: 100%;
-}
-</style>

@@ -1,115 +1,86 @@
 <template>
   <div>
-    Goal 1000/kcal:
-    <NutrientInformation :protein="40" :carb="40" :fat="20" />
-    <div style="margin-top: 3rem"></div>
-    Your progress {{ caloriesEaten }}/1000 kcal:
-    <NutrientInformation
-      v-if="
-        isSignedUp && carbEaten !== 0 && fatEaten !== 0 && proteinEaten !== 0
-      "
-      :protein="proteinEaten"
-      :carb="carbEaten"
-      :fat="fatEaten"
-    />
-    <div style="margin-top: 3rem">
-      You ate {{ eatenFoodItems.length }} food items today
-      <div v-for="food in eatenFoodItems" :key="food.id">
-        <div @click="deleteEatenFoodItem(food.eaten_id)">
-          Eaten {{ food.grams }}g of {{ food.name }} on {{ food.date }}
-        </div>
+    <h1 v-if="hasExceededCalories">Stop eating for today!</h1>
+    <h1 v-else-if="caloriesEaten > goals.calories">
+      You've exceeded your caloric goal by
+      {{ Math.round(caloriesEaten - goals.calories) }} kilocalories
+    </h1>
+    <h1 v-else-if="caloriesEaten === 0">
+      Find your first food of the day in
+      <router-link to="/search">Search</router-link>
+    </h1>
+    <h1 v-else>You ate {{ Math.round(caloriesEaten) }} kilocalories today</h1>
+    <template v-if="caloriesEaten !== 0">
+      Here's your macronutrient distribution; goals compared to actual:
+      <NutrientInformation
+        :protein="goals.proteinPercent"
+        :carb="goals.carbsPercent"
+        :fat="goals.fatPercent"
+        :showText="false"
+        style="opacity: 0.5"
+      />
+      <NutrientInformation
+        v-if="isSignedUp && carbEaten !== 0 && fatEaten !== 0"
+        :protein="proteinEaten"
+        :carb="carbEaten"
+        :fat="fatEaten"
+      />
+    </template>
+    <div style="margin-top: 5rem; display: grid; gap: 5rem">
+      <ConsumedFoodItemTable :consumedItems="getConsumedItems" />
+      <div>
+        <h2>Meal times</h2>
+        <MealTimes />
       </div>
     </div>
-    <hr style="margin-top: 3rem" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Category, MonthName } from "@/types/foodItem";
-import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { mapGetters, mapActions } from "vuex";
+import MealTimes from "./MealTimes.vue";
+import ConsumedFoodItemTable from "./ConsumedFoodItemTable.vue";
 
 export default defineComponent({
   name: "HealthTracker",
   components: {
     NutrientInformation,
+    MealTimes,
+    ConsumedFoodItemTable,
   },
-  props: {
-    id: Number,
-    name: String,
-    src: String,
-    calories: Number,
-    carb: Number,
-    fat: Number,
-    protein: Number,
-    water: Number,
-    categories: {
-      type: Array as PropType<Category[]>,
-      default: () => [],
-    },
-    localName: String,
-    isNative: Boolean || null,
-    lastMonth: {
-      type: String as PropType<MonthName>,
-      default: "",
-      required: false,
-    },
-  },
-  data() {
-    return {
-      amount: 0,
-    };
-  },
+  props: {},
+
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
-      allFoodItems: "foodItems/allFoodItems",
-      eatenFoodItems: "foodItems/eatenFoodItemsToday",
-      caloriesEaten: "foodItems/caloriesEaten",
-      carbEaten: "foodItems/carbEaten",
-      fatEaten: "foodItems/fatEaten",
-      proteinEaten: "foodItems/proteinEaten",
+      caloriesEaten: "consumedItems/kcalConsumedToday",
+      carbEaten: "consumedItems/carbsConsumedToday",
+      fatEaten: "consumedItems/fatConsumedToday",
+      proteinEaten: "consumedItems/proteinConsumedToday",
+      getConsumedItems: "consumedItems/allConsumedItemsToday",
+      foodItems: "foodItems/allFoodItems",
+      goals: "auth/goals",
+      meals: "auth/meals",
+      nutrientRatio: "auth/nutrientRatio",
+      findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
     }),
+
+    // Find foodItems with similar ratios as in currentVsGoals
+
+    hasExceededCalories() {
+      return (
+        (this as any).caloriesEaten.toFixed(2) - (this as any).goals.calories >
+        500
+      );
+    },
   },
   methods: {
     ...mapActions({
-      addFoodItem: "foodItems/addEatenFoodItem",
-      deleteEatenFoodItem: "foodItems/deleteEatenFoodItem",
+      addConsumedFoodItem: "consumedItems/addConsumedItem",
+      deleteConsumedItem: "consumedItems/deleteConsumedItem",
     }),
   },
 });
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-img {
-  height: 55vh;
-  object-fit: scale-down;
-  max-width: 100%;
-}
-.food-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15vh;
-}
-h2 {
-  margin-bottom: 0;
-  > span {
-    font-weight: 400;
-  }
-}
-p {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-.badge {
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: rgb(70, 70, 70);
-  color: white;
-}
-</style>

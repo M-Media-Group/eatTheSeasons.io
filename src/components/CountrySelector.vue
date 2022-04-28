@@ -43,29 +43,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.dropdown-selector {
-  display: inline-block;
-  text-decoration: underline;
-  position: relative;
-  cursor: pointer;
-  > ul {
-    position: absolute;
-    background: white;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    top: 8px;
-    left: -50%;
-    > li {
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
-  }
-}
-</style>

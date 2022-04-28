@@ -2,9 +2,19 @@
   <div class="home" v-if="isSignedUp">
     <h1>
       Find
-      <input type="text" v-model="filters.searchTerm" placeholder="any food" />
+      <input
+        autofocus
+        type="text"
+        v-model="filters.searchTerm"
+        placeholder="any food"
+      />
     </h1>
-    <div v-if="foodItemsMatchingSearchTerm(filters.searchTerm).length === 0">
+    <div v-if="filters.searchTerm.length < 3" style="margin-bottom: 3rem">
+      Type at least 3 characters to search
+    </div>
+    <div
+      v-else-if="foodItemsMatchingSearchTerm(filters.searchTerm).length === 0"
+    >
       <div>
         No foods found for <strong>{{ filters.searchTerm }}</strong
         >.
@@ -29,6 +39,7 @@
         :protein="food.protein"
         :water="food.water"
         :key="food.id"
+        :showAddForm="true"
       />
     </template>
     <div
@@ -40,10 +51,6 @@
     >
       <SignUp />
     </div>
-    <small
-      >Made with ❤️ by <a href="https://mmediagroup.fr">M Media</a>. Images from
-      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
-    >
   </div>
   <div v-else>
     <SignUp />
@@ -51,24 +58,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
+import { defineComponent, defineAsyncComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 
-import {
-  CountryCode,
-  MonthName,
-  FoodItem as FoodItemTs,
-} from "@/types/foodItem";
+import { CountryCode, FoodItem as FoodItemTs } from "@/types/foodItem";
 import { getBestImageUrl } from "@/helpers";
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
 import axios from "axios";
 
 export default defineComponent({
-  name: "FoodView",
+  name: "SearchView",
 
   components: {
-    FoodItem,
+    FoodItem: defineAsyncComponent(() => import("@/components/FoodItem.vue")),
     SignUp,
   },
 
@@ -95,33 +97,35 @@ export default defineComponent({
     };
   },
 
+  mounted() {
+    // Set the searchTerm = to the searchTerm from the url
+    this.filters.searchTerm = this.$route.query.searchTerm?.toString() || "";
+  },
+
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
       foodItems: "foodItems/foodItems",
-      foodItemsWithoutSeasons: "foodItems/foodItemsWithoutSeasons",
-      eatenFoodItems: "foodItems/eatenFoodItems",
-      proteinEaten: "foodItems/proteinEaten",
-      fatEaten: "foodItems/fatEaten",
-      carbEaten: "foodItems/carbEaten",
-      caloriesEaten: "foodItems/caloriesEaten",
       foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
     }),
   },
 
   watch: {
-    filters: {
-      handler(newFilters) {
-        if (newFilters.searchTerm.length > 0) {
-          if (
-            this.foodItemsMatchingSearchTerm(newFilters.searchTerm).length > 10
-          ) {
+    "filters.searchTerm": {
+      handler(searchTerm) {
+        if (searchTerm.length > 0) {
+          // Update URL with search term
+          this.$router.push({
+            query: {
+              searchTerm,
+            },
+          });
+          if (this.foodItemsMatchingSearchTerm(searchTerm).length > 10) {
             return;
           }
           this.searchForFood();
         }
       },
-      deep: true,
     },
   },
 
@@ -129,6 +133,7 @@ export default defineComponent({
     ...mapActions({
       addFoodItem: "foodItems/addFoodItem",
     }),
+
     searchForFood() {
       axios
         .get(
@@ -140,67 +145,6 @@ export default defineComponent({
             this.addFoodItem(foodItem);
           });
         });
-    },
-    getLocalName(food: FoodItemTs): string {
-      return (
-        food.food_regions?.find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })?.local_name ?? ""
-      );
-    },
-
-    getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
-      return (this.foodItems as FoodItemTs[]).filter((food) => {
-        return food.food_regions?.find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            country.toLowerCase()
-          );
-        });
-      });
-    },
-
-    getAvailableRegionsForCountry(country: CountryCode): string[] {
-      return (this.foodItems as FoodItemTs[])
-        .filter((food) => {
-          return food.food_regions?.find((foodRegion) => {
-            return (
-              foodRegion.region.country_code.toLowerCase() ===
-              country.toLowerCase()
-            );
-          });
-        })
-        .map((food) => {
-          return (
-            food.food_regions?.find((foodRegion) => {
-              return (
-                foodRegion.region.country_code.toLowerCase() ===
-                country.toLowerCase()
-              );
-            })?.region.name ?? ""
-          );
-        })
-        .filter((region, index, array) => array.indexOf(region) === index);
-    },
-
-    getLastMonthInARowFromFoodItem(food: FoodItemTs): MonthName | "" {
-      const months = food.food_regions
-        .find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })
-        ?.seasons.map((season) => {
-          return season.month_name;
-        });
-      if (!months) {
-        return "";
-      }
-      return months[months.length - 1];
     },
 
     checkIsFoodNativeToCountry(food: FoodItemTs): boolean | null {
@@ -229,36 +173,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped>
-// Removed the sticky here, realistically users will not be switching months and areas very often so there is no reason to stick this info to the top of the page
-// h1 {
-//   position: sticky;
-//   top: 0px;
-//   background: white;
-//   padding-top: 8px;
-// }
-input {
-  -webkit-font-smoothing: antialiased;
-  color: rgb(44, 62, 80);
-  cursor: pointer;
-  display: inline-block;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  height: 44px;
-  position: relative;
-  text-align: center;
-}
-
-h2 {
-  margin-top: 15rem;
-  margin-bottom: 10rem;
-}
-
-.main-banner {
-  background: #d9ffdc;
-  /* color: white; */
-  padding-top: 4rem;
-  padding-bottom: 3rem;
-}
-</style>

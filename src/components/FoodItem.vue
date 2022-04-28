@@ -10,7 +10,17 @@
       <span v-if="lastMonth">Available to end of </span>
       {{ lastMonth }}
     </p>
+    <div
+      class="badge"
+      style="background: rgb(77 71 245)"
+      v-if="timesConsumedToday"
+    >
+      Eaten {{ timesConsumedToday }} times today
+    </div>
     <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
+    <div class="badge" v-if="helpsReachGoals" style="background: #1e8429">
+      Good for your nutritional needs today
+    </div>
     <NutrientInformation
       v-if="
         isSignedUp &&
@@ -25,7 +35,7 @@
       :water="water"
     />
     <form
-      v-if="isSignedUp && id && supportsIndexedDB"
+      v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
       @submit.prevent
       style="margin-top: 3rem"
     >
@@ -40,7 +50,12 @@
       </label>
       <button
         type="submit"
-        @click="addFoodItem({ food_id: id, grams: amount })"
+        class="submit-button"
+        @click="
+          addFoodItem({ food_id: id, grams: amount });
+          amount = 0;
+          $emit('addedConsumedFoodItem', { food_id: id, grams: amount });
+        "
       >
         Add to eaten foods
       </button>
@@ -63,10 +78,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Category, MonthName } from "@/types/foodItem";
+import { Category, FoodItem, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { mapGetters, mapActions } from "vuex";
+import { consumedItem } from "@/types/consumedItem";
 
 export default defineComponent({
   name: "FoodItem",
@@ -82,6 +98,7 @@ export default defineComponent({
     fat: Number,
     protein: Number,
     water: Number,
+    showAddForm: Boolean,
     categories: {
       type: Array as PropType<Category[]>,
       default: () => [],
@@ -102,52 +119,46 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
+      supportsIndexedDB: "app/supportsIndexedDB",
+      foodItemsThatHelpReachGoals: "foodItems/foodItemsThatHelpReachGoals",
+      consumedItemsToday: "consumedItems/allConsumedItemsToday",
     }),
-    supportsIndexedDB() {
-      return process.env.VUE_APP_USE_INDEXED_DB == "true";
+    helpsReachGoals() {
+      if (
+        !this.isSignedUp ||
+        !this.supportsIndexedDB ||
+        !this.id ||
+        !this.foodItemsThatHelpReachGoals
+      ) {
+        return false;
+      }
+      return (
+        this.foodItemsThatHelpReachGoals.findIndex(
+          (foodItem: FoodItem) => foodItem.id === this.id
+        ) !== -1
+      );
+    },
+    timesConsumedToday() {
+      if (
+        !this.isSignedUp ||
+        !this.supportsIndexedDB ||
+        !this.id ||
+        !this.consumedItemsToday
+      ) {
+        return null;
+      }
+      // Count amount of times this foodId appears in consumedItemsToday
+      return (
+        this.consumedItemsToday.filter(
+          (foodItem: consumedItem) => foodItem.food_id === this.id
+        ).length ?? 0
+      );
     },
   },
   methods: {
     ...mapActions({
-      addFoodItem: "foodItems/addEatenFoodItem",
+      addFoodItem: "consumedItems/addConsumedItem",
     }),
   },
 });
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-img {
-  height: 55vh;
-  object-fit: scale-down;
-  max-width: 100%;
-}
-.food-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15vh;
-}
-h2 {
-  margin-bottom: 0;
-  > span {
-    font-weight: 400;
-  }
-}
-p {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-.badge {
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: rgb(70, 70, 70);
-  color: white;
-}
-form {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 8px;
-}
-</style>

@@ -96,10 +96,6 @@
     >
       <SignUp />
     </div>
-    <small
-      >Made with ❤️ by <a href="https://mmediagroup.fr">M Media</a>. Images from
-      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
-    >
   </div>
 </template>
 
@@ -167,14 +163,11 @@ export default defineComponent({
       carbEaten: "foodItems/carbEaten",
       caloriesEaten: "foodItems/caloriesEaten",
       foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
+      isInBeta: "app/isInBeta",
     }),
 
     isOnMobile() {
       return window.innerWidth < 768;
-    },
-
-    isInBeta() {
-      return this.$route.query.beta === "true";
     },
 
     availableCategories(): CategoryName[] {
@@ -422,36 +415,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped>
-// Removed the sticky here, realistically users will not be switching months and areas very often so there is no reason to stick this info to the top of the page
-// h1 {
-//   position: sticky;
-//   top: 0px;
-//   background: white;
-//   padding-top: 8px;
-// }
-input {
-  -webkit-font-smoothing: antialiased;
-  color: rgb(44, 62, 80);
-  cursor: pointer;
-  display: inline-block;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  height: 44px;
-  position: relative;
-  text-align: center;
-}
-
-h2 {
-  margin-top: 15rem;
-  margin-bottom: 10rem;
-}
-
-.main-banner {
-  background: #d9ffdc;
-  /* color: white; */
-  padding-top: 4rem;
-  padding-bottom: 3rem;
-}
-</style>
