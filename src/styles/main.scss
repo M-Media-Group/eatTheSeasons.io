@@ -356,6 +356,7 @@ button {
 .food-item {
     form {
         width: max-content;
+        grid-auto-columns: auto;
     }
     margin-bottom: $baseNumber * 4 + px;
 }

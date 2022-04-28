@@ -20,13 +20,20 @@
         helpsReachGoals
       "
     >
-      <div
-        class="badge"
-        style="background: rgb(77 71 245)"
+      <router-link
         v-if="timesConsumedToday"
+        to="/progress"
+        custom
+        v-slot="{ navigate }"
       >
-        Eaten {{ timesConsumedToday }} times today
-      </div>
+        <div
+          class="badge"
+          style="background: rgb(77 71 245); cursor: pointer"
+          @click="navigate"
+        >
+          Eaten {{ timesConsumedToday }} times today
+        </div>
+      </router-link>
       <div class="badge" v-if="isNative !== null && !isNative">Not native</div>
       <div class="badge" v-if="helpsReachGoals" style="background: #1e8429">
         Good for your nutritional needs today
