@@ -44,6 +44,12 @@
         % fats
       </label>
     </template>
+    <NutrientInformation
+      v-else
+      :carb="carbPercent"
+      :fat="fatPercent"
+      :protein="proteinPercent"
+    />
     <hr />
     <label style="width: 100%">
       <input type="text" v-model="firstMealTime" />
@@ -58,10 +64,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import NutrientInformation from "./NutrientInformation.vue";
 
 export default defineComponent({
   name: "GoalSettings",
-  components: {},
+  components: {
+    NutrientInformation,
+  },
   props: {},
 
   computed: {

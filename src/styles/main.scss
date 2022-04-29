@@ -162,7 +162,7 @@ tr:nth-last-child(2) {
         padding: $baseNumber * 2 + px;
         box-shadow: 0px $baseNumber + px $baseNumber + px rgba(0, 0, 0, 0.1);
         list-style: none;
-        top: $baseNumber + px;
+        top: $baseNumber * 5 + px;
         left: -50%;
 
         > li {
