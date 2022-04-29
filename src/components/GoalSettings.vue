@@ -51,7 +51,7 @@
     </label>
     <label style="width: 100%">
       <input type="number" v-model.number="mealTimeSeparationInMinutes" />
-      average time between meals/snacks (in minutes)
+      minutes between your 5 meals/snacks (average)
     </label>
   </form>
 </template>

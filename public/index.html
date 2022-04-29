@@ -11,17 +11,20 @@
   </title>
   <meta name="description"
     content="Find out what foods are in season based on your country and the current month. See what foods are fresh and ready to eat now.">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPQLF31T5G"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+  <% if (process.env.NODE_ENV==="production" ) { %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPQLF31T5G"></script>
+    <!-- End Google Analytics -->
+    <% } %>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-CPQLF31T5G');
-  </script>
-  <link rel="preconnect" href="https://www.pngplay.com">
-  <link rel="preconnect" href="<%= process.env.VUE_APP_BASE_API_URL %>">
+        gtag('config', 'G-CPQLF31T5G');
+      </script>
+      <link rel="preconnect" href="https://www.pngplay.com">
+      <link rel="preconnect" href="<%= process.env.VUE_APP_BASE_API_URL %>">
 
 </head>
 

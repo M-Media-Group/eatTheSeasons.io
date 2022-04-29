@@ -36,6 +36,16 @@
           />
         </div>
       </div>
+      <div v-else class="grid small-gap">
+        <p>Your daily macronutrient goals:</p>
+        <div class="grid small-gap">
+          <NutrientInformation
+            :protein="goals.proteinPercent"
+            :carb="goals.carbsPercent"
+            :fat="goals.fatPercent"
+          />
+        </div>
+      </div>
     </div>
     <div class="grid">
       <h2>Meal times</h2>

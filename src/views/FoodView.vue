@@ -8,6 +8,10 @@
       <CountrySelector v-model="filters.country" />
       ({{ filters.region === "All" ? "all regions" : filters.region }})
     </h1>
+    <MlCam
+      v-if="isInBeta"
+      :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
+    />
     <p v-if="!isSignedUp">
       <router-link to="/sign-up">Sign up</router-link> to see more information
       about each food and seasonality.
@@ -30,11 +34,6 @@
         :key="food.id"
       />
     </div>
-
-    <MlCam
-      v-if="isInBeta"
-      :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
-    />
     <div v-if="isInBeta">
       <h2>Can you help us with these foods?</h2>
       <p>If you know when these foods are in season, please let us know!</p>
@@ -66,11 +65,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, defineAsyncComponent } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
-import MlCam from "@/components/MlCam.vue";
 import { mapGetters, mapActions } from "vuex";
 
 import {
@@ -91,7 +89,7 @@ export default defineComponent({
     FoodItem,
     MonthSelector,
     CountrySelector,
-    MlCam,
+    MlCam: defineAsyncComponent(() => import("@/components/MlCam.vue")),
     SignUp,
   },
 
