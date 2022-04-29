@@ -1,5 +1,5 @@
 <template>
-  <form style="max-width: 600px" class="grid">
+  <form style="max-width: max-content" class="grid">
     <label>
       <input type="number" v-model.number="caloricGoal" />
       target kilocalories per day
