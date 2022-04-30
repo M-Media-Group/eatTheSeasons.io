@@ -46,7 +46,8 @@
         </tr>
         <!-- And a total row -->
         <tr>
-          <td>Total</td>
+          <td></td>
+          <td>{{ consumedItems.length }} total</td>
           <td>{{ total.grams }}g</td>
           <template v-if="expand">
             <td v-if="expand">{{ total.protein }}g</td>
@@ -54,7 +55,6 @@
             <td v-if="expand">{{ total.fat }}g</td>
           </template>
           <td>{{ total.kcal }}kcal</td>
-          <td></td>
           <td></td>
         </tr>
 
