@@ -76,6 +76,14 @@
           </div> -->
       </tbody>
     </table>
+
+    <small v-if="supportsIosShortcut">
+      <a
+        @click="copyToiOSShortcut()"
+        href.prevent="shortcuts://run-shortcut?name=Log Food Intake"
+        >Copy to Health with iOS Shortcut</a
+      >
+    </small>
   </div>
 </template>
 
@@ -123,13 +131,39 @@ export default defineComponent({
           .toFixed(2),
       };
     },
+    supportsIosShortcut(): boolean {
+      return !!navigator.clipboard;
+      // window.navigator.standalone === true ||
+      // window.matchMedia("(display-mode: standalone)").matches === true
+    },
   },
 
   methods: {
     ...mapActions({
       addConsumedFoodItem: "consumedItems/addConsumedItem",
       deleteConsumedItem: "consumedItems/deleteConsumedItem",
+      activeDate: "consumedItems/activeDate",
     }),
+    copyToiOSShortcut() {
+      const textToWrite = {
+        ...this.total,
+        date: this.activeDate,
+      };
+
+      navigator.clipboard.writeText(textToWrite.toString()).then(
+        function () {
+          /* clipboard successfully set */
+          // open the URL shortcuts://run-shortcut?name=Log Food Intake
+          window.open(
+            "shortcuts://run-shortcut?name=Log Food Intake&input=clipboard"
+          );
+        },
+        function () {
+          alert("Failed to copy data");
+          /* clipboard write failed */
+        }
+      );
+    },
   },
 });
 </script>
