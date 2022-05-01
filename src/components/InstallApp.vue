@@ -1,9 +1,8 @@
 <template>
   <div class="grid" v-if="!isRunningInStandalone">
     <p v-if="currentBrowser === 'Safari'">
-      Install this app on iOS by tapping the
-      <a href.prevent="#" @click="openShare()">"Share"</a> icon, then choose
-      "Add to homescreen".
+      Install this app on iOS by tapping the "Share" icon, then choose "Add to
+      homescreen".
     </p>
     <p v-else>
       Follow the native prompts provided by your device to install this app
