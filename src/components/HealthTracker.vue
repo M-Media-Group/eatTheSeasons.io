@@ -53,8 +53,23 @@
     </div>
     <div class="grid">
       <h2>Food you ate</h2>
-      <ConsumedFoodItemTable :consumedItems="getConsumedItems" />
+      <ConsumedFoodItemTable
+        :consumedItems="getConsumedItems"
+        :expand="showExpandedTable"
+      />
+      <a href.prevent="#" @click="showExpandedTable = !showExpandedTable">
+        {{ showExpandedTable ? "Hide" : "Show" }} expanded data
+      </a>
     </div>
+    <details>
+      <summary>Change current date</summary>
+      <input
+        type="date"
+        v-model="date"
+        :max="new Date().toISOString().split('T')[0]"
+        style="width: auto"
+      />
+    </details>
   </div>
 </template>
 
@@ -73,6 +88,12 @@ export default defineComponent({
     ConsumedFoodItemTable,
   },
   props: {},
+
+  data() {
+    return {
+      showExpandedTable: false,
+    };
+  },
 
   computed: {
     ...mapGetters({
@@ -93,11 +114,24 @@ export default defineComponent({
     hasExceededCalories() {
       return (this as any).caloriesEaten.toFixed(2) - this.goals.calories > 500;
     },
+
+    // Set a get and set for Date
+    date: {
+      get() {
+        return (this.$store.getters["consumedItems/activeDate"] ?? new Date())
+          .toISOString()
+          .substring(0, 10);
+      },
+      set(newDate: Date | string) {
+        this.changeToDate(newDate);
+      },
+    },
   },
   methods: {
     ...mapActions({
       addConsumedFoodItem: "consumedItems/addConsumedItem",
       deleteConsumedItem: "consumedItems/deleteConsumedItem",
+      changeToDate: "consumedItems/setDate",
     }),
   },
 });
