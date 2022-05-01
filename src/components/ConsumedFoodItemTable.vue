@@ -89,7 +89,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
 import AddConsumedItemForm from "./AddConsumedItemForm.vue";
 import type { PropType } from "vue";
@@ -112,6 +112,9 @@ export default defineComponent({
   },
 
   computed: {
+    ...mapGetters({
+      activeDate: "consumedItems/activeDate",
+    }),
     total(): Record<string, string> {
       return {
         grams: this.consumedItems
@@ -142,7 +145,6 @@ export default defineComponent({
     ...mapActions({
       addConsumedFoodItem: "consumedItems/addConsumedItem",
       deleteConsumedItem: "consumedItems/deleteConsumedItem",
-      activeDate: "consumedItems/activeDate",
     }),
     copyToiOSShortcut() {
       const textToWrite = {
