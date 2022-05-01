@@ -54,11 +54,7 @@ export default defineComponent({
     async openShare() {
       if ((navigator as any).canShare) {
         navigator
-          .share({
-            title: "Eat.Ninja",
-            text: "Eat Fresh, Eat Healthy!",
-            url: "https://eat.ninja",
-          })
+          .share()
           .then(() => console.log("Share was successful."))
           .catch((error) => console.log("Sharing failed", error));
       } else {
