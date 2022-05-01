@@ -135,7 +135,11 @@ export default defineComponent({
       };
     },
     supportsIosShortcut(): boolean {
-      return !!navigator.clipboard;
+      return (
+        !!navigator.clipboard &&
+        !!navigator.userAgent.match(/safari/i) &&
+        this.consumedItems.length > 0
+      );
       // window.navigator.standalone === true ||
       // window.matchMedia("(display-mode: standalone)").matches === true
     },
