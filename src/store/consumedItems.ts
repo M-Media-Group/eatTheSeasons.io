@@ -299,10 +299,13 @@ export default {
 
     setDate(
       { commit, dispatch }: { commit: Commit; dispatch: any },
-      date: Date | string
+      date: Date | string | null
     ): void {
+      if (!date) {
+        date = new Date();
+      }
       // If the date is not a Date object, try to parse it
-      if (!(date instanceof Date)) {
+      else if (!(date instanceof Date)) {
         date = new Date(date);
       }
       console.log("got date", date);

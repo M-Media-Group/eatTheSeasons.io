@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%; overflow-x: scroll">
     <table>
       <thead>
         <tr>
