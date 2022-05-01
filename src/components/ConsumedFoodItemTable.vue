@@ -150,7 +150,7 @@ export default defineComponent({
         date: this.activeDate,
       };
 
-      navigator.clipboard.writeText(textToWrite.toString()).then(
+      navigator.clipboard.writeText(JSON.stringify(textToWrite)).then(
         function () {
           /* clipboard successfully set */
           // open the URL shortcuts://run-shortcut?name=Log Food Intake
