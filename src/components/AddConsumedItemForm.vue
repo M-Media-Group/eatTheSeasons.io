@@ -8,7 +8,9 @@
     </label>
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.kcal"
         placeholder="kcal"
@@ -16,7 +18,9 @@
     </label>
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.protein"
         placeholder="protein"
@@ -24,18 +28,29 @@
     </label>
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.carbohydrate"
         placeholder="carb"
       />
     </label>
     <label>
-      <input type="text" min="0" v-model.number="form.fat" placeholder="fat" />
+      <input
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        min="0"
+        v-model.number="form.fat"
+        placeholder="fat"
+      />
     </label>
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.water"
         placeholder="water"
@@ -43,7 +58,9 @@
     </label>
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.alcohol"
         placeholder="alcohol"
@@ -52,7 +69,9 @@
 
     <label>
       <input
-        type="text"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
         min="0"
         v-model.number="form.grams"
         placeholder="Grams"

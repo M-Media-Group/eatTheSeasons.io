@@ -1,7 +1,12 @@
 <template>
   <form style="max-width: max-content" class="grid">
     <label>
-      <input type="number" v-model.number="caloricGoal" />
+      <input
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        v-model.number="caloricGoal"
+      />
       target kilocalories per day
     </label>
     <hr />
@@ -32,15 +37,30 @@
     </div>
     <template v-if="preset === 'custom'">
       <label>
-        <input type="number" v-model.number="proteinPercent" />
+        <input
+          type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          v-model.number="proteinPercent"
+        />
         % proteins
       </label>
       <label>
-        <input type="number" v-model.number="carbPercent" />
+        <input
+          type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          v-model.number="carbPercent"
+        />
         % carbohydrates
       </label>
       <label>
-        <input type="number" v-model.number="fatPercent" />
+        <input
+          type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          v-model.number="fatPercent"
+        />
         % fats
       </label>
     </template>
@@ -56,7 +76,12 @@
       first meal time
     </label>
     <label style="width: 100%">
-      <input type="number" v-model.number="mealTimeSeparationInMinutes" />
+      <input
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        v-model.number="mealTimeSeparationInMinutes"
+      />
       minutes between your 5 meals/snacks (average)
     </label>
   </form>

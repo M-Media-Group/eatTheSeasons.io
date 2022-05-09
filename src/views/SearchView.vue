@@ -5,6 +5,8 @@
       <input
         autofocus
         type="text"
+        lang="en"
+        spellcheck="true"
         v-model="filters.searchTerm"
         placeholder="any food"
       />

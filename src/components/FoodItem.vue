@@ -59,6 +59,8 @@
       <label>
         <input
           type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
           min="0"
           v-model.number="amount"
           placeholder="Amount"

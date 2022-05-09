@@ -202,15 +202,15 @@ export default {
         const currentDateAndTime =
           rootGetters["consumedItems/activeDate"] ?? new Date();
         // If there is no time in the currentDateAndTime, set the time to now
-        if (!currentDateAndTime.getHours()) {
-          currentDateAndTime.setHours(new Date().getHours());
-        }
-        if (!currentDateAndTime.getMinutes()) {
-          currentDateAndTime.setMinutes(new Date().getMinutes());
-        }
-        if (!currentDateAndTime.getSeconds()) {
-          currentDateAndTime.setSeconds(new Date().getSeconds());
-        }
+        // if (!currentDateAndTime.getHours()) {
+        currentDateAndTime.setHours(new Date().getHours());
+        // }
+        // if (!currentDateAndTime.getMinutes()) {
+        currentDateAndTime.setMinutes(new Date().getMinutes());
+        // }
+        // if (!currentDateAndTime.getSeconds()) {
+        currentDateAndTime.setSeconds(new Date().getSeconds());
+        // }
         if (!consumedItem.created_at) {
           consumedItem.created_at = currentDateAndTime.toString();
         }
