@@ -16,6 +16,14 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
+    path: "/meal-planner",
+    name: "meal-planner",
+    component: () =>
+      import(
+        /* webpackChunkName: "MealPlanner" */ "../views/MealPlannerView.vue"
+      ),
+  },
+  {
     path: "/search",
     name: "search",
     component: () =>

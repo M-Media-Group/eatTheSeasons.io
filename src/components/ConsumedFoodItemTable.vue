@@ -40,7 +40,7 @@
           </template>
           <td>{{ item.kcal?.toFixed(expand ? 2 : 0) }}kcal</td>
           <td>
-            <button @click="deleteConsumedItem(item.id)">Remove</button>
+            <button @click="removeItem(item.id)">Remove</button>
             <!-- <button @click="copyToFormFromFoodItemId(item.id)">Copy</button> -->
           </td>
         </tr>
@@ -77,7 +77,7 @@
       </tbody>
     </table>
 
-    <small v-if="supportsIosShortcut">
+    <small v-if="showAddToIosShortcut && supportsIosShortcut">
       <a
         @click="copyToiOSShortcut()"
         href.prevent="shortcuts://run-shortcut?name=Log Food Intake"
@@ -104,6 +104,14 @@ export default defineComponent({
     expand: {
       type: Boolean,
       default: false,
+    },
+    showAddToIosShortcut: {
+      type: Boolean,
+      default: true,
+    },
+    useConsumedItemsInVuex: {
+      type: Boolean,
+      default: true,
     },
   },
 
@@ -147,7 +155,6 @@ export default defineComponent({
 
   methods: {
     ...mapActions({
-      addConsumedFoodItem: "consumedItems/addConsumedItem",
       deleteConsumedItem: "consumedItems/deleteConsumedItem",
     }),
     copyToiOSShortcut() {
@@ -169,6 +176,12 @@ export default defineComponent({
           /* clipboard write failed */
         }
       );
+    },
+    removeItem(id: string) {
+      if (this.useConsumedItemsInVuex) {
+        this.deleteConsumedItem(id);
+      }
+      this.$emit("deleteConsumedItem", id);
     },
   },
 });

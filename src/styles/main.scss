@@ -55,6 +55,7 @@ html {
     gap: $baseNumber * 2 + px;
     width: 100%;
     margin: 0 auto;
+    min-width: 0;
     * {
         margin-top: 0;
         margin-bottom: 0;
@@ -74,6 +75,11 @@ html {
     @media (min-width: $mobileBreakpoint) {
         &.big-gap {
             grid-gap: $baseNumber * 8 + px;
+        }
+    }
+    @media (min-width: $mobileBreakpoint) {
+        &.columns {
+            grid-auto-flow: column;
         }
     }
 }
@@ -198,7 +204,8 @@ form {
     background: black;
     width: $baseNumber * 40 + px;
     max-width: 100%;
-    min-width: 50vw;
+    // min-width: 50vw;
+    min-width: 250px;
     margin: 0 auto;
     height: $baseNumber + px;
     border-radius: $borderRadius;

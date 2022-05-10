@@ -8,14 +8,14 @@
         {{ Math.round(caloriesEaten - goals.calories) }} kilocalories
       </h1>
 
-      <h1 v-else-if="caloriesEaten === 0">
+      <h1 v-else-if="getConsumedItems.length === 0">
         Find your first food of the day in
         <router-link to="/search">Search</router-link>
       </h1>
 
       <h1 v-else>You ate {{ Math.round(caloriesEaten) }} kilocalories today</h1>
 
-      <div v-if="caloriesEaten !== 0" class="grid small-gap">
+      <div v-if="getConsumedItems.length !== 0" class="grid small-gap">
         <p>
           Here's your daily macronutrient distribution; goals compared to
           actual:
@@ -29,7 +29,10 @@
             style="margin-bottom: 0; opacity: 0.5"
           />
           <NutrientInformation
-            v-if="isSignedUp && carbEaten !== 0 && fatEaten !== 0"
+            v-if="
+              isSignedUp &&
+              (carbEaten !== 0 || fatEaten !== 0 || proteinEaten !== 0)
+            "
             :protein="proteinEaten"
             :carb="carbEaten"
             :fat="fatEaten"

@@ -2,7 +2,7 @@
   <nav>
     <h1 class="logo-text">
       <router-link to="/"
-        >Eat the Seasons <span v-if="isInBeta">(beta)</span></router-link
+        >Eat.Ninja<span v-if="isInBeta"> (beta)</span></router-link
       >
     </h1>
     <div>
@@ -15,6 +15,8 @@
         <router-link v-if="supportsIndexedDB" to="/suggested-food"
           >Suggested</router-link
         >
+        ·
+        <router-link to="/meal-planner">Meal Planner</router-link>
       </template>
       <router-link v-else to="/sign-up">Sign up</router-link>
     </div>

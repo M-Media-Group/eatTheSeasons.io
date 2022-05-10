@@ -1,6 +1,6 @@
 <template>
   <div class="food-item grid" :id="name.replace(' ', '-')">
-    <img v-if="src" :src="src" :alt="'A picture of a ' + name" />
+    <img v-if="showImage && src" :src="src" :alt="'A picture of a ' + name" />
     <div>
       <h2>
         {{ name }}
@@ -52,32 +52,28 @@
       :fat="fat"
       :water="water"
     />
+    <slot></slot>
     <form
       v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
-      @submit.prevent
+      @submit.prevent="
+        addFoodItem({ food_id: id, grams: amount });
+        amount = 0;
+        $emit('addedConsumedFoodItem', { food_id: id, grams: amount });
+      "
     >
       <label>
         <input
           type="number"
           inputmode="numeric"
           pattern="[0-9]*"
-          min="0"
+          min="1"
           v-model.number="amount"
           placeholder="Amount"
+          required
         />
         <span>g</span>
       </label>
-      <button
-        type="submit"
-        class="submit-button"
-        @click="
-          addFoodItem({ food_id: id, grams: amount });
-          amount = 0;
-          $emit('addedConsumedFoodItem', { food_id: id, grams: amount });
-        "
-      >
-        Add to eaten foods
-      </button>
+      <button type="submit" class="submit-button">Add to eaten foods</button>
       <template v-if="amount > 0">
         <hr />
         Protein eaten: {{ (protein / 100) * amount }}g
@@ -127,6 +123,11 @@ export default defineComponent({
     lastMonth: {
       type: String as PropType<MonthName>,
       default: "",
+      required: false,
+    },
+    showImage: {
+      type: Boolean,
+      default: true,
       required: false,
     },
   },
