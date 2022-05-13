@@ -25,9 +25,20 @@ export default {
       return state.foodItems;
     },
 
-    foodItems(state: { foodItems: FoodItemTs[] }): FoodItemTs[] {
-      return state.foodItems.filter(
-        (foodItem) => foodItem.food_regions !== null
+    foodItems(
+      state: { foodItems: FoodItemTs[] },
+      getters: any,
+      rootState: any,
+      rootGetters: any
+    ): FoodItemTs[] {
+      const filters = rootGetters["auth/filters"] as unknown as Record<
+        string,
+        boolean
+      >;
+      return state.foodItems.filter((foodItem) =>
+        foodItem.food_regions !== null && filters.showOnlyWithCaloricInfo
+          ? foodItem.kcal && foodItem.kcal > 0
+          : true
       );
     },
 
@@ -48,9 +59,16 @@ export default {
         string,
         number
       >;
-      const foodItems = state.foodItems;
+      const filters = rootGetters["auth/filters"] as unknown as Record<
+        string,
+        boolean
+      >;
+      let foodItems = state.foodItems as FoodItemTs[];
+      foodItems = foodItems.filter((food) =>
+        filters.showOnlyWithCaloricInfo ? food.kcal && food.kcal > 0 : true
+      );
       const foodItemsWithRatios = Object.keys(foodItems).map((key) => {
-        const foodItem = foodItems[key] as any;
+        const foodItem = foodItems[key as any] as any;
         // Compute percentages between each consumed nutrient and the sum of all consumed nutrients
         const consumedPercentage = {
           carbsRatio:
@@ -312,10 +330,9 @@ export default {
       }: { searchTerm: string; searchField?: string }
     ): Promise<void> {
       const request = await axios.get(
-        `/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients`
+        `/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients&with[]=categories`
       );
       const foodItems = request.data.data as FoodItemTs[];
-      const idsAlreadyExisting = foodItems.map((foodItem) => foodItem.id);
       foodItems.forEach((foodItem) => {
         // if (!idsAlreadyExisting.includes(foodItem.id)) {
         commit("ADD_FOOD_ITEM", foodItem);

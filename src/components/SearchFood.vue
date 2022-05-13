@@ -130,34 +130,6 @@ export default defineComponent({
   },
 
   methods: {
-    ...mapActions({
-      addFoodItem: "foodItems/addFoodItem",
-    }),
-
-    searchForFood() {
-      axios
-        .get(
-          `/api/foods?per_page=500&search[term]=${this.search}&scopes[]=withAllMacronutrients&with[]=categories`
-        )
-        .then((response) => {
-          // For each item, add it addFoodItem
-          response.data.data.forEach((foodItem: FoodItemTs) => {
-            this.addFoodItem(foodItem);
-          });
-        });
-    },
-
-    checkIsFoodNativeToCountry(food: FoodItemTs): boolean | null {
-      return (
-        food.food_regions?.find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })?.grows_in_region ?? null
-      );
-    },
-
     getFoodCategoriesForFoodItem(food: FoodItemTs): string[] {
       if (!food.categories) {
         return [];
@@ -180,16 +152,11 @@ export default defineComponent({
     //   (term) => store.getters["foodItems/foodItemsMatchingSearchTerm"]
     // );
 
-    const filters = reactive({
-      country: CountryCode.Fr,
-      region: "All",
-      month: new Date().toLocaleString("en-us", { month: "long" }),
-      showOnlyNative: false,
-    });
+    const filters = computed(() => store.getters["auth/filters"]) as any;
 
     const sort = reactive({
       order: "asc",
-      by: "kcal" as keyof FoodItemTs,
+      by: "carbohydrate" as keyof FoodItemTs,
       options: {
         kcal: "kcal",
         name: "name",
@@ -198,7 +165,7 @@ export default defineComponent({
       },
     });
 
-    const foodItemsMatchingSearchTerm = computed(
+    const allFoodItems = computed(
       () => store.getters["foodItems/allFoodItems"]
     );
 
@@ -212,19 +179,50 @@ export default defineComponent({
       threshold: 0.4,
     });
 
+    const checkIsFoodNativeToCountry = (food: FoodItemTs) =>
+      food.food_regions?.find((foodRegion) => {
+        return (
+          foodRegion.region.country_code.toLowerCase() ===
+          filters.value.country.toLowerCase()
+        );
+      })?.grows_in_region ?? null;
+
     onMounted(() => {
       search.value = route.get("searchTerm") ?? "";
+      searchForFood();
     });
 
     watch(
-      foodItemsMatchingSearchTerm.value,
+      allFoodItems.value,
       (newValue) => {
-        items.value = Object.values(newValue);
+        items.value = Object.values(newValue).filter((food: FoodItemTs) => {
+          return (
+            (filters.value.showOnlyNative
+              ? checkIsFoodNativeToCountry(food)
+              : true) &&
+            (filters.value.showOnlyWithCaloricInfo
+              ? food.kcal && food.kcal > 0
+              : true)
+          );
+        });
       },
       {
         immediate: true,
       }
     );
+
+    const searchForFood = () => {
+      axios
+        .get(
+          `/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
+        )
+        .then((response) => {
+          // For each item, add it addFoodItem
+          response.data.data.forEach((foodItem: FoodItemTs) => {
+            store.dispatch("foodItems/addFoodItem", foodItem);
+          });
+        });
+    };
 
     return {
       items,
@@ -232,8 +230,9 @@ export default defineComponent({
       search,
       results,
       noResults,
-      foodItemsMatchingSearchTerm,
       sort,
+      searchForFood,
+      checkIsFoodNativeToCountry,
     };
   },
 });

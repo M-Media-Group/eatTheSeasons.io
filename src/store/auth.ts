@@ -1,4 +1,5 @@
 import { addMinutes } from "@/helpers";
+import { CountryCode } from "@/types/foodItem";
 import { Commit, Dispatch } from "vuex";
 
 export default {
@@ -21,7 +22,21 @@ export default {
       ),
       mealTimeDurationInMinutes: 30,
     },
+    filters: {
+      country: CountryCode.Fr,
+      region: "All",
+      month: new Date().toLocaleString("en-us", { month: "long" }),
+      showOnlyNative:
+        localStorage.getItem("filters.showOnlyNative") === "true"
+          ? true
+          : false,
+      showOnlyWithCaloricInfo:
+        localStorage.getItem("filters.showOnlyWithCaloricInfo") === "true"
+          ? true
+          : false,
+    },
   },
+
   getters: {
     isSignedUp(state: { isSignedUp: boolean }): boolean {
       return state.isSignedUp;
@@ -131,7 +146,11 @@ export default {
       };
       return normalizedDifference;
     },
+    filters(state: { filters: object }): object {
+      return state.filters;
+    },
   },
+
   mutations: {
     SET_SIGNED_UP(state: { isSignedUp: boolean }, value: boolean): void {
       state.isSignedUp = value;
@@ -141,7 +160,11 @@ export default {
     SET_GOALS(state: { goals: unknown }, value: unknown): void {
       state.goals = value;
     },
+    SET_FILTERS(state: { filters: object }, value: object): void {
+      state.filters = value;
+    },
   },
+
   actions: {
     signUp({ commit }: { commit: Commit }, value: boolean): void {
       commit("SET_SIGNED_UP", value);
@@ -153,6 +176,15 @@ export default {
       for (const key in value) {
         localStorage.setItem(`goals.${key}`, value[key].toString());
         gtag("event", "udpate_goals_" + key, {
+          value: value[key],
+        });
+      }
+    },
+    setFilters({ commit }: { commit: Commit }, value: any): void {
+      commit("SET_FILTERS", value);
+      for (const key in value) {
+        localStorage.setItem(`filters.${key}`, value[key].toString());
+        gtag("event", "udpate_filters_" + key, {
           value: value[key],
         });
       }
