@@ -1,7 +1,9 @@
 <template>
-  <div class="grid big-gap">
+  <div class="page-header default">
     <h1>Meal Planner</h1>
-
+    <p>Plan meals that are healthy and convenient.</p>
+  </div>
+  <div class="grid big-gap">
     <SignUp v-if="!isSignedUp" />
     <template v-else>
       <div class="grid columns">

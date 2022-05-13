@@ -1,21 +1,24 @@
 <template>
   <div class="grid">
+    <div class="page-header default">
+      <h1>
+        Eat <MonthSelector v-model="filters.month" /> in
+        <CountrySelector v-model="filters.country" />
+        ({{ filters.region === "All" ? "all regions" : filters.region }})
+      </h1>
+      <p v-if="!isSignedUp">
+        <router-link to="/sign-up">Sign up</router-link> to see more information
+        about each food and seasonality.
+      </p>
+    </div>
     <div class="main-banner" v-if="!isSignedUp && !isOnMobile">
       <SignUp />
     </div>
-    <h1>
-      Eat <MonthSelector v-model="filters.month" /> in
-      <CountrySelector v-model="filters.country" />
-      ({{ filters.region === "All" ? "all regions" : filters.region }})
-    </h1>
     <MlCam
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
-    <p v-if="!isSignedUp">
-      <router-link to="/sign-up">Sign up</router-link> to see more information
-      about each food and seasonality.
-    </p>
+
     <div class="grid big-gap">
       <FoodItem
         v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
@@ -95,13 +98,6 @@ export default defineComponent({
 
   data() {
     return {
-      filters: {
-        country: CountryCode.Fr,
-        region: "All",
-        month: new Date().toLocaleString("en-us", { month: "long" }),
-        searchTerm: "",
-        showOnlyNative: false,
-      },
       sort: {
         order: "asc",
         by: "kcal" as keyof FoodItemTs,
@@ -127,6 +123,7 @@ export default defineComponent({
       caloriesEaten: "foodItems/caloriesEaten",
       foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
       isInBeta: "app/isInBeta",
+      filters: "auth/filters",
     }),
 
     isOnMobile() {
@@ -193,11 +190,7 @@ export default defineComponent({
 
     filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
       const foodItems = this.foodItemsInSeasonAndRegion;
-      const filteredFoodItems = foodItems.filter((foodItem) =>
-        foodItem.name
-          .toLowerCase()
-          .includes(this.filters.searchTerm.toLowerCase())
-      );
+      const filteredFoodItems = foodItems.filter((foodItem) => true); // No filtering here just yet
       // Sort by this.sort.by
       return filteredFoodItems.sort((a, b) => {
         const aValue = a[this.sort.by];

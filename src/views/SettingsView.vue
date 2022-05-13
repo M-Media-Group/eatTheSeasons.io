@@ -1,6 +1,8 @@
 <template>
-  <div class="grid big-gap">
-    <h1 style="margin-bottom: 0">Settings</h1>
+  <div class="page-header default">
+    <h1>Settings</h1>
+  </div>
+  <div class="grid big-gap default-padding">
     <div class="grid">
       <h2>Your goals</h2>
       <GoalSettings />

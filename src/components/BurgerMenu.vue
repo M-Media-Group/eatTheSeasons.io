@@ -1,5 +1,15 @@
 <template>
-  <div class="open" v-if="!isOpen" @click="isOpen = true">
+  <div
+    class="open"
+    v-if="!isOpen"
+    @click="isOpen = true"
+    :style="{
+      background:
+        kcalConsumedToday > goals.calories + goals.calorieGoalTolerance
+          ? '#C3453F'
+          : '',
+    }"
+  >
     <svg
       width="24"
       height="24"
@@ -7,9 +17,9 @@
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect y="4" width="24" height="2" fill="#2C3E50" />
-      <rect y="11" width="24" height="2" fill="#2C3E50" />
-      <rect y="18" width="24" height="2" fill="#2C3E50" />
+      <rect y="4" width="24" height="2" fill="#fff" />
+      <rect y="11" width="24" height="2" fill="#fff" />
+      <rect y="18" width="24" height="2" fill="#fff" />
     </svg>
   </div>
   <aside class="menu" v-else>
@@ -64,7 +74,15 @@
       </li>
       <li></li>
       <li>
-        <router-link to="/progress" @click="isOpen = false"
+        <router-link
+          to="/progress"
+          @click="isOpen = false"
+          :style="{
+            color:
+              kcalConsumedToday > goals.calories + goals.calorieGoalTolerance
+                ? '#C3453F'
+                : '',
+          }"
           >Progress: {{ Math.round(kcalConsumedToday) }} /
           {{ goals.calories }} kcal
         </router-link>

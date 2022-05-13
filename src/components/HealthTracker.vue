@@ -1,19 +1,29 @@
 <template>
   <div class="grid big-gap">
     <div class="grid">
-      <h1 v-if="hasExceededCalories">Stop eating for today!</h1>
+      <div
+        class="page-header"
+        :style="{ background: caloriesEaten > goals.calories ? '#C3453F' : '' }"
+      >
+        <h1 v-if="hasExceededCalories">Stop eating for today!</h1>
 
-      <h1 v-else-if="caloriesEaten > goals.calories">
-        You've exceeded your caloric goal by
-        {{ Math.round(caloriesEaten - goals.calories) }} kilocalories
-      </h1>
+        <h1 v-else-if="caloriesEaten > goals.calories">
+          You've exceeded your caloric goal by
+          {{ Math.round(caloriesEaten - goals.calories) }} kilocalories
+        </h1>
 
-      <h1 v-else-if="getConsumedItems.length === 0">
-        Find your first food of the day in
-        <router-link to="/search">Search</router-link>
-      </h1>
+        <h1 v-else-if="getConsumedItems.length === 0">
+          Find your first food of the day in
+          <router-link to="/search">Search</router-link>
+        </h1>
 
-      <h1 v-else>You ate {{ Math.round(caloriesEaten) }} kilocalories today</h1>
+        <h1 v-else>
+          You ate {{ Math.round(caloriesEaten) }} kilocalories today
+        </h1>
+
+        <!-- <p>Suggested foods based on your current nutrition goals.</p> -->
+      </div>
+      <h2>Nutrient Information</h2>
 
       <div v-if="getConsumedItems.length !== 0" class="grid small-gap">
         <p>
@@ -115,7 +125,10 @@ export default defineComponent({
     // Find foodItems with similar ratios as in currentVsGoals
 
     hasExceededCalories() {
-      return (this as any).caloriesEaten.toFixed(2) - this.goals.calories > 500;
+      return (
+        (this as any).caloriesEaten.toFixed(2) - this.goals.calories >
+        this.goals.calorieGoalTolerance
+      );
     },
 
     // Set a get and set for Date

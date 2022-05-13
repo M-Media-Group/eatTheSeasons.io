@@ -1,5 +1,12 @@
 <template>
-  <nav>
+  <nav
+    :style="{
+      background:
+        caloriesEaten > goals.calories + goals.calorieGoalTolerance
+          ? '#C3453F'
+          : '',
+    }"
+  >
     <h1 class="logo-text">
       <router-link to="/"
         >Eat.Ninja<span v-if="isInBeta"> (beta)</span></router-link
@@ -39,6 +46,9 @@ export default defineComponent({
       isSignedUp: "auth/isSignedUp",
       isInBeta: "app/isInBeta",
       supportsIndexedDB: "app/supportsIndexedDB",
+      caloriesEaten: "consumedItems/kcalConsumedToday",
+
+      goals: "auth/goals",
     }),
   },
   created() {

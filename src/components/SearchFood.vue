@@ -3,7 +3,7 @@
     <!-- {{ foodItemsMatchingSearchTerm(filters.searchTerm).length }} -->
     <slot name="header" :search="search">
       <template v-if="hLevel === 1">
-        <div class="page-header">
+        <div class="page-header default">
           <h1>Find food</h1>
         </div>
         <input

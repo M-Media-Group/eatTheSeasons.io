@@ -1,6 +1,9 @@
 <template>
   <div class="grid">
-    <h1>Suggested food</h1>
+    <div class="page-header default">
+      <h1>Food for you</h1>
+      <p>Suggested foods based on your current nutrition goals.</p>
+    </div>
     <SuggestedFoodItems />
   </div>
 </template>
