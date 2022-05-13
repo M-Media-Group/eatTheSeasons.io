@@ -41,14 +41,30 @@
           />
         </svg>
       </li>
-      <li><router-link to="/">In season</router-link></li>
-      <li><router-link to="/suggested-food">For you</router-link></li>
-      <li><router-link to="/search">Search</router-link></li>
-      <li><router-link to="/meal-planner">Meal planner</router-link></li>
-      <li><router-link to="/settings">Settings</router-link></li>
+      <li>
+        <router-link to="/" @click="isOpen = false">In season</router-link>
+      </li>
+      <li>
+        <router-link to="/suggested-food" @click="isOpen = false"
+          >For you</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/search" @click="isOpen = false">Search</router-link>
+      </li>
+      <li>
+        <router-link to="/meal-planner" @click="isOpen = false"
+          >Meal planner</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/settings" @click="isOpen = false"
+          >Settings</router-link
+        >
+      </li>
       <li></li>
       <li>
-        <router-link to="/progress"
+        <router-link to="/progress" @click="isOpen = false"
           >Progress: {{ Math.round(kcalConsumedToday) }} /
           {{ goals.calories }} kcal
         </router-link>
