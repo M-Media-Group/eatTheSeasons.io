@@ -209,7 +209,7 @@ export default defineComponent({
       minMatchCharLength: 3,
       findAllMatches: true,
       location: 0,
-      threshold: 0.3,
+      threshold: 0.4,
     });
 
     onMounted(() => {
