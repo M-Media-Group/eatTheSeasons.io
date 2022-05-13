@@ -198,11 +198,12 @@ form {
     margin: 0 auto;
     width: 100%;
     grid-auto-columns: 1fr auto;
+    max-width: 100%;
 }
 
 .bar {
     background: black;
-    width: $baseNumber * 40 + px;
+    // width: $baseNumber * 40 + px;
     max-width: 100%;
     // min-width: 50vw;
     min-width: 250px;

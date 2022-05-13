@@ -7,16 +7,7 @@
     </h1>
     <div>
       <template v-if="isSignedUp">
-        <router-link to="/search">Search</router-link> ·
-        <router-link v-if="supportsIndexedDB" to="/progress"
-          >Progress</router-link
-        >
-        ·
-        <router-link v-if="supportsIndexedDB" to="/suggested-food"
-          >Suggested</router-link
-        >
-        ·
-        <router-link to="/meal-planner">Meal Planner</router-link>
+        <burger-menu></burger-menu>
       </template>
       <router-link v-else to="/sign-up">Sign up</router-link>
     </div>
@@ -37,8 +28,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
+import BurgerMenu from "./components/BurgerMenu.vue";
 
 export default defineComponent({
+  components: {
+    BurgerMenu,
+  },
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
