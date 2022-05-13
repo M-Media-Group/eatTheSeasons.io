@@ -72,7 +72,7 @@
       <button
         type="submit"
         class="submit-button"
-        @click.prevent="handleButtonClick()"
+        @click="handleButtonClick($event)"
       >
         Add to tracker
       </button>
@@ -156,14 +156,6 @@ export default defineComponent({
     );
 
     const helpsReachGoals = computed(() => {
-      if (
-        !isSignedUp.value ||
-        !supportsIndexedDB.value ||
-        !props.id ||
-        !foodItemsThatHelpReachGoals.value
-      ) {
-        return false;
-      }
       return (
         foodItemsThatHelpReachGoals.value.findIndex(
           (foodItem: FoodItem) => foodItem.id === props.id
@@ -197,19 +189,17 @@ export default defineComponent({
       isFoodTrackerInputOpen.value = false;
     };
 
-    const handleButtonClick = () => {
+    const handleButtonClick = (event: Event) => {
       if (!isFoodTrackerInputOpen.value) {
+        event.preventDefault();
         isFoodTrackerInputOpen.value = true;
         nextTick(() => {
           if (input.value) {
             input.value.focus();
           }
         });
-      } else if (amount.value && amount.value > 0) {
-        submitFoodItem({
-          food_id: props.id,
-          grams: amount.value,
-        });
+      } else if (!amount.value || amount.value === 0) {
+        return event.preventDefault();
       }
     };
 
@@ -225,6 +215,7 @@ export default defineComponent({
       handleButtonClick,
       isFoodTrackerInputOpen,
       input,
+      submitFoodItem,
     };
   },
 });

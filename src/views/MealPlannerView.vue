@@ -1,6 +1,6 @@
 <template>
   <div class="page-header default">
-    <h1>Meal Planner</h1>
+    <h1>Meal planner</h1>
     <p>Plan meals that are healthy and convenient.</p>
   </div>
   <div class="grid big-gap">
