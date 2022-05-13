@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@700&display=swap");
 
 $baseNumber: 8;
 $borderRadius: ($baseNumber * 2) + px;
@@ -46,6 +48,17 @@ html {
 
 .logo-text {
     font-family: Herculanum;
+    font-family: "Hepta Slab";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    a {
+        text-decoration: none;
+    }
+    /* identical to box height */
+
+    text-align: center;
     margin: 0;
 }
 

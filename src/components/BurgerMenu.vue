@@ -156,6 +156,9 @@ export default defineComponent({
       flex: none;
       order: 1;
       flex-grow: 0;
+      a {
+        text-decoration: none;
+      }
     }
   }
 }
