@@ -92,11 +92,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { Category, FoodItem, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
-import { mapGetters, mapActions } from "vuex";
+import { useStore } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
 
 export default defineComponent({
@@ -104,6 +104,7 @@ export default defineComponent({
   components: {
     NutrientInformation,
   },
+
   props: {
     id: Number,
     name: String,
@@ -131,54 +132,62 @@ export default defineComponent({
       required: false,
     },
   },
-  data() {
-    return {
-      amount: 0,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      isSignedUp: "auth/isSignedUp",
-      supportsIndexedDB: "app/supportsIndexedDB",
-      foodItemsThatHelpReachGoals: "foodItems/foodItemsThatHelpReachGoals",
-      consumedItemsToday: "consumedItems/allConsumedItemsToday",
-    }),
-    helpsReachGoals() {
+
+  setup(props) {
+    const amount = ref(0);
+
+    const store = useStore();
+
+    const supportsIndexedDB = store.getters["app/supportsIndexedDB"];
+
+    const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
+    const foodItemsThatHelpReachGoals = computed(
+      () => store.getters["foodItems/foodItemsThatHelpReachGoals"]
+    );
+    const consumedItemsToday = computed(
+      () => store.getters["consumedItems/allConsumedItemsToday"]
+    );
+
+    const helpsReachGoals = computed(() => {
       if (
-        !this.isSignedUp ||
-        !this.supportsIndexedDB ||
-        !this.id ||
-        !this.foodItemsThatHelpReachGoals
+        !isSignedUp.value ||
+        !supportsIndexedDB.value ||
+        !props.id ||
+        !foodItemsThatHelpReachGoals.value
       ) {
         return false;
       }
       return (
-        this.foodItemsThatHelpReachGoals.findIndex(
-          (foodItem: FoodItem) => foodItem.id === this.id
+        foodItemsThatHelpReachGoals.value.findIndex(
+          (foodItem: FoodItem) => foodItem.id === props.id
         ) !== -1
       );
-    },
-    timesConsumedToday() {
-      if (
-        !this.isSignedUp ||
-        !this.supportsIndexedDB ||
-        !this.id ||
-        !this.consumedItemsToday
-      ) {
-        return null;
-      }
+    });
+
+    const timesConsumedToday = computed(() => {
       // Count amount of times this foodId appears in consumedItemsToday
       return (
-        this.consumedItemsToday.filter(
-          (foodItem: consumedItem) => foodItem.food_id === this.id
+        consumedItemsToday.value.filter(
+          (foodItem: consumedItem) => foodItem.food_id === props.id
         ).length ?? 0
       );
-    },
-  },
-  methods: {
-    ...mapActions({
-      addFoodItem: "consumedItems/addConsumedItem",
-    }),
+    });
+
+    const addFoodItem = (foodItem: consumedItem) => {
+      // Add food item to consumedItems
+      store.dispatch("consumedItems/addConsumedItem", foodItem);
+    };
+
+    return {
+      amount,
+      isSignedUp,
+      helpsReachGoals,
+      supportsIndexedDB,
+      foodItemsThatHelpReachGoals,
+      consumedItemsToday,
+      timesConsumedToday,
+      addFoodItem,
+    };
   },
 });
 </script>
