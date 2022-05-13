@@ -1,28 +1,27 @@
 <template>
   <div class="grid" v-if="isSignedUp">
-    <slot name="header" v-bind:filters="filters">
-      <h1>
+    <!-- {{ foodItemsMatchingSearchTerm(filters.searchTerm).length }} -->
+    <slot name="header" :search="search">
+      <component :is="'h' + hLevel">
         Find
         <input
           autofocus
           type="text"
           lang="en"
           spellcheck="true"
-          v-model="filters.searchTerm"
+          v-model.trim="search"
           placeholder="any food"
           required
           minlength="3"
         />
-      </h1>
+      </component>
     </slot>
-    <div v-if="filters.searchTerm.length < 3" style="margin-bottom: 3rem">
+    <div v-if="search.length < 3" style="margin-bottom: 3rem">
       Type at least 3 characters to search
     </div>
-    <div
-      v-else-if="foodItemsMatchingSearchTerm(filters.searchTerm).length === 0"
-    >
+    <div v-else-if="results.length === 0">
       <div>
-        No foods found for <strong>{{ filters.searchTerm }}</strong
+        No foods found for <strong>{{ search }}</strong
         >.
       </div>
       This website was created just this week so please bear with us as we add
@@ -30,10 +29,7 @@
     </div>
     <div class="grid big-gap" v-else>
       <FoodItem
-        v-for="food in foodItemsMatchingSearchTerm(filters.searchTerm).slice(
-          0,
-          resultsLimit
-        )"
+        v-for="food in results.slice(0, resultsLimit)"
         :id="food.id"
         :src="food.image_url"
         :name="food.name"
@@ -47,7 +43,7 @@
         :key="food.id"
         :showAddForm="true"
         v-bind="$attrs"
-        ><slot v-bind:food="food"></slot
+        ><slot :food="food"></slot
       ></FoodItem>
     </div>
     <div
@@ -66,13 +62,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from "vue";
+import {
+  defineComponent,
+  defineAsyncComponent,
+  reactive,
+  computed,
+  ref,
+  onMounted,
+  watch,
+} from "vue";
 import { mapGetters, mapActions } from "vuex";
 
 import { CountryCode, FoodItem as FoodItemTs } from "@/types/foodItem";
 import { getBestImageUrl } from "@/helpers";
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
 import axios from "axios";
+import { useVueFuse } from "vue-fuse";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "SearchView",
@@ -82,45 +88,23 @@ export default defineComponent({
     SignUp,
   },
 
-  data() {
-    return {
-      foundFoodItems: [],
-      filters: {
-        country: CountryCode.Fr,
-        region: "All",
-        month: new Date().toLocaleString("en-us", { month: "long" }),
-        searchTerm: "",
-        showOnlyNative: false,
-      },
-      sort: {
-        order: "asc",
-        by: "kcal" as keyof FoodItemTs,
-        options: {
-          kcal: "kcal",
-          name: "name",
-          fat: "fat",
-          carbohydrate: "carbohydrate",
-        },
-      },
-    };
-  },
-
-  mounted() {
-    // Set the searchTerm = to the searchTerm from the url
-    this.filters.searchTerm = this.$route.query.searchTerm?.toString() || "";
+  props: {
+    hLevel: {
+      type: Number,
+      default: 1,
+    },
   },
 
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
       foodItems: "foodItems/foodItems",
-      foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
       resultsLimit: "app/resultsLimit",
     }),
   },
 
   watch: {
-    "filters.searchTerm": {
+    search: {
       handler(searchTerm, oldTerm) {
         if (searchTerm === oldTerm) {
           return;
@@ -136,7 +120,7 @@ export default defineComponent({
           gtag("event", "search", {
             search_term: searchTerm,
           });
-          if (this.foodItemsMatchingSearchTerm(searchTerm).length > 10) {
+          if (this.results.length > 50) {
             return;
           }
           this.searchForFood();
@@ -153,7 +137,7 @@ export default defineComponent({
     searchForFood() {
       axios
         .get(
-          `/api/foods?per_page=500&search[term]=${this.filters.searchTerm}&scopes[]=withAllMacronutrients`
+          `/api/foods?per_page=500&search[term]=${this.search}&scopes[]=withAllMacronutrients&with[]=categories`
         )
         .then((response) => {
           // For each item, add it addFoodItem
@@ -186,6 +170,71 @@ export default defineComponent({
     async vueGetBestImageUrl(name: string) {
       return await getBestImageUrl(name);
     },
+  },
+
+  setup() {
+    const store = useStore();
+    const route = new URLSearchParams(window.location.search);
+
+    // const foodItemsMatchingSearchTerm = computed(
+    //   (term) => store.getters["foodItems/foodItemsMatchingSearchTerm"]
+    // );
+
+    const filters = reactive({
+      country: CountryCode.Fr,
+      region: "All",
+      month: new Date().toLocaleString("en-us", { month: "long" }),
+      showOnlyNative: false,
+    });
+
+    const sort = reactive({
+      order: "asc",
+      by: "kcal" as keyof FoodItemTs,
+      options: {
+        kcal: "kcal",
+        name: "name",
+        fat: "fat",
+        carbohydrate: "carbohydrate",
+      },
+    });
+
+    const foodItemsMatchingSearchTerm = computed(
+      () => store.getters["foodItems/allFoodItems"]
+    );
+
+    const items = ref(null) as any;
+
+    const { search, results, noResults } = useVueFuse(items, {
+      keys: ["name", "categories.name", "description"],
+      minMatchCharLength: 3,
+      findAllMatches: true,
+      location: 0,
+      threshold: 0.3,
+    });
+
+    onMounted(() => {
+      search.value = route.get("searchTerm") ?? "";
+    });
+
+    watch(
+      foodItemsMatchingSearchTerm.value,
+      (newValue) => {
+        items.value = Object.values(newValue);
+      },
+      {
+        immediate: true,
+      }
+    );
+
+    return {
+      items,
+      filters,
+      search,
+      results,
+      noResults,
+      foodItemsMatchingSearchTerm,
+      sort,
+    };
   },
 });
 </script>

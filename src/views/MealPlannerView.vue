@@ -42,22 +42,7 @@
           />
         </div>
 
-        <SearchFood :showAddForm="false" :showImage="false">
-          <template v-slot:header="{ filters }">
-            <h2>
-              Find
-              <input
-                autofocus
-                type="text"
-                lang="en"
-                spellcheck="true"
-                v-model="filters.searchTerm"
-                placeholder="any food"
-                required
-                style="width: auto"
-              />
-            </h2>
-          </template>
+        <SearchFood :showAddForm="false" :showImage="false" :hLevel="2">
           <template v-slot:default="{ food }">
             <form @submit.prevent="addItem(food, grams)">
               <label
