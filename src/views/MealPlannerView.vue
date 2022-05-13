@@ -40,6 +40,9 @@
             :useConsumedItemsInVuex="false"
             @deleteConsumedItem="deleteConsumedItem($event)"
           />
+          <button v-if="items.length > 0" @click="addItemsToConsumedFoods()">
+            Move to consumed foods
+          </button>
         </div>
 
         <SearchFood :showAddForm="false" :showImage="false" :hLevel="2">
@@ -139,6 +142,12 @@ export default defineComponent({
     deleteConsumedItem(item: number) {
       console.log(item);
       this.items = this.items.filter((i) => i.id !== item);
+    },
+    addItemsToConsumedFoods() {
+      this.items.forEach((item) => {
+        this.$store.dispatch("consumedItems/addConsumedItem", item);
+      });
+      this.items = [];
     },
   },
 });
