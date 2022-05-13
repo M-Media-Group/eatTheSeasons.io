@@ -2,7 +2,22 @@
   <div class="grid" v-if="isSignedUp">
     <!-- {{ foodItemsMatchingSearchTerm(filters.searchTerm).length }} -->
     <slot name="header" :search="search">
-      <component :is="'h' + hLevel">
+      <template v-if="hLevel === 1">
+        <div class="page-header">
+          <h1>Find food</h1>
+        </div>
+        <input
+          autofocus
+          type="text"
+          lang="en"
+          spellcheck="true"
+          v-model.trim="search"
+          placeholder="any food"
+          required
+          minlength="3"
+        />
+      </template>
+      <component v-else :is="'h' + hLevel">
         Find
         <input
           autofocus
@@ -27,7 +42,7 @@
       This website was created just this week so please bear with us as we add
       more food, months, and regions!
     </div>
-    <div class="grid big-gap" v-else>
+    <div class="grid big-gap search-results" v-else>
       <FoodItem
         v-for="food in results.slice(0, resultsLimit)"
         :id="food.id"

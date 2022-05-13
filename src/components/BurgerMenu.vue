@@ -1,5 +1,5 @@
 <template>
-  <div class="close" v-if="!isOpen" @click="isOpen = true">
+  <div class="open" v-if="!isOpen" @click="isOpen = true">
     <svg
       width="24"
       height="24"
@@ -116,13 +116,16 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.close {
+.open {
   position: fixed;
   top: 0;
   right: 0;
   padding: 16px;
   cursor: pointer;
   background: white;
+  //   blur background
+  //   backdrop-filter: invert(80%) blur(20px) opacity(0.5);
+
   border-radius: 8px;
   z-index: 100;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);

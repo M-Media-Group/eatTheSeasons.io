@@ -55,25 +55,27 @@
     <slot></slot>
     <form
       v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
-      @submit.prevent="
-        addFoodItem({ food_id: id, grams: amount });
-        amount = 0;
-        $emit('addedConsumedFoodItem', { food_id: id, grams: amount });
-      "
+      @submit.prevent="submitFoodItem({ food_id: id, grams: amount })"
     >
-      <label>
-        <input
-          type="number"
-          inputmode="numeric"
-          pattern="[0-9]*"
-          min="1"
-          v-model.number="amount"
-          placeholder="Amount"
-          required
-        />
-        <span>g</span>
-      </label>
-      <button type="submit" class="submit-button">Add to eaten foods</button>
+      <input
+        v-if="isFoodTrackerInputOpen"
+        ref="input"
+        type="number"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        min="1"
+        v-model.number="amount"
+        placeholder="Grams"
+        required
+      />
+
+      <button
+        type="submit"
+        class="submit-button"
+        @click.prevent="handleButtonClick()"
+      >
+        Add to tracker
+      </button>
       <template v-if="amount > 0">
         <hr />
         Protein eaten: {{ (protein / 100) * amount }}g
@@ -92,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, defineEmits, nextTick } from "vue";
 import { Category, FoodItem, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
@@ -133,10 +135,15 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
-    const amount = ref(0);
+  emits: ["addedConsumedFoodItem"],
+
+  setup(props, { emit }) {
+    const amount = ref(null as number | null);
+    const input = ref(null) as any;
 
     const store = useStore();
+
+    const isFoodTrackerInputOpen = ref(false);
 
     const supportsIndexedDB = store.getters["app/supportsIndexedDB"];
 
@@ -173,9 +180,37 @@ export default defineComponent({
       );
     });
 
-    const addFoodItem = (foodItem: consumedItem) => {
+    const addFoodItem = (
+      foodItem: consumedItem | { food_id: number | undefined; grams: number }
+    ) => {
       // Add food item to consumedItems
       store.dispatch("consumedItems/addConsumedItem", foodItem);
+    };
+
+    const submitFoodItem = (data: {
+      food_id: number | undefined;
+      grams: number;
+    }) => {
+      addFoodItem(data);
+      amount.value = null;
+      emit("addedConsumedFoodItem", data);
+      isFoodTrackerInputOpen.value = false;
+    };
+
+    const handleButtonClick = () => {
+      if (!isFoodTrackerInputOpen.value) {
+        isFoodTrackerInputOpen.value = true;
+        nextTick(() => {
+          if (input.value) {
+            input.value.focus();
+          }
+        });
+      } else if (amount.value && amount.value > 0) {
+        submitFoodItem({
+          food_id: props.id,
+          grams: amount.value,
+        });
+      }
     };
 
     return {
@@ -187,6 +222,9 @@ export default defineComponent({
       consumedItemsToday,
       timesConsumedToday,
       addFoodItem,
+      handleButtonClick,
+      isFoodTrackerInputOpen,
+      input,
     };
   },
 });
