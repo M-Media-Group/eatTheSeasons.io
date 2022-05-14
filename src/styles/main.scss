@@ -257,7 +257,7 @@ form {
     min-width: 250px;
     margin: 0 auto;
     height: $baseNumber + px;
-    border-radius: $borderRadius;
+    border-radius: $baseNumber + px;
     display: flex;
     // margin-top: $baseNumber + px;
     margin-bottom: ($baseNumber * 5 - ($baseNumber / 2)) + px;
@@ -275,6 +275,13 @@ form {
         top: $baseNumber * 2 + px;
         text-align: center;
         left: 35%;
+    }
+    // First child
+    > :first-child {
+        border-radius: $baseNumber + px 0 0 $baseNumber + px;
+    }
+    > :last-child {
+        border-radius: 0 $baseNumber + px $baseNumber + px 0;
     }
 }
 .protein {
