@@ -205,8 +205,8 @@ export default {
 
     foodItemsMatchingSearchTerm:
       (state: { foodItems: FoodItemTs[] }) =>
-      (searchTerm: string): FoodItemTs[] => {
-        if (searchTerm === "") {
+      (searchTerm: string | null): FoodItemTs[] => {
+        if (!searchTerm || searchTerm === "" || searchTerm.length < 4) {
           return state.foodItems;
         }
         return state.foodItems.filter(
@@ -327,12 +327,17 @@ export default {
       {
         searchTerm,
         searchField = "name",
-      }: { searchTerm: string; searchField?: string }
+      }: { searchTerm: string | null; searchField?: string }
     ): Promise<void> {
-      const request = await axios.get(
-        `/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients&with[]=categories`
+      if (!searchTerm || searchTerm === "" || searchTerm.length < 4) {
+        return Promise.resolve();
+      }
+      const request = await fetch(
+        `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
       );
-      const foodItems = request.data.data as FoodItemTs[];
+      const response = await request.json();
+
+      const foodItems = response.data as FoodItemTs[];
       foodItems.forEach((foodItem) => {
         // if (!idsAlreadyExisting.includes(foodItem.id)) {
         commit("ADD_FOOD_ITEM", foodItem);

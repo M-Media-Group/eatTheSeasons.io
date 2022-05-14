@@ -91,7 +91,6 @@ import { mapGetters, mapActions } from "vuex";
 import { CountryCode, FoodItem as FoodItemTs } from "@/types/foodItem";
 import { getBestImageUrl } from "@/helpers";
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
-import axios from "axios";
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
 
@@ -204,7 +203,6 @@ export default defineComponent({
 
     onMounted(() => {
       search.value = route.get("searchTerm") ?? "";
-      searchForFood();
     });
 
     watch(
@@ -226,17 +224,14 @@ export default defineComponent({
       }
     );
 
-    const searchForFood = () => {
-      axios
-        .get(
-          `/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
-        )
-        .then((response) => {
-          // For each item, add it addFoodItem
-          response.data.data.forEach((foodItem: FoodItemTs) => {
-            store.dispatch("foodItems/addFoodItem", foodItem);
-          });
-        });
+    const searchForFood = async () => {
+      const request = await fetch(
+        `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
+      );
+      const response = await request.json();
+      response.data.forEach((foodItem: FoodItemTs) => {
+        store.dispatch("foodItems/addFoodItem", foodItem);
+      });
     };
 
     return {

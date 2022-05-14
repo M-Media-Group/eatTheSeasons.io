@@ -139,7 +139,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent({
@@ -175,30 +174,26 @@ export default defineComponent({
         )
         .join("&");
     },
-    handleSubmit() {
+    async handleSubmit() {
       if (process.env.NODE_ENV !== "production") {
         this.signUp(true);
         this.$router.push("/onboarding");
         return;
       }
-      const axiosConfig = {
-        header: { "Content-Type": "application/x-www-form-urlencoded" },
-        // Set the baseURL to the current domain
-        baseURL: window.location.origin,
-      };
-      axios
-        .post(
-          "/",
-          this.encode({
-            "form-name": "signup",
-            ...this.form,
-          }),
-          axiosConfig as any
-        )
-        .then(() => {
-          this.signUp(true);
-          this.$router.push("/onboarding");
-        });
+      const request = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: this.encode({
+          "form-name": "signup",
+          ...this.form,
+        }),
+      });
+      if (request.status === 200) {
+        this.signUp(true);
+        this.$router.push("/onboarding");
+      } else {
+        alert("Error: " + request.status);
+      }
     },
   },
 });
