@@ -12,7 +12,7 @@ $purple: rgb(139, 137, 255);
 $dark-green: darken($green, 10%);
 $green-border: $dark-green;
 $green-shadow: #9ecba3;
-$transiton-timing: 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+$transiton-timing: 100ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
 $mobileBreakpoint: $baseNumber * 96 + px;
 $allowDarkMode: false;
 // Declare the vars above as CSS variables
