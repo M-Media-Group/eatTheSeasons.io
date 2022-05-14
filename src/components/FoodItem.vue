@@ -1,6 +1,10 @@
 <template>
   <div class="food-item grid" :id="name.replace(' ', '-')">
-    <img v-if="showImage && src" :src="src" :alt="'A picture of a ' + name" />
+    <img
+      v-if="showImage && computedImageSrc"
+      :src="computedImageSrc"
+      :alt="'A picture of a ' + name"
+    />
     <div>
       <h2>
         {{ name }}
@@ -100,6 +104,7 @@ import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
+import { getBestImageUrl } from "@/helpers";
 
 export default defineComponent({
   name: "FoodItem",
@@ -140,6 +145,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const amount = ref(null as number | null);
     const input = ref(null) as any;
+    const computedImage = ref(props.src);
 
     const store = useStore();
 
@@ -151,6 +157,36 @@ export default defineComponent({
     const foodItemsThatHelpReachGoals = computed(
       () => store.getters["foodItems/foodItemsThatHelpReachGoals"]
     );
+
+    const bestImageUrl = () => {
+      if (!props.name || !props.showImage) {
+        return "";
+      }
+
+      if (computedImage.value) {
+        return computedImage.value;
+      }
+
+      getBestImageUrl(props.name).then((imageUrl) => {
+        computedImage.value = imageUrl;
+      });
+    };
+
+    const computedImageSrc = computed(() => {
+      if (props.src) {
+        return props.src;
+      }
+
+      if (!props.name) {
+        return;
+      }
+
+      bestImageUrl();
+      // Get and wait for bestImageUrl to resolve
+
+      return computedImage.value;
+    });
+
     const consumedItemsToday = computed(
       () => store.getters["consumedItems/allConsumedItemsToday"]
     );
@@ -210,6 +246,7 @@ export default defineComponent({
       isFoodTrackerInputOpen,
       input,
       submitFoodItem,
+      computedImageSrc,
     };
   },
 });
