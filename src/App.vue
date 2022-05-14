@@ -19,7 +19,11 @@
       <router-link v-else to="/sign-up">Sign up</router-link>
     </div>
   </nav>
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <transition name="fade">
+      <component :is="Component" />
+    </transition>
+  </router-view>
   <div style="margin-top: 5rem">
     <small>
       <router-link v-if="supportsIndexedDB" to="/settings"
