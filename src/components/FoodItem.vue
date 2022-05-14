@@ -172,21 +172,16 @@ export default defineComponent({
       );
     });
 
-    const addFoodItem = (
-      foodItem: consumedItem | { food_id: number | undefined; grams: number }
-    ) => {
-      // Add food item to consumedItems
-      store.dispatch("consumedItems/addConsumedItem", foodItem);
-    };
-
     const submitFoodItem = (data: {
       food_id: number | undefined;
       grams: number;
     }) => {
-      addFoodItem(data);
+      if (props.showAddForm) {
+        store.dispatch("consumedItems/addConsumedItem", data);
+      }
+      isFoodTrackerInputOpen.value = false;
       amount.value = null;
       emit("addedConsumedFoodItem", data);
-      isFoodTrackerInputOpen.value = false;
     };
 
     const handleButtonClick = (event: Event) => {
@@ -198,7 +193,7 @@ export default defineComponent({
             input.value.focus();
           }
         });
-      } else if (!amount.value || amount.value === 0) {
+      } else if (!amount.value) {
         return event.preventDefault();
       }
     };
@@ -211,7 +206,6 @@ export default defineComponent({
       foodItemsThatHelpReachGoals,
       consumedItemsToday,
       timesConsumedToday,
-      addFoodItem,
       handleButtonClick,
       isFoodTrackerInputOpen,
       input,
