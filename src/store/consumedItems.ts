@@ -1,6 +1,5 @@
 import { FoodItem as FoodItemTs } from "@/types/foodItem";
 import { Commit, Dispatch } from "vuex";
-import axios from "axios";
 import { toRaw } from "vue";
 
 import {

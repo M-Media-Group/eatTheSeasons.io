@@ -1,6 +1,5 @@
 import { FoodItem as FoodItemTs } from "@/types/foodItem";
 import { Commit, Dispatch } from "vuex";
-import axios from "axios";
 import {
   addToIndexedDB,
   deleteFromIndexedDB,
@@ -267,30 +266,26 @@ export default {
       commit("SET_FOOD_ITEMS", value);
     },
 
-    fetchFoodItems({ state, dispatch, commit }: any): void {
-      axios
-        .get("api/in-season")
-        .then((response) => {
-          (response.data as FoodItemTs[]).forEach((element) => {
-            commit("ADD_FOOD_ITEM", element);
-          });
-        })
-        .catch((error) => {
-          console.error(error);
+    async fetchFoodItems({ state, dispatch, commit }: any): Promise<void> {
+      const inSeasonRequest = await fetch(
+        `${process.env.VUE_APP_BASE_API_URL}/api/in-season`
+      );
+      if (inSeasonRequest.status === 200) {
+        const response = await inSeasonRequest.json();
+        (response as FoodItemTs[]).forEach((element) => {
+          commit("ADD_FOOD_ITEM", element);
         });
-      axios
-        .get(
-          "api/foods?page=1&per_page=500&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen"
-        )
-        .then((response) => {
-          (response.data.data as FoodItemTs[]).forEach((element) => {
-            commit("ADD_FOOD_ITEM", element);
-          });
-          // dispatch("fetchEatenFoodItems");
-        })
-        .catch((error) => {
-          console.error(error);
+      }
+
+      const otherRequest = await fetch(
+        `${process.env.VUE_APP_BASE_API_URL}/api/foods?page=1&per_page=500&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen`
+      );
+      if (otherRequest.status === 200) {
+        const otherResponse = await otherRequest.json();
+        (otherResponse.data as FoodItemTs[]).forEach((element) => {
+          commit("ADD_FOOD_ITEM", element);
         });
+      }
     },
 
     // fetchEatenFoodItems({ state, dispatch, commit, rootGetters }: any): void {
