@@ -1,5 +1,5 @@
 <template>
-  <div class="grid">
+  <div class="grid default-padding">
     <div v-if="step === 0">
       <h1>Welcome!</h1>
       <img

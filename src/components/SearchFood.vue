@@ -148,7 +148,7 @@ export default defineComponent({
           gtag("event", "search", {
             search_term: searchTerm,
           });
-          if (this.results.length > 50) {
+          if (this.results.length > this.resultsLimit) {
             return;
           }
           this.searchForFood();
