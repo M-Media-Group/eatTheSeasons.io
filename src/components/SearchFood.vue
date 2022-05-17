@@ -8,29 +8,43 @@
         </div>
         <input
           autofocus
-          type="text"
+          type="search"
           lang="en"
           spellcheck="true"
           v-model.trim="search"
+          incremental
           placeholder="any food"
           required
           minlength="3"
+          name="search"
+          list="options-list"
         />
       </template>
       <component v-else :is="'h' + hLevel">
         Find
         <input
           autofocus
-          type="text"
+          type="search"
           lang="en"
           spellcheck="true"
           v-model.trim="search"
+          incremental
           placeholder="any food"
           required
           minlength="3"
+          name="search"
+          list="options-list"
         />
       </component>
     </slot>
+    <datalist id="options-list">
+      <option
+        :value="food.name"
+        v-for="food in foodItems"
+        :key="food.id"
+      ></option>
+    </datalist>
+
     <div v-if="search.length < 3" style="margin-bottom: 3rem">
       Type at least 3 characters to search
     </div>
@@ -89,7 +103,7 @@ import {
 import { mapGetters, mapActions } from "vuex";
 
 import { CountryCode, FoodItem as FoodItemTs } from "@/types/foodItem";
-import { getBestImageUrl } from "@/helpers";
+import { debounce, getBestImageUrl } from "@/helpers";
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
@@ -224,7 +238,11 @@ export default defineComponent({
       }
     );
 
-    const searchForFood = async () => {
+    const searchForFood = debounce(() => {
+      searchForFoodViaAPI();
+    }, 250);
+
+    const searchForFoodViaAPI = async () => {
       const request = await fetch(
         `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
       );

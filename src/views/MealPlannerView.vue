@@ -1,73 +1,76 @@
 <template>
-  <div class="page-header default">
-    <h1>Meal planner</h1>
-    <p>Plan meals that are healthy and convenient.</p>
-  </div>
-  <div class="grid big-gap">
-    <SignUp v-if="!isSignedUp" />
-    <template v-else>
-      <div class="grid columns">
-        <div style="min-width: 50vw">
-          <div class="grid">
-            <h2>{{ Math.round(caloriesEaten) }} kilocalories planned</h2>
+  <div>
+    <div class="page-header default">
+      <h1>Meal planner</h1>
+      <p>Plan meals that are healthy and convenient.</p>
+    </div>
+    <div class="grid big-gap">
+      <SignUp v-if="!isSignedUp" />
+      <template v-else>
+        <div class="grid columns">
+          <div style="min-width: 50vw">
+            <div class="grid">
+              <h2>{{ Math.round(caloriesEaten) }} kilocalories planned</h2>
 
-            <div class="grid small-gap">
-              <p>
-                The macronutrient distribution; goals compared to planned meal:
-              </p>
               <div class="grid small-gap">
-                <NutrientInformation
-                  :protein="goals.proteinPercent"
-                  :carb="goals.carbsPercent"
-                  :fat="goals.fatPercent"
-                  :showText="false"
-                  style="margin-bottom: 0; opacity: 0.5"
-                />
-                <NutrientInformation
-                  v-if="
-                    isSignedUp &&
-                    (carbEaten !== 0 || fatEaten !== 0 || proteinEaten !== 0)
-                  "
-                  :protein="proteinEaten"
-                  :carb="carbEaten"
-                  :fat="fatEaten"
-                />
+                <p>
+                  The macronutrient distribution; goals compared to planned
+                  meal:
+                </p>
+                <div class="grid small-gap">
+                  <NutrientInformation
+                    :protein="goals.proteinPercent"
+                    :carb="goals.carbsPercent"
+                    :fat="goals.fatPercent"
+                    :showText="false"
+                    style="margin-bottom: 0; opacity: 0.5"
+                  />
+                  <NutrientInformation
+                    v-if="
+                      isSignedUp &&
+                      (carbEaten !== 0 || fatEaten !== 0 || proteinEaten !== 0)
+                    "
+                    :protein="proteinEaten"
+                    :carb="carbEaten"
+                    :fat="fatEaten"
+                  />
+                </div>
               </div>
             </div>
+            <ConsumedFoodItemTable
+              :consumedItems="items"
+              :expand="false"
+              :showAddToIosShortcut="false"
+              :useConsumedItemsInVuex="false"
+              @deleteConsumedItem="deleteConsumedItem($event)"
+            />
+            <button v-if="items.length > 0" @click="addItemsToConsumedFoods()">
+              Move to consumed foods
+            </button>
           </div>
-          <ConsumedFoodItemTable
-            :consumedItems="items"
-            :expand="false"
-            :showAddToIosShortcut="false"
-            :useConsumedItemsInVuex="false"
-            @deleteConsumedItem="deleteConsumedItem($event)"
-          />
-          <button v-if="items.length > 0" @click="addItemsToConsumedFoods()">
-            Move to consumed foods
-          </button>
-        </div>
 
-        <SearchFood :showAddForm="false" :showImage="false" :hLevel="2">
-          <template v-slot:default="{ food }">
-            <form @submit.prevent="addItem(food, grams)">
-              <label
-                ><input
-                  type="number"
-                  inputmode="numeric"
-                  pattern="[0-9]*"
-                  min="1"
-                  v-model.number="grams"
-                  placeholder="Amount in grams"
-                  required
-                /><span>g</span></label
-              ><button type="submit" class="submit-button">
-                Add to meal planner
-              </button>
-            </form>
-          </template>
-        </SearchFood>
-      </div>
-    </template>
+          <SearchFood :showAddForm="false" :showImage="false" :hLevel="2">
+            <template v-slot:default="{ food }">
+              <form @submit.prevent="addItem(food, grams)">
+                <label
+                  ><input
+                    type="number"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    min="1"
+                    v-model.number="grams"
+                    placeholder="Amount in grams"
+                    required
+                  /><span>g</span></label
+                ><button type="submit" class="submit-button">
+                  Add to meal planner
+                </button>
+              </form>
+            </template>
+          </SearchFood>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 

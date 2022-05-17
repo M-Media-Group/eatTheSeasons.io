@@ -13,7 +13,7 @@ export async function getTranslatedString(
   return data.contents.translated;
 }
 
-export async function getBestImageUrl(foodItemName: string) {
+export async function getBestImageUrl(foodItemName: string): Promise<string> {
   const searchEndpoint = `https://www.pngplay.com/wp-json/wp/v2/search?search=
     ${foodItemName}&type=post&per_page=100`;
   const response = await fetch(searchEndpoint);
@@ -41,7 +41,7 @@ export async function getBestImageUrl(foodItemName: string) {
         "https://www.pngplay.com/wp-json/wp/v2/media/" + imageId
       );
       const imageDataJson = await imageData.json();
-      console.log("imagePostData2", imageDataJson);
+      // console.log("imagePostData2", imageDataJson);
       const imageUrl = imageDataJson.guid.rendered;
       finalImageUrl = imageUrl;
       break;
@@ -225,5 +225,18 @@ export function deleteIndexedDB(db = "foodie") {
 
   DBDeleteRequest.onupgradeneeded = function (event) {
     console.log("Database deletion upgrade needed");
+  };
+}
+
+export function debounce<T extends unknown[], U>(
+  callback: (...args: T) => PromiseLike<U> | U,
+  wait = 1400
+): (...args: T) => Promise<U> {
+  let timer: ReturnType<typeof setTimeout>;
+  return (...args: T): Promise<U> => {
+    clearTimeout(timer);
+    return new Promise((resolve) => {
+      timer = setTimeout(() => resolve(callback(...args)), wait);
+    });
   };
 }
