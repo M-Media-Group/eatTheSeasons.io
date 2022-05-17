@@ -1,66 +1,71 @@
 <template>
-  <div class="grid">
-    <div class="page-header">
-      <h1>Stats</h1>
-      <input
-        type="date"
-        v-model="startDate"
-        :max="new Date().toISOString().split('T')[0]"
-      />
-      <input
-        type="date"
-        v-model="endDate"
-        :min="startDate"
-        :max="new Date().toISOString().split('T')[0]"
-      />
+  <div>
+    <div class="grid">
+      <div class="page-header">
+        <h1>Stats</h1>
+        <input
+          type="date"
+          v-model="startDate"
+          :max="new Date().toISOString().split('T')[0]"
+        />
+        <input
+          type="date"
+          v-model="endDate"
+          :min="startDate"
+          :max="new Date().toISOString().split('T')[0]"
+        />
+      </div>
+      <div class="grid">
+        <h2>
+          You averaged
+          {{ averageCalories }} kilocalories per day over
+          {{ daysActive.length }} days
+        </h2>
+
+        <p>You ate a total of {{ totals.items }} items.</p>
+        <p>
+          Your most caloric day was {{ mostCaloricDay.days[0] }}, with
+          {{ Math.round(mostCaloricDay.max) }} kcal.
+        </p>
+      </div>
+      <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
+        <h2>Favorites</h2>
+        <p>
+          You've eaten these items most commonly across the selected date range.
+        </p>
+        <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
+          <FoodItem
+            v-if="item?.name"
+            :name="item.name"
+            :id="item.id"
+            :src="item.image_url"
+            :isNative="null"
+            :showImage="false"
+            :titleLevel="3"
+          >
+            <p>
+              {{ item.count }} times ({{ item.grams }} grams,
+              {{ item.calories }} kcal consumed)
+            </p>
+          </FoodItem>
+        </template>
+      </div>
+      <h2>History</h2>
     </div>
     <div class="grid">
-      <h2>
-        You averaged
-        {{ averageCalories }} kilocalories per day over
-        {{ daysActive.length }} days
-      </h2>
-
-      <p>You ate a total of {{ totals.items }} items.</p>
-      <p>
-        Your most caloric day was {{ mostCaloricDay.days[0] }}, with
-        {{ Math.round(mostCaloricDay.max) }} kcal.
-      </p>
+      <template v-for="(item, index) in dataPerDay" :key="3000 + index">
+        <label style="grid-auto-columns: 1fr; margin: 0 auto"
+          ><time>{{ daysActive[index].split("T")[0] }}</time>
+          {{ Math.round(item?.calories ?? 0) }} kcal
+          <meter
+            :max="mostCaloricDay.max"
+            :low="goals.calories - goals.calorieGoalTolerance"
+            :high="goals.calories + goals.calorieGoalTolerance"
+            :optimum="goals.calories"
+            :value="Math.round(item?.calories ?? 0)"
+        /></label>
+      </template>
     </div>
-    <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
-      <h2>Favorites</h2>
-      <p>
-        You've eaten these items most commonly across the selected date range.
-      </p>
-      <di v-for="item in favoriteFoodItemsInTimeframe" :key="item">
-        <FoodItem
-          v-if="item?.name"
-          :name="item.name"
-          :id="item.id"
-          :src="item.image_url"
-          :isNative="null"
-          :showImage="false"
-          :titleLevel="3"
-        >
-          <p>{{ item.count }} times ({{ item.grams }} grams)</p>
-        </FoodItem>
-      </di>
-    </div>
-    <h2>History</h2>
-  </div>
-  <div class="grid">
-    <template v-for="(item, index) in dataPerDay" :key="3000 + index">
-      <label style="grid-auto-columns: 1fr; margin: 0 auto"
-        ><time>{{ daysActive[index].split("T")[0] }}</time>
-        {{ Math.round(item?.calories ?? 0) }} kcal
-        <meter
-          :max="mostCaloricDay.max"
-          :low="goals.calories - goals.calorieGoalTolerance"
-          :high="goals.calories + goals.calorieGoalTolerance"
-          :optimum="goals.calories"
-          :value="Math.round(item?.calories ?? 0)"
-      /></label>
-    </template>
   </div>
 </template>
 
@@ -169,6 +174,7 @@ export default defineComponent({
             mostCommonFoodItem: {
               name: "",
               grams: 0,
+              calories: 0,
               count: 0,
             },
           };
@@ -186,11 +192,13 @@ export default defineComponent({
         // If the food item does not exist, add it to the array
         if (days[activeDayIndex].mostCommonFoodItem.name === item.name) {
           days[activeDayIndex].mostCommonFoodItem.grams += item.grams;
+          days[activeDayIndex].mostCommonFoodItem.calories += item.kcal;
           days[activeDayIndex].mostCommonFoodItem.count++;
         } else {
           days[activeDayIndex].mostCommonFoodItem = {
             name: item.name,
             grams: item.grams,
+            calories: item.kcal,
             count: 1,
           };
         }
@@ -285,10 +293,12 @@ export default defineComponent({
           acc[item.name] = {
             name: item.name,
             grams: item.grams,
+            calories: item.kcal,
             count: 1,
           };
         } else {
           acc[item.name].grams += item.grams;
+          acc[item.name].calories += item.kcal;
           acc[item.name].count++;
         }
         return acc;
