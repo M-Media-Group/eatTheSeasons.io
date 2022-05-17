@@ -6,30 +6,46 @@
       <input type="date" v-model="endDate" />
     </div>
     <h2>
-      Eaten {{ allConsumedItemsInTimeframe.length }} items, averaging
+      You averaged
       {{ averageCalories }} kilocalories per day over
       {{ daysActive.length }} days
     </h2>
   </div>
-  Your worst day was {{ mostCaloricDay.days[0] }}, with
-  {{ mostCaloricDay.max }} kcal
+  <p>You ate a total of {{ totals.items }} items.</p>
+  <p>
+    Your most caloric day was {{ mostCaloricDay.days[0] }}, with
+    {{ Math.round(mostCaloricDay.max) }} kcal.
+  </p>
+  <h2>Favorites</h2>
+  <template v-for="item in favoriteFoodItems" :key="item">
+    <FoodItem
+      v-if="item?.name"
+      :name="item.name"
+      :id="item.id"
+      :src="item.image_url"
+    >
+      <p>You ate {{ item.grams }} grams {{ item.count }} times</p>
+    </FoodItem>
+  </template>
   <div class="grid">
-    <template v-for="(item, index) in caloriesPerEachDay" :key="index">
+    <h2>History</h2>
+    <template v-for="(item, index) in dataPerDay" :key="index">
       <label style="grid-auto-columns: 1fr; margin: 0 auto"
         ><time>{{ daysActive.reverse()[index].split("T")[0] }}</time>
-        {{ Math.round(item) }} kcal
+        <!-- {{ Math.round(item) }} kcal -->
         <meter
           :max="mostCaloricDay.max"
           :low="goals.calories - goals.calorieGoalTolerance"
           :high="goals.calories + goals.calorieGoalTolerance"
           :optimum="goals.calories"
-          :value="Math.round(item)"
+          :value="Math.round(item?.calories ?? 0)"
       /></label>
     </template>
   </div>
 </template>
 
 <script lang="ts">
+import FoodItem from "@/components/FoodItem.vue";
 import { consumedItem } from "@/types/consumedItem";
 import {
   computed,
@@ -41,6 +57,7 @@ import {
 import { useStore } from "vuex";
 
 export default defineComponent({
+  components: { FoodItem },
   name: "HomeView",
 
   setup() {
@@ -89,17 +106,12 @@ export default defineComponent({
       return days;
     });
 
-    const totalCalories = computed(() => {
-      return Math.round(
-        allConsumedItemsInTimeframe.value.reduce(
-          (acc, item) => acc + (item && item.kcal ? item.kcal : 0),
-          0
-        )
-      );
-    });
-
     const averageCalories = computed(() => {
-      return Math.round(totalCalories.value / daysActive.value.length);
+      // Count of days with value greater than 0
+      const daysWithValue = caloriesPerEachDay.value.filter(
+        (day, index) => caloriesPerEachDay.value[index] > 0
+      );
+      return Math.round(totals.value.calories / daysWithValue.length);
     });
 
     const caloriesPerEachDay = computed(() => {
@@ -113,6 +125,82 @@ export default defineComponent({
         days[activeDayIndex] += item.kcal;
       });
       return days.reverse();
+    });
+
+    // For each day, return an array of objects where each object contains the total grams consumed, calories, fiber, and protein
+    const dataPerDay = computed(() => {
+      const days = new Array(daysActive.value.length).fill(null);
+
+      allConsumedItemsInTimeframe.value.forEach((item) => {
+        const date = new Date(item.created_at ?? "").toISOString();
+        const activeDayIndex = daysActive.value.findIndex(
+          (day) => day.split("T")[0] === date.split("T")[0]
+        );
+        if (!days[activeDayIndex]) {
+          days[activeDayIndex] = {
+            calories: 0,
+            grams: 0,
+            fiber: 0,
+            protein: 0,
+            fat: 0,
+            water: 0,
+            alcohol: 0,
+            items: 0,
+            mostCommonFoodItem: {
+              name: "",
+              grams: 0,
+              count: 0,
+            },
+          };
+        }
+        days[activeDayIndex].calories += item.kcal;
+        days[activeDayIndex].grams += item.grams;
+        days[activeDayIndex].fiber += item.fiber;
+        days[activeDayIndex].protein += item.protein;
+        days[activeDayIndex].fat += item.fat;
+        days[activeDayIndex].water += item.water;
+        days[activeDayIndex].alcohol += item.alcohol;
+        days[activeDayIndex].items++;
+        // mostCommonFoodItem and count each occurence of item
+        // If the food item already exists, increment the count and add to grams
+        // If the food item does not exist, add it to the array
+        if (days[activeDayIndex].mostCommonFoodItem.name === item.name) {
+          days[activeDayIndex].mostCommonFoodItem.grams += item.grams;
+          days[activeDayIndex].mostCommonFoodItem.count++;
+        } else {
+          days[activeDayIndex].mostCommonFoodItem = {
+            name: item.name,
+            grams: item.grams,
+            count: 1,
+          };
+        }
+      });
+      return days.reverse();
+    });
+
+    const totals = computed(() => {
+      const data = dataPerDay.value.filter((day) => day);
+      const totals = {
+        calories: 0,
+        grams: 0,
+        fiber: 0,
+        protein: 0,
+        fat: 0,
+        water: 0,
+        alcohol: 0,
+        items: 0,
+      };
+      data.forEach((day) => {
+        totals.calories += day.calories;
+        totals.grams += day.grams;
+        totals.fiber += day.fiber;
+        totals.protein += day.protein;
+        totals.fat += day.fat;
+        totals.water += day.water;
+        totals.alcohol += day.alcohol;
+        totals.items += day.items;
+      });
+      return totals;
     });
 
     const mostCaloricDay = computed(() => {
@@ -138,16 +226,42 @@ export default defineComponent({
       };
     });
 
+    const favoriteFoodItems = computed(() => {
+      const items = dataPerDay.value.filter((day) => day);
+      // If the food item already exists, increment the count and add to grams
+      // If the food item does not exist, add it to the array
+      const itemsByName = items.reduce((acc: any, day) => {
+        if (!day.mostCommonFoodItem) {
+          return acc;
+        }
+        if (!acc[day.mostCommonFoodItem.name]) {
+          acc[day.mostCommonFoodItem.name] = {
+            name: day.mostCommonFoodItem.name,
+            grams: day.mostCommonFoodItem.grams,
+            count: day.mostCommonFoodItem.count,
+          };
+        } else {
+          acc[day.mostCommonFoodItem.name].grams +=
+            day.mostCommonFoodItem.grams;
+          acc[day.mostCommonFoodItem.name].count +=
+            day.mostCommonFoodItem.count;
+        }
+        return acc;
+      }, {}) as { [key: string]: any };
+      return Object.values(itemsByName).sort((a, b) => b.count - a.count);
+    });
     return {
       startDate,
       endDate,
       daysActive,
-      totalCalories,
       averageCalories,
       allConsumedItemsInTimeframe,
       mostCaloricDay,
       caloriesPerEachDay,
       goals,
+      dataPerDay,
+      totals,
+      favoriteFoodItems,
     };
   },
 });

@@ -116,11 +116,26 @@ export default defineComponent({
     id: Number,
     name: String,
     src: String,
-    calories: Number,
-    carb: Number,
-    fat: Number,
-    protein: Number,
-    water: Number,
+    calories: {
+      type: Number,
+      default: null,
+    },
+    carb: {
+      type: Number,
+      default: null,
+    },
+    fat: {
+      type: Number,
+      default: null,
+    },
+    protein: {
+      type: Number,
+      default: null,
+    },
+    water: {
+      type: Number,
+      default: null,
+    },
     showAddForm: Boolean,
     categories: {
       type: Array as PropType<Category[]>,
