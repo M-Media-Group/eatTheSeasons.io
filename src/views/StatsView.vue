@@ -2,8 +2,17 @@
   <div class="grid">
     <div class="page-header">
       <h1>Stats</h1>
-      <input type="date" v-model="startDate" />
-      <input type="date" v-model="endDate" />
+      <input
+        type="date"
+        v-model="startDate"
+        :max="new Date().toISOString().split('T')[0]"
+      />
+      <input
+        type="date"
+        v-model="endDate"
+        :min="startDate"
+        :max="new Date().toISOString().split('T')[0]"
+      />
     </div>
     <div class="grid">
       <h2>
