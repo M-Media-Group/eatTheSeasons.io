@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in consumedItems" :key="item.id">
+        <tr v-for="item in groupedConsumedItems" :key="item.id">
           <td>
             <time>{{
               new Date(item.created_at).toLocaleTimeString().slice(0, -3)
@@ -115,6 +115,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    showGroupedByFood: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   components: {
@@ -125,21 +129,56 @@ export default defineComponent({
     ...mapGetters({
       activeDate: "consumedItems/activeDate",
     }),
+    groupedConsumedItems(): consumedItem[] {
+      if (!this.showGroupedByFood) {
+        return this.consumedItems;
+      }
+      const items = this.consumedItems;
+      return items
+        .sort((a: consumedItem, b: consumedItem) =>
+          (a.id ?? 0) < (b.id ?? 0) ? 1 : -1
+        )
+        .reduce((acc: consumedItem[], item: consumedItem) => {
+          const existingItem = acc.find(
+            (i: consumedItem) => i.name === item.name
+          ) as consumedItem | undefined;
+          if (existingItem) {
+            existingItem.grams += item.grams;
+
+            existingItem.protein
+              ? (existingItem.protein += item.protein ?? 0)
+              : 0;
+
+            existingItem.carbohydrate
+              ? (existingItem.carbohydrate += item.carbohydrate ?? 0)
+              : 0;
+
+            existingItem.fat ? (existingItem.fat += item.fat ?? 0) : 0;
+
+            existingItem.kcal ? (existingItem.kcal += item.kcal ?? 0) : 0;
+
+            // existingItem.created_at = item.created_at;
+          } else {
+            acc.push(item);
+          }
+          return acc;
+        }, []);
+    },
     total(): Record<string, string> {
       return {
-        grams: this.consumedItems
+        grams: this.groupedConsumedItems
           .reduce((total, item) => total + item.grams, 0)
           .toFixed(2),
-        protein: this.consumedItems
+        protein: this.groupedConsumedItems
           .reduce((total, item) => total + (item.protein ?? 0), 0)
           .toFixed(2),
-        carbohydrate: this.consumedItems
+        carbohydrate: this.groupedConsumedItems
           .reduce((total, item) => total + (item.carbohydrate ?? 0), 0)
           .toFixed(2),
-        fat: this.consumedItems
+        fat: this.groupedConsumedItems
           .reduce((total, item) => total + (item.fat ?? 0), 0)
           .toFixed(2),
-        kcal: this.consumedItems
+        kcal: this.groupedConsumedItems
           .reduce((total, item) => total + (item.kcal ?? 0), 0)
           .toFixed(2),
       };
