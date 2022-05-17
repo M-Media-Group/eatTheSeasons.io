@@ -19,7 +19,9 @@
       <tbody>
         <tr v-for="item in consumedItems" :key="item.id">
           <td>
-            {{ new Date(item.created_at).toLocaleTimeString().slice(0, -3) }}
+            <time>{{
+              new Date(item.created_at).toLocaleTimeString().slice(0, -3)
+            }}</time>
           </td>
           <td>
             <router-link

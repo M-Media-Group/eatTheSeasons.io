@@ -271,15 +271,16 @@ form {
     display: flex;
     // margin-top: $baseNumber + px;
     margin-bottom: ($baseNumber * 5 - ($baseNumber / 2)) + px;
-    > small {
+    > meter {
         width: 25%;
         height: 100%;
         position: relative;
         padding-top: $baseNumber + px;
         box-sizing: border-box;
         text-align: center;
+        appearance: none;
     }
-    > small::after {
+    > meter::after {
         // content: attr(class);
         position: absolute;
         top: $baseNumber * 2 + px;

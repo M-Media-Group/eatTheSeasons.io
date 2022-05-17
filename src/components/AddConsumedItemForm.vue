@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="addConsumedFoodItem(form)">
+  <form
+    @submit.prevent="addConsumedFoodItem(form)"
+    style="grid-auto-columns: 1fr"
+  >
     <label>
       <input type="text" v-model="form.name" placeholder="Name" />
     </label>

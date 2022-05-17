@@ -8,7 +8,7 @@
       }"
     >
       <h3>
-        {{ meal.date.toLocaleTimeString() }} -
+        <time>{{ meal.date.toLocaleTimeString().slice(0, -3) }}</time> -
         {{
           key
             .replace(/([A-Z])/g, " $1")

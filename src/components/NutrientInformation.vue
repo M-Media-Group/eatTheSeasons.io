@@ -1,16 +1,21 @@
 <template>
   <div class="bar">
-    <small
+    <meter
       v-for="field in fields"
       :key="field"
       :class="field"
       :style="'width: ' + ($props[field] / total) * 100 + '%'"
+      min="0"
+      max="100"
+      low="33"
+      high="66"
+      :value="($props[field] / total) * 100"
     >
       <template v-if="showText">
         {{ Math.round(($props[field] / total) * 100) }}% <br />
         {{ field }}s
       </template>
-    </small>
+    </meter>
   </div>
 </template>
 
