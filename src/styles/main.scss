@@ -323,7 +323,10 @@ input {
     background: inherit;
     border: 2px dashed $green;
     cursor: pointer;
-    display: inline-block;
+    display: inline-grid;
+    align-content: center;
+    justify-content: center;
+    grid-auto-flow: column;
     font-family: inherit;
     font-size: $baseNumber * 3 + px;
     font-weight: 700;
@@ -674,4 +677,9 @@ img {
             }
         }
     }
+}
+
+input[type="date"],
+input[type="time"] {
+    -webkit-appearance: none;
 }

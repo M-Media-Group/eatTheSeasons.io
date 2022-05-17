@@ -6,8 +6,14 @@
         inputmode="numeric"
         pattern="[0-9]*"
         v-model.number="caloricGoal"
+        list="kcal-list"
       />
       target kilocalories per day
+      <datalist id="kcal-list">
+        <option value="1000" />
+        <option value="1500" />
+        <option value="2000" />
+      </datalist>
     </label>
     <hr />
     <div
@@ -72,8 +78,17 @@
     />
     <hr />
     <label style="width: 100%">
-      <input type="text" v-model="firstMealTime" />
+      <input type="time" v-model="firstMealTime" list="time-list" />
       first meal time
+      <datalist id="time-list">
+        <option value="07:30" />
+        <option value="8:00" />
+        <option value="8:30" />
+        <option value="9:00" />
+        <option value="9:30" />
+        <option value="10:00" />
+        <option value="10:30" />
+      </datalist>
     </label>
     <label style="width: 100%">
       <input
@@ -81,8 +96,17 @@
         inputmode="numeric"
         pattern="[0-9]*"
         v-model.number="mealTimeSeparationInMinutes"
+        list="minutes-list"
       />
       minutes between your 5 meals/snacks (average)
+      <datalist id="minutes-list">
+        <option value="60" />
+        <option value="90" />
+        <option value="120" />
+        <option value="150" />
+        <option value="180" />
+        <option value="210" />
+      </datalist>
     </label>
   </form>
 </template>
