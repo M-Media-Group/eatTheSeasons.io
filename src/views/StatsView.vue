@@ -10,29 +10,35 @@
       {{ averageCalories }} kilocalories per day over
       {{ daysActive.length }} days
     </h2>
-  </div>
-  <p>You ate a total of {{ totals.items }} items.</p>
-  <p>
-    Your most caloric day was {{ mostCaloricDay.days[0] }}, with
-    {{ Math.round(mostCaloricDay.max) }} kcal.
-  </p>
-  <h2>Favorites</h2>
-  <template v-for="item in favoriteFoodItems" :key="item">
-    <FoodItem
-      v-if="item?.name"
-      :name="item.name"
-      :id="item.id"
-      :src="item.image_url"
-    >
-      <p>You ate {{ item.grams }} grams {{ item.count }} times</p>
-    </FoodItem>
-  </template>
-  <div class="grid">
+
+    <p>You ate a total of {{ totals.items }} items.</p>
+    <p>
+      Your most caloric day was {{ mostCaloricDay.days[0] }}, with
+      {{ Math.round(mostCaloricDay.max) }} kcal.
+    </p>
+    <template v-if="favoriteFoodItemsInTimeframe.length > 0">
+      <h2>Favorites</h2>
+      <p>
+        You've eaten these items most commonly across the selected date range.
+      </p>
+      <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
+        <FoodItem
+          v-if="item?.name"
+          :name="item.name"
+          :id="item.id"
+          :src="item.image_url"
+        >
+          <p>{{ item.count }} times ({{ item.grams }} grams)</p>
+        </FoodItem>
+      </template>
+    </template>
     <h2>History</h2>
+  </div>
+  <div class="grid">
     <template v-for="(item, index) in dataPerDay" :key="index">
       <label style="grid-auto-columns: 1fr; margin: 0 auto"
         ><time>{{ daysActive.reverse()[index].split("T")[0] }}</time>
-        <!-- {{ Math.round(item) }} kcal -->
+        {{ Math.round(item?.calories ?? 0) }} kcal
         <meter
           :max="mostCaloricDay.max"
           :low="goals.calories - goals.calorieGoalTolerance"
@@ -248,8 +254,37 @@ export default defineComponent({
         }
         return acc;
       }, {}) as { [key: string]: any };
-      return Object.values(itemsByName).sort((a, b) => b.count - a.count);
+      return Object.values(itemsByName)
+        .filter((item) => item.count >= 3)
+        .sort((a, b) => b.count - a.count);
     });
+
+    const favoriteFoodItemsInTimeframe = computed(() => {
+      const items = allConsumedItemsInTimeframe.value;
+      // If the food item already exists, increment the count and add to grams
+      // If the food item does not exist, add it to the array
+      const itemsByName = items.reduce((acc: any, item) => {
+        if (!item || !item.name) {
+          return acc;
+        }
+        if (!acc[item.name]) {
+          acc[item.name] = {
+            name: item.name,
+            grams: item.grams,
+            count: 1,
+          };
+        } else {
+          acc[item.name].grams += item.grams;
+          acc[item.name].count++;
+        }
+        return acc;
+      }, {}) as { [key: string]: any };
+      // Require at least 3 items to be considered a favorite
+      return Object.values(itemsByName)
+        .filter((item) => item.count >= 3)
+        .sort((a, b) => b.count - a.count);
+    });
+
     return {
       startDate,
       endDate,
@@ -262,6 +297,7 @@ export default defineComponent({
       dataPerDay,
       totals,
       favoriteFoodItems,
+      favoriteFoodItemsInTimeframe,
     };
   },
 });
