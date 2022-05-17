@@ -5,33 +5,38 @@
       <input type="date" v-model="startDate" />
       <input type="date" v-model="endDate" />
     </div>
-    <h2>
-      You averaged
-      {{ averageCalories }} kilocalories per day over
-      {{ daysActive.length }} days
-    </h2>
+    <div class="grid">
+      <h2>
+        You averaged
+        {{ averageCalories }} kilocalories per day over
+        {{ daysActive.length }} days
+      </h2>
 
-    <p>You ate a total of {{ totals.items }} items.</p>
-    <p>
-      Your most caloric day was {{ mostCaloricDay.days[0] }}, with
-      {{ Math.round(mostCaloricDay.max) }} kcal.
-    </p>
-    <template v-if="favoriteFoodItemsInTimeframe.length > 0">
+      <p>You ate a total of {{ totals.items }} items.</p>
+      <p>
+        Your most caloric day was {{ mostCaloricDay.days[0] }}, with
+        {{ Math.round(mostCaloricDay.max) }} kcal.
+      </p>
+    </div>
+    <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
       <h2>Favorites</h2>
       <p>
         You've eaten these items most commonly across the selected date range.
       </p>
-      <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
+      <di v-for="item in favoriteFoodItemsInTimeframe" :key="item">
         <FoodItem
           v-if="item?.name"
           :name="item.name"
           :id="item.id"
           :src="item.image_url"
+          :isNative="null"
+          :showImage="false"
+          :titleLevel="3"
         >
           <p>{{ item.count }} times ({{ item.grams }} grams)</p>
         </FoodItem>
-      </template>
-    </template>
+      </di>
+    </div>
     <h2>History</h2>
   </div>
   <div class="grid">

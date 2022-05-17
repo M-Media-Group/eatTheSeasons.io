@@ -6,10 +6,10 @@
       :alt="'A picture of a ' + name"
     />
     <div>
-      <h2>
+      <component :is="'h' + titleLevel">
         {{ name }}
         <span v-if="localName"> ({{ localName }}) </span>
-      </h2>
+      </component>
       <p v-if="calories || lastMonth">
         <span v-if="calories">{{ calories }} kcal/100g · </span>
         <span v-if="lastMonth">Available to end of </span>
@@ -115,6 +115,10 @@ export default defineComponent({
   props: {
     id: Number,
     name: String,
+    titleLevel: {
+      type: Number,
+      default: 2,
+    },
     src: String,
     calories: {
       type: Number,
