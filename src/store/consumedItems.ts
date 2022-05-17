@@ -15,6 +15,7 @@ export default {
   state: {
     consumedItems: [] as consumedItem[],
     setDate: new Date(),
+    endDate: new Date(),
   },
 
   getters: {
@@ -34,6 +35,18 @@ export default {
             state.setDate.getMonth() &&
           new Date(consumedItem.created_at ?? "").getFullYear() ===
             state.setDate.getFullYear()
+      );
+    },
+
+    allConsumedItemsInTimeframe(state: {
+      consumedItems: consumedItem[];
+      setDate: Date;
+      endDate: Date;
+    }): consumedItem[] {
+      return state.consumedItems.filter(
+        (consumedItem) =>
+          new Date(consumedItem.created_at ?? "") >= state.setDate &&
+          new Date(consumedItem.created_at ?? "") <= state.endDate
       );
     },
 
@@ -170,6 +183,9 @@ export default {
     },
     SET_DATE(state: { setDate: Date }, date: Date): void {
       state.setDate = date;
+    },
+    SET_END_DATE(state: { endDate: Date }, date: Date): void {
+      state.endDate = date;
     },
   },
 
@@ -309,6 +325,21 @@ export default {
       }
       console.log("got date", date);
       commit("SET_DATE", date);
+    },
+
+    setEndDate(
+      { commit, dispatch }: { commit: Commit; dispatch: any },
+      date: Date | string | null
+    ): void {
+      if (!date) {
+        date = new Date();
+      }
+      // If the date is not a Date object, try to parse it
+      else if (!(date instanceof Date)) {
+        date = new Date(date);
+      }
+      console.log("got date", date);
+      commit("SET_END_DATE", date);
     },
   },
 };

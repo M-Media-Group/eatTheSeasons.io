@@ -69,6 +69,9 @@
           >
         </li>
         <li>
+          <router-link to="/stats" @click="isOpen = false">Stats</router-link>
+        </li>
+        <li>
           <router-link to="/settings" @click="isOpen = false"
             >Settings</router-link
           >
