@@ -49,9 +49,9 @@
     <h2>History</h2>
   </div>
   <div class="grid">
-    <template v-for="(item, index) in dataPerDay" :key="index">
+    <template v-for="(item, index) in dataPerDay" :key="3000 + index">
       <label style="grid-auto-columns: 1fr; margin: 0 auto"
-        ><time>{{ daysActive.reverse()[index].split("T")[0] }}</time>
+        ><time>{{ daysActive[index].split("T")[0] }}</time>
         {{ Math.round(item?.calories ?? 0) }} kcal
         <meter
           :max="mostCaloricDay.max"
@@ -123,7 +123,7 @@ export default defineComponent({
           new Date(start.getTime() + i * (1000 * 60 * 60 * 24)).toISOString()
         );
       }
-      return days;
+      return days.reverse();
     });
 
     const averageCalories = computed(() => {
@@ -195,7 +195,7 @@ export default defineComponent({
           };
         }
       });
-      return days.reverse();
+      return days;
     });
 
     const totals = computed(() => {
@@ -306,7 +306,6 @@ export default defineComponent({
       averageCalories,
       allConsumedItemsInTimeframe,
       mostCaloricDay,
-      caloriesPerEachDay,
       goals,
       dataPerDay,
       totals,
