@@ -17,12 +17,12 @@
     <template v-for="(item, index) in caloriesPerEachDay" :key="index">
       <label style="grid-auto-columns: 1fr; margin: 0 auto"
         ><time>{{ daysActive.reverse()[index].split("T")[0] }}</time>
-        {{ Math.round(item) }} kcal:
+        {{ Math.round(item) }} kcal
         <meter
-          min="0"
           :max="mostCaloricDay.max"
-          :high="averageCalories"
-          :optimum="averageCalories"
+          :low="goals.calories - goals.calorieGoalTolerance"
+          :high="goals.calories + goals.calorieGoalTolerance"
+          :optimum="goals.calories"
           :value="Math.round(item)"
       /></label>
     </template>
@@ -45,6 +45,10 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+
+    const goals = computed(() => {
+      return store.getters["auth/goals"];
+    });
 
     const allConsumedItemsInTimeframe: ComputedRef<consumedItem[]> = computed(
       () => {
@@ -143,6 +147,7 @@ export default defineComponent({
       allConsumedItemsInTimeframe,
       mostCaloricDay,
       caloriesPerEachDay,
+      goals,
     };
   },
 });
