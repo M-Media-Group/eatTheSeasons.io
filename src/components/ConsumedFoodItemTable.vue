@@ -130,10 +130,10 @@ export default defineComponent({
       activeDate: "consumedItems/activeDate",
     }),
     groupedConsumedItems(): consumedItem[] {
-      if (!this.showGroupedByFood) {
+      if (this.expand) {
         return this.consumedItems;
       }
-      const items = this.consumedItems;
+      const items = this.consumedItems.map((o) => ({ ...o }));
       return items
         .sort((a: consumedItem, b: consumedItem) =>
           (a.id ?? 0) < (b.id ?? 0) ? 1 : -1
