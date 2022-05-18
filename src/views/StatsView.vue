@@ -64,8 +64,9 @@
             Eaten {{ item.count }} times
           </div>
           <p>
-            {{ item.grams }} grams, {{ item.calories }} kcal consumed, averaged
-            {{ item.calories / item.count }} kcal per portion
+            {{ item.grams }} grams, {{ Math.round(item.calories) }} kcal
+            consumed, averaged {{ Math.round(item.calories / item.count) }} kcal
+            per portion
           </p>
         </FoodItem>
       </template>
