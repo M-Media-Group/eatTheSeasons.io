@@ -61,6 +61,7 @@ export default {
       goals: {
         firstMealTime: string;
         mealTimeSeparationInMinutes: number;
+        calories: number;
       };
     }): Record<string, any> {
       const now = new Date();
@@ -87,25 +88,49 @@ export default {
         afternoonSnack.getTime() +
           state.goals.mealTimeSeparationInMinutes * 60000
       );
-      return {
-        breakfast: { date: firstMealDate, caloricPercentage: 26 },
+      const meals = {
+        breakfast: {
+          date: firstMealDate,
+          dateHasPassed: now > firstMealDate,
+          caloricPercentage: 26,
+        },
         morningSnack: {
           date: morningSnack,
+          dateHasPassed: now > morningSnack,
           caloricPercentage: 6,
         },
         lunch: {
           date: lunch,
+          dateHasPassed: now > lunch,
           caloricPercentage: 36,
         },
         afternoonSnack: {
           date: afternoonSnack,
+          dateHasPassed: now > afternoonSnack,
           caloricPercentage: 6,
         },
         dinner: {
           date: dinner,
+          dateHasPassed: now > dinner,
           caloricPercentage: 26,
         },
-      };
+      } as any;
+      // For each meal, add a key value pair with the allowed calories
+      // and the percentage of the goal that is allowed
+      Object.keys(meals).forEach((meal: any) => {
+        meals[meal].allowedCalories =
+          (state.goals.calories * meals[meal].caloricPercentage) / 100;
+        // Compute the total allowed calories for the meal by adding all the previous meals
+        meals[meal].totalAllowedCalories = meals[meal].allowedCalories;
+        Object.keys(meals).forEach((previousMeal: any) => {
+          if (meals[previousMeal].date < meals[meal].date) {
+            console.log("prev", meals[previousMeal]);
+            meals[meal].totalAllowedCalories +=
+              meals[previousMeal].allowedCalories;
+          }
+        });
+      });
+      return meals;
     },
     nutrientRatio(
       state: { goals: unknown },
@@ -149,6 +174,18 @@ export default {
     },
     filters(state: { filters: object }): object {
       return state.filters;
+    },
+    nextMeal(state: any, getters: { meals: any[] }): object {
+      // Get the first meal from the getters where the date has not passed
+      console.log(getters.meals);
+      if (!getters.meals) {
+        return {};
+      }
+      const nextMeal = Object.values(getters["meals"]).find(
+        (meal: { dateHasPassed: any }) => !meal.dateHasPassed
+      );
+      console.log(nextMeal);
+      return nextMeal;
     },
   },
 

@@ -4,7 +4,7 @@
       v-for="(meal, key, index) in meals"
       :key="meal"
       :style="{
-        opacity: meal.date < new Date() ? 0.5 : 1,
+        opacity: meal.dateHasPassed ? 0.5 : 1,
       }"
     >
       <h3>
@@ -18,9 +18,9 @@
             })
         }}
       </h3>
-      <p v-if="meal.date >= new Date()">
+      <p v-if="!meal.dateHasPassed">
         Calories actually allowed:
-        {{ (mealTotalCaloriesPerMeal[index] - caloriesEaten).toFixed(0) }}kcal
+        {{ (meal.totalAllowedCalories - caloriesEaten).toFixed(0) }}kcal
         <br />
         <small>
           (Expected total calories after meal:
@@ -33,7 +33,7 @@
       <p v-else>
         Calories eaten by mealtime:
         {{ Math.round(caloriesConsumedByGivenTime(meal.date)) }} /
-        {{ mealTotalCaloriesPerMeal[index] }} kcal
+        {{ meal.totalAllowedCalories }} kcal
         <br />
         <small>
           (Expected total calories after meal:

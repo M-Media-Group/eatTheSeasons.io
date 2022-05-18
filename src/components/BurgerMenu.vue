@@ -93,7 +93,7 @@
                   : '',
             }"
             >Progress: {{ Math.round(kcalConsumedToday) }} /
-            {{ goals.calories }} kcal
+            {{ nextMeal?.totalAllowedCalories ?? goals.calories }} kcal
           </router-link>
         </li>
         <li>
@@ -132,6 +132,7 @@ export default defineComponent({
       carbEaten: "consumedItems/carbsConsumedToday",
       fatEaten: "consumedItems/fatConsumedToday",
       proteinEaten: "consumedItems/proteinConsumedToday",
+      nextMeal: "auth/nextMeal",
     }),
     currentDate() {
       return this.$store.state.consumedItems.setDate

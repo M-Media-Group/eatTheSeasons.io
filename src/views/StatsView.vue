@@ -15,7 +15,7 @@
       />
     </div>
 
-    <div class="grid">
+    <div class="grid default-padding">
       <h2>
         You averaged
         {{ averageCalories }} kilocalories per day over
@@ -44,7 +44,10 @@
       </p>
     </div>
 
-    <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
+    <div
+      class="grid default-padding"
+      v-if="favoriteFoodItemsInTimeframe.length > 0"
+    >
       <h2>Your favorite food</h2>
 
       <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
@@ -72,7 +75,7 @@
       </template>
     </div>
 
-    <div class="grid">
+    <div class="grid default-padding">
       <h2>History</h2>
       <template v-for="(item, index) in dataPerDay" :key="3000 + index">
         <label style="grid-auto-columns: 1fr; margin: 0 auto"

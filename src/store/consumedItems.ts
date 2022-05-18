@@ -15,7 +15,7 @@ export default {
   state: {
     consumedItems: [] as consumedItem[],
     setDate: new Date(),
-    endDate: new Date(),
+    endDate: new Date(new Date().setHours(23, 59, 59)),
   },
 
   getters: {
