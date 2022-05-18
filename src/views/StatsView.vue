@@ -1,58 +1,78 @@
 <template>
-  <div>
-    <div class="grid">
-      <div class="page-header">
-        <h1>Stats</h1>
-        <input
-          type="date"
-          v-model="startDate"
-          :max="new Date().toISOString().split('T')[0]"
-        />
-        <input
-          type="date"
-          v-model="endDate"
-          :min="startDate"
-          :max="new Date().toISOString().split('T')[0]"
-        />
-      </div>
-      <div class="grid">
-        <h2>
-          You averaged
-          {{ averageCalories }} kilocalories per day over
-          {{ daysActive.length }} days
-        </h2>
-
-        <p>You ate a total of {{ totals.items }} items.</p>
-        <p>
-          Your most caloric day was {{ mostCaloricDay.days[0] }}, with
-          {{ Math.round(mostCaloricDay.max) }} kcal.
-        </p>
-      </div>
-      <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
-        <h2>Favorites</h2>
-        <p>
-          You've eaten these items most commonly across the selected date range.
-        </p>
-        <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
-          <FoodItem
-            v-if="item?.name"
-            :name="item.name"
-            :id="item.id"
-            :src="item.image_url"
-            :isNative="null"
-            :showImage="false"
-            :titleLevel="3"
-          >
-            <p>
-              {{ item.count }} times ({{ item.grams }} grams,
-              {{ item.calories }} kcal consumed)
-            </p>
-          </FoodItem>
-        </template>
-      </div>
-      <h2>History</h2>
+  <div class="grid big-gap">
+    <div class="page-header">
+      <h1>Stats</h1>
+      <input
+        type="date"
+        v-model="startDate"
+        :max="new Date().toISOString().split('T')[0]"
+      />
+      <input
+        type="date"
+        v-model="endDate"
+        :min="startDate"
+        :max="new Date().toISOString().split('T')[0]"
+      />
     </div>
+
     <div class="grid">
+      <h2>
+        You averaged
+        {{ averageCalories }} kilocalories per day over
+        {{ daysActive.length }} days
+      </h2>
+      <div class="grid small-gap">
+        <NutrientInformation
+          :protein="goals.proteinPercent"
+          :carb="goals.carbsPercent"
+          :fat="goals.fatPercent"
+          :showText="false"
+          style="margin-bottom: 0; opacity: 0.5"
+        />
+        <NutrientInformation
+          v-if="totals.protein && totals.carb && totals.fat"
+          :protein="totals.protein"
+          :carb="totals.carb"
+          :fat="totals.fat"
+        />
+      </div>
+
+      <p>You ate a total of {{ totals.items }} items.</p>
+      <p>
+        Your most caloric day was {{ mostCaloricDay.days[0] }}, with
+        {{ Math.round(mostCaloricDay.max) }} kcal.
+      </p>
+    </div>
+
+    <div class="grid" v-if="favoriteFoodItemsInTimeframe.length > 0">
+      <h2>Your favorite food</h2>
+
+      <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
+        <FoodItem
+          v-if="item?.name"
+          :name="item.name"
+          :id="item.id"
+          :src="item.image_url"
+          :isNative="null"
+          :showImage="false"
+          :titleLevel="3"
+        >
+          <div
+            class="badge"
+            style="background: rgb(77 71 245); cursor: pointer"
+          >
+            Eaten {{ item.count }} times
+          </div>
+          <p>
+            {{ item.grams }} grams, {{ item.calories }} kcal consumed, averaged
+            {{ item.calories / item.count }} kcal per portion
+          </p>
+        </FoodItem>
+      </template>
+    </div>
+
+    <div class="grid">
+      <h2>History</h2>
       <template v-for="(item, index) in dataPerDay" :key="3000 + index">
         <label style="grid-auto-columns: 1fr; margin: 0 auto"
           ><time>{{ daysActive[index].split("T")[0] }}</time>
@@ -71,6 +91,7 @@
 
 <script lang="ts">
 import FoodItem from "@/components/FoodItem.vue";
+import NutrientInformation from "@/components/NutrientInformation.vue";
 import { consumedItem } from "@/types/consumedItem";
 import {
   computed,
@@ -82,7 +103,7 @@ import {
 import { useStore } from "vuex";
 
 export default defineComponent({
-  components: { FoodItem },
+  components: { FoodItem, NutrientInformation },
   name: "HomeView",
 
   setup() {
@@ -103,7 +124,10 @@ export default defineComponent({
         return store.state.consumedItems.endDate.toISOString().split("T")[0];
       },
       set(value) {
-        store.dispatch("consumedItems/setEndDate", value);
+        // Take the value and set the time to 23:59:59
+        const date = new Date(value);
+        date.setHours(23, 59, 59);
+        store.dispatch("consumedItems/setEndDate", date);
       },
     });
 
@@ -168,6 +192,7 @@ export default defineComponent({
             fiber: 0,
             protein: 0,
             fat: 0,
+            carb: 0,
             water: 0,
             alcohol: 0,
             items: 0,
@@ -184,6 +209,7 @@ export default defineComponent({
         days[activeDayIndex].fiber += item.fiber;
         days[activeDayIndex].protein += item.protein;
         days[activeDayIndex].fat += item.fat;
+        days[activeDayIndex].carb += item.carbohydrate;
         days[activeDayIndex].water += item.water;
         days[activeDayIndex].alcohol += item.alcohol;
         days[activeDayIndex].items++;
@@ -214,6 +240,7 @@ export default defineComponent({
         fiber: 0,
         protein: 0,
         fat: 0,
+        carb: 0,
         water: 0,
         alcohol: 0,
         items: 0,
@@ -224,6 +251,7 @@ export default defineComponent({
         totals.fiber += day.fiber;
         totals.protein += day.protein;
         totals.fat += day.fat;
+        totals.carb += day.carb;
         totals.water += day.water;
         totals.alcohol += day.alcohol;
         totals.items += day.items;

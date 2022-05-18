@@ -77,6 +77,11 @@
           >
         </li>
         <li></li>
+        <li v-if="currentDate !== now">
+          <a href="#" @click.prevent="setDateToNow()"
+            >{{ currentDate }} <small>(Click to reset to today)</small></a
+          >
+        </li>
         <li>
           <router-link
             to="/progress"
@@ -128,6 +133,14 @@ export default defineComponent({
       fatEaten: "consumedItems/fatConsumedToday",
       proteinEaten: "consumedItems/proteinConsumedToday",
     }),
+    currentDate() {
+      return this.$store.state.consumedItems.setDate
+        .toISOString()
+        .split("T")[0];
+    },
+    now() {
+      return new Date().toISOString().split("T")[0];
+    },
   },
   data() {
     return {
@@ -135,7 +148,11 @@ export default defineComponent({
     };
   },
   //   created() {},
-  methods: {},
+  methods: {
+    setDateToNow() {
+      this.$store.dispatch("consumedItems/setDate");
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>
