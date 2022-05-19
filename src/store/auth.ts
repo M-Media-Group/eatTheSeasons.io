@@ -61,10 +61,14 @@ export default {
       goals: {
         firstMealTime: string;
         mealTimeSeparationInMinutes: number;
+        mealTimeDurationInMinutes: number;
         calories: number;
       };
     }): Record<string, any> {
       const now = new Date();
+      const nowPlusMealtime = new Date(
+        +now - 60000 * state.goals.mealTimeDurationInMinutes
+      ); // +15 minutes
       const currentYear = now.getFullYear();
       const currentMonth = now.getMonth();
       const currentDay = now.getDate();
@@ -91,27 +95,27 @@ export default {
       const meals = {
         breakfast: {
           date: firstMealDate,
-          dateHasPassed: now > firstMealDate,
+          dateHasPassed: nowPlusMealtime > firstMealDate,
           caloricPercentage: 26,
         },
         morningSnack: {
           date: morningSnack,
-          dateHasPassed: now > morningSnack,
+          dateHasPassed: nowPlusMealtime > morningSnack,
           caloricPercentage: 6,
         },
         lunch: {
           date: lunch,
-          dateHasPassed: now > lunch,
+          dateHasPassed: nowPlusMealtime > lunch,
           caloricPercentage: 36,
         },
         afternoonSnack: {
           date: afternoonSnack,
-          dateHasPassed: now > afternoonSnack,
+          dateHasPassed: nowPlusMealtime > afternoonSnack,
           caloricPercentage: 6,
         },
         dinner: {
           date: dinner,
-          dateHasPassed: now > dinner,
+          dateHasPassed: nowPlusMealtime > dinner,
           caloricPercentage: 26,
         },
       } as any;
