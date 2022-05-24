@@ -9,7 +9,9 @@
         You've planned
         {{
           Math.round(
-            caloriesEaten - (nextMeal?.totalAllowedCalories ?? goals.calories)
+            caloriesEaten -
+              (nextMeal?.totalAllowedCalories ?? goals.calories) +
+              kcalConsumedToday
           )
         }}
         kcal away from your goal
@@ -109,6 +111,7 @@ export default defineComponent({
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
       goals: "auth/goals",
+      kcalConsumedToday: "consumedItems/kcalConsumedToday",
       nextMeal: "auth/nextMeal",
     }),
     proteinEaten(): number {
