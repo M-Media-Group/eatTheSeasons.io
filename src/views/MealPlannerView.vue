@@ -1,42 +1,48 @@
 <template>
   <div>
     <div class="page-header default">
-      <h1>Meal planner</h1>
-      <p>Plan meals that are healthy and convenient.</p>
+      <h1 v-if="items.length > 0">
+        {{ items.length }} foods, {{ Math.round(caloriesEaten) }} kcal
+      </h1>
+      <h1 v-else>Meal planner</h1>
+      <p v-if="items.length > 0">
+        You've planned
+        {{
+          Math.round(
+            caloriesEaten - (nextMeal?.totalAllowedCalories ?? goals.calories)
+          )
+        }}
+        kcal away from your goal
+      </p>
+      <p v-else>Add food to start planning a healthy meal</p>
     </div>
     <div class="grid big-gap">
       <SignUp v-if="!isSignedUp" />
       <template v-else>
         <div class="grid columns">
           <div style="min-width: 50vw">
-            <div class="grid">
-              <h2>{{ Math.round(caloriesEaten) }} kilocalories planned</h2>
-
+            <div class="grid small-gap">
+              <p>The macronutrient distribution; goals vs planned:</p>
               <div class="grid small-gap">
-                <p>
-                  The macronutrient distribution; goals compared to planned
-                  meal:
-                </p>
-                <div class="grid small-gap">
-                  <NutrientInformation
-                    :protein="goals.proteinPercent"
-                    :carb="goals.carbsPercent"
-                    :fat="goals.fatPercent"
-                    :showText="false"
-                    style="margin-bottom: 0; opacity: 0.5"
-                  />
-                  <NutrientInformation
-                    v-if="
-                      isSignedUp &&
-                      (carbEaten !== 0 || fatEaten !== 0 || proteinEaten !== 0)
-                    "
-                    :protein="proteinEaten"
-                    :carb="carbEaten"
-                    :fat="fatEaten"
-                  />
-                </div>
+                <NutrientInformation
+                  :protein="goals.proteinPercent"
+                  :carb="goals.carbsPercent"
+                  :fat="goals.fatPercent"
+                  :showText="false"
+                  style="margin-bottom: 0; opacity: 0.5"
+                />
+                <NutrientInformation
+                  v-if="
+                    isSignedUp &&
+                    (carbEaten !== 0 || fatEaten !== 0 || proteinEaten !== 0)
+                  "
+                  :protein="proteinEaten"
+                  :carb="carbEaten"
+                  :fat="fatEaten"
+                />
               </div>
             </div>
+
             <ConsumedFoodItemTable
               :consumedItems="items"
               :expand="false"
@@ -103,6 +109,7 @@ export default defineComponent({
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
       goals: "auth/goals",
+      nextMeal: "auth/nextMeal",
     }),
     proteinEaten(): number {
       return this.items.reduce((acc, item) => acc + (item.protein ?? 0), 0);
