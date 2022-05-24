@@ -53,7 +53,7 @@ import { consumedItem } from "@/types/consumedItem";
 
 export default defineComponent({
   name: "MealTimes",
-  props: {},
+  // props: {},
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
