@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "Meal times",
         component: () =>
           import(
-            /* webpackChunkName: "MealPlanner" */ "@/components/MealTimes.vue"
+            /* webpackChunkName: "MealTimes" */ "@/components/MealTimes.vue"
           ),
       },
     ],
