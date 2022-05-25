@@ -93,7 +93,7 @@ import { consumedItem } from "@/types/consumedItem";
 export default defineComponent({
   name: "AddConsumedItemForm",
   components: {},
-  props: {},
+  // props: {},
   data() {
     return {
       form: {
