@@ -56,9 +56,10 @@ export class Listeners {
   }
 }
 
+// Currently unused
 export const EventsPlugin = {
   install: (app: App<any>) => {
-    // inject a globally available $translate() method
+    // inject a globally available $bus
     app.config.globalProperties.$bus = eventsInstance;
   },
 };
