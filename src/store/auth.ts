@@ -1,7 +1,7 @@
 import { addMinutes } from "@/helpers";
 import { CountryCode } from "@/types/foodItem";
 import { Commit, Dispatch } from "vuex";
-import $bus, { eventTypes } from "@/events";
+import $bus, { eventTypes } from "@/eventBus/events";
 
 export default {
   namespaced: true,

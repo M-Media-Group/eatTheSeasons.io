@@ -1,6 +1,4 @@
-import { Listeners } from "./events";
-
-const events = {
+export default {
   consumed_food_item_add: () => gtag("event", "consumed_food_item_add"),
 
   consumed_food_item_remove: () => gtag("event", "consumed_food_item_remove"),
@@ -22,5 +20,3 @@ const events = {
       value: event.value,
     }),
 };
-
-export default new Listeners(events);

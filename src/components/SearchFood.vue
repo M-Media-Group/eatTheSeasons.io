@@ -102,7 +102,7 @@ import { CategoryName, FoodItem as FoodItemTs } from "@/types/foodItem";
 import { debounce, getBestImageUrl } from "@/helpers";
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
-import $bus, { eventTypes } from "@/events";
+import $bus, { eventTypes } from "@/eventBus/events";
 
 export default defineComponent({
   name: "SearchView",

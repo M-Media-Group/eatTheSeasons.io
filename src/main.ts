@@ -7,7 +7,7 @@ import store from "./store";
 import "./styles/main.scss";
 
 // Event bus listeners
-import "./analytics";
+import "./eventBus/listeners/index";
 
 // axios.defaults.baseURL = process.env.VUE_APP_BASE_API_URL;
 

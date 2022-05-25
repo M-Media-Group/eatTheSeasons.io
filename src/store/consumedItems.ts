@@ -8,7 +8,7 @@ import {
   getFromIndexedDB,
 } from "@/helpers";
 import { consumedItem } from "@/types/consumedItem";
-import $bus, { eventTypes } from "@/events";
+import $bus, { eventTypes } from "@/eventBus/events";
 
 export default {
   namespaced: true,

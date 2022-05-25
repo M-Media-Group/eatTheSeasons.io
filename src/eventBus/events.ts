@@ -36,7 +36,6 @@ class Events {
   }
 
   $emit(eventName: eventTypes, data = null as any) {
-    console.log("got event", eventName, data);
     if (this.events[eventName]) {
       this.events[eventName].forEach(function (fn: (arg0: any) => void) {
         fn(data);
