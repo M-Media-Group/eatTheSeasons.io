@@ -75,13 +75,7 @@
         ><slot :food="food"></slot
       ></FoodItem>
     </div>
-    <div
-      class="main-banner"
-      v-if="
-        !isSignedUp &&
-        (isOnMobile || filteredAndOrderedFoodItemsInSeasonAndRegion.length > 3)
-      "
-    >
+    <div class="main-banner" v-if="!isSignedUp">
       <SignUp />
     </div>
   </div>
@@ -99,21 +93,23 @@ import {
   ref,
   onMounted,
   watch,
+  ComputedRef,
+  Ref,
 } from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
-import { CountryCode, FoodItem as FoodItemTs } from "@/types/foodItem";
+import { CategoryName, FoodItem as FoodItemTs } from "@/types/foodItem";
 import { debounce, getBestImageUrl } from "@/helpers";
-import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
+import $bus, { eventTypes } from "@/events";
 
 export default defineComponent({
   name: "SearchView",
 
   components: {
     FoodItem: defineAsyncComponent(() => import("@/components/FoodItem.vue")),
-    SignUp,
+    SignUp: defineAsyncComponent(() => import("@/components/SignUp.vue")),
   },
 
   props: {
@@ -144,10 +140,7 @@ export default defineComponent({
               searchTerm,
             },
           });
-          // eslint-disable-next-line no-undef
-          gtag("event", "search", {
-            search_term: searchTerm,
-          });
+          $bus.$emit(eventTypes.search, searchTerm);
           if (this.results.length > this.resultsLimit) {
             return;
           }
@@ -158,7 +151,7 @@ export default defineComponent({
   },
 
   methods: {
-    getFoodCategoriesForFoodItem(food: FoodItemTs): string[] {
+    getFoodCategoriesForFoodItem(food: FoodItemTs): CategoryName[] {
       if (!food.categories) {
         return [];
       }
@@ -205,7 +198,11 @@ export default defineComponent({
       findAllMatches: true,
       location: 0,
       threshold: 0.4,
-    });
+    }) as {
+      search: Ref<string>;
+      results: ComputedRef<FoodItemTs[]>;
+      noResults: ComputedRef<boolean>;
+    };
 
     const checkIsFoodNativeToCountry = (food: FoodItemTs) =>
       food.food_regions?.find((foodRegion) => {

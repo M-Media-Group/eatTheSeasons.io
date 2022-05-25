@@ -1,6 +1,7 @@
 import { addMinutes } from "@/helpers";
 import { CountryCode } from "@/types/foodItem";
 import { Commit, Dispatch } from "vuex";
+import $bus, { eventTypes } from "@/events";
 
 export default {
   namespaced: true,
@@ -197,7 +198,7 @@ export default {
     SET_SIGNED_UP(state: { isSignedUp: boolean }, value: boolean): void {
       state.isSignedUp = value;
       localStorage.setItem("isSignedUp", value.toString());
-      gtag("event", "signup_form_complete");
+      $bus.$emit(eventTypes.signup_form_complete);
     },
     SET_GOALS(state: { goals: unknown }, value: unknown): void {
       state.goals = value;
@@ -217,7 +218,8 @@ export default {
       //   For each key in value object, store the value in localStorage
       for (const key in value) {
         localStorage.setItem(`goals.${key}`, value[key].toString());
-        gtag("event", "udpate_goals_" + key, {
+        $bus.$emit(eventTypes.update_goals, {
+          key: key,
           value: value[key],
         });
       }
@@ -226,7 +228,8 @@ export default {
       commit("SET_FILTERS", value);
       for (const key in value) {
         localStorage.setItem(`filters.${key}`, value[key].toString());
-        gtag("event", "udpate_filters_" + key, {
+        $bus.$emit(eventTypes.update_filters, {
+          key: key,
           value: value[key],
         });
       }

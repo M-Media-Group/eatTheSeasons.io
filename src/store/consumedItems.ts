@@ -8,6 +8,7 @@ import {
   getFromIndexedDB,
 } from "@/helpers";
 import { consumedItem } from "@/types/consumedItem";
+import $bus, { eventTypes } from "@/events";
 
 export default {
   namespaced: true,
@@ -298,7 +299,7 @@ export default {
         addToIndexedDB(toRaw(consumedItem));
       }
       commit("ADD_CONSUMED_ITEM", consumedItem);
-      gtag("event", "consumed_food_item_add");
+      $bus.$emit(eventTypes.consumed_food_item_add, consumedItem);
     },
 
     deleteConsumedItem(
@@ -309,7 +310,7 @@ export default {
         deleteFromIndexedDB(consumedItemId);
       }
       commit("DELETE_CONSUMED_ITEM_BY_ID", consumedItemId);
-      gtag("event", "consumed_food_item_remove");
+      $bus.$emit(eventTypes.consumed_food_item_remove, consumedItemId);
     },
 
     setDate(
