@@ -3,16 +3,16 @@
 export interface FoodItem {
   id: number;
   name: string;
-  description: null;
+  description: string | null;
   is_raw: boolean;
   image_url: string;
-  kcal: null;
-  water: null;
-  protein: null;
-  fat: null;
-  carbohydrate: null;
-  fiber: null;
-  alcohol: null;
+  kcal: number | null;
+  water: number | null;
+  protein: number | null;
+  fat: number | null;
+  carbohydrate: number | null;
+  fiber: number | null;
+  alcohol: number | null;
   created_at: string;
   updated_at: string;
   categories: Category[];
@@ -22,7 +22,7 @@ export interface FoodItem {
 export interface Category {
   id: number;
   name: CategoryName;
-  description: null;
+  description: string | null;
   created_at: string;
   updated_at: string;
   pivot: Pivot;
@@ -46,8 +46,8 @@ export interface FoodRegion {
   food_id: number;
   local_name: string;
   grows_in_region: boolean;
-  created_at: null;
-  updated_at: null;
+  created_at: string | null;
+  updated_at: string | null;
   seasons: Season[];
   region: Region;
 }
@@ -66,7 +66,7 @@ export interface Region {
 export interface Country {
   code: CountryCode;
   name: CountryCode;
-  local_name: null;
+  local_name: string | null;
 }
 
 export enum CountryCode {
