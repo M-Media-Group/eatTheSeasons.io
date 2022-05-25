@@ -81,8 +81,8 @@
 
     <small v-if="showAddToIosShortcut && supportsIosShortcut">
       <a
-        @click="copyToiOSShortcut()"
-        href.prevent="shortcuts://run-shortcut?name=Log Food Intake"
+        @click.prevent="copyToiOSShortcut()"
+        href="shortcuts://run-shortcut?name=Log Food Intake"
         >Copy to Health with iOS Shortcut</a
       >
     </small>
