@@ -1,5 +1,5 @@
 <template>
-  <div class="food-item grid" :id="name.replace(' ', '-')">
+  <div class="food-item grid" :id="name?.replace(' ', '-')">
     <img
       v-if="showImage && computedImageSrc"
       :src="computedImageSrc"
@@ -59,7 +59,7 @@
     <slot></slot>
     <form
       v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
-      @submit.prevent="submitFoodItem({ food_id: id, grams: amount })"
+      @submit.prevent="submitFoodItem({ food_id: id, grams: amount ?? 0 })"
     >
       <input
         v-if="isFoodTrackerInputOpen"
@@ -80,15 +80,23 @@
       >
         Add to tracker
       </button>
-      <template v-if="amount > 0">
+      <template v-if="amount && amount > 0">
         <hr />
-        Protein eaten: {{ (protein / 100) * amount }}g
-        <br />
-        Carbohydrates eaten: {{ (carb / 100) * amount }}g
-        <br />
-        Fat eaten: {{ (fat / 100) * amount }}g
-        <br />
-        Calories eaten: {{ ((calories / 100) * amount).toFixed(2) }}kcal
+        <template v-if="protein">
+          Protein eaten: {{ (protein / 100) * amount }}g
+          <br />
+        </template>
+        <template v-if="carb">
+          Carbohydrates eaten: {{ (carb / 100) * amount }}g
+          <br />
+        </template>
+        <template v-if="fat">
+          Fat eaten: {{ (fat / 100) * amount }}g
+          <br />
+        </template>
+        <template v-if="calories">
+          Calories eaten: {{ ((calories / 100) * amount).toFixed(2) }}kcal
+        </template>
       </template>
     </form>
     <!-- <p v-if="categories">
@@ -99,7 +107,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, defineEmits, nextTick } from "vue";
-import { Category, FoodItem, MonthName } from "@/types/foodItem";
+import { Category, CategoryName, FoodItem, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
@@ -121,32 +129,36 @@ export default defineComponent({
     },
     src: String,
     calories: {
-      type: Number,
+      type: Number as PropType<number | null>,
       default: null,
+      required: false,
     },
     carb: {
-      type: Number,
+      type: Number as PropType<number | null>,
       default: null,
     },
     fat: {
-      type: Number,
+      type: Number as PropType<number | null>,
       default: null,
     },
     protein: {
-      type: Number,
+      type: Number as PropType<number | null>,
       default: null,
     },
     water: {
-      type: Number,
+      type: Number as PropType<number | null>,
       default: null,
     },
     showAddForm: Boolean,
     categories: {
-      type: Array as PropType<Category[]>,
+      type: Array as PropType<CategoryName[]>,
       default: () => [],
     },
     localName: String,
-    isNative: Boolean || null,
+    isNative: {
+      type: Boolean as PropType<boolean | null>,
+      default: null,
+    },
     lastMonth: {
       type: String as PropType<MonthName>,
       default: "",
