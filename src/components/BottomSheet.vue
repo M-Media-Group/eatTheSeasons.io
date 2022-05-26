@@ -136,6 +136,15 @@ export default defineComponent({
       isOpen.value = false;
       emit("closed");
     };
+
+    const toggleModal = () => {
+      if (isOpen.value) {
+        closeModal();
+      } else {
+        openModal();
+      }
+    };
+
     // Watch the touchDirection, if its down, close the modal
     watch(
       () => touchDirection.value,
@@ -146,7 +155,7 @@ export default defineComponent({
         } else if (newValue === "up") {
           openModal();
         } else if (newValue === "tap") {
-          openModal();
+          toggleModal();
         }
       }
     );
