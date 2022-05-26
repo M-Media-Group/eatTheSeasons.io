@@ -1,0 +1,31 @@
+$baseNumber: 8;
+$borderRadius: ($baseNumber * 2) + px;
+$bg: #fff;
+$text: #1f1f1f;
+$light-green: #afe2b4;
+$green: #22862d;
+$purple: rgb(139, 137, 255);
+$dark-green: darken($green, 10%);
+$green-border: $dark-green;
+$green-shadow: #9ecba3;
+$transiton-timing: 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+$mobileBreakpoint: $baseNumber * 96 + px;
+$allowDarkMode: false;
+// Declare the vars above as CSS variables
+:root {
+    --bg: #{$bg};
+    --text: #{$text};
+    --green-shadow: #{$green-shadow};
+}
+
+// If allowDarkMode is true, then the dark mode will be used
+// Otherwise, the light model will be used
+@if $allowDarkMode == true {
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #{$text};
+            --text: #{$bg};
+            --green-shadow: #{darken($green-shadow, 40%)};
+        }
+    }
+}

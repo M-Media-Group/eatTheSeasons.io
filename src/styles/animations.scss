@@ -1,0 +1,173 @@
+@import "variables";
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity $transiton-timing;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+    transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to
+
+/* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-from-bottom-enter-from,
+.slide-from-bottom-leave-to {
+    opacity: 0;
+}
+
+.slide-from-bottom-leave-to .modal,
+.slide-from-bottom-leave-to nav {
+    -webkit-transform: translateY(500px);
+    transform: translateY(500px);
+}
+
+.slide-from-bottom-enter-from .modal,
+.slide-from-bottom-enter-from nav {
+    -webkit-transform: translateY(500px);
+    transform: translateY(500px);
+}
+
+.slide-from-bottom-enter-active,
+.slide-from-bottom-leave-active {
+    transition: all $transiton-timing;
+
+    .modal,
+    nav {
+        transition: all $transiton-timing;
+    }
+}
+
+.slide-enter-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to,
+.slide-leave {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.slide-enter,
+.slide-leave-to {
+    overflow: hidden;
+    max-height: 0;
+}
+
+.shake {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.get-notified:hover,
+.get-notified.active {
+    .bell-icon svg {
+        animation: rotate-shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        backface-visibility: hidden;
+        transform-origin: 40% top;
+    }
+}
+
+.get-notified.active > .bell-icon {
+    animation: jump 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    backface-visibility: hidden;
+}
+
+@keyframes rotate-shake {
+    10%,
+    90% {
+        transform: rotate(-3deg);
+    }
+
+    20%,
+    80% {
+        transform: rotate(5deg);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: rotate(-7deg);
+    }
+
+    40%,
+    60% {
+        transform: rotate(7deg);
+    }
+}
+
+@keyframes jump {
+    50% {
+        transform: translateY(-15px);
+    }
+}

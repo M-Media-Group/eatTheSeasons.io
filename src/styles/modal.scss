@@ -1,0 +1,141 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-height: 100%;
+    touch-action: none;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+
+    .modal-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px 10px;
+        // min-height: 100px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .modal-header-headings {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0px 0px;
+            min-height: 50px;
+
+            /* Inside Auto Layout */
+
+            flex: none;
+            order: 1;
+            align-self: stretch;
+            flex-grow: 0;
+            margin: 0px 0px;
+        }
+
+        .modal-header-title {
+            // font-style: normal;
+            // font-weight: 500;
+            // font-size: 22px;
+            // line-height: 28px;
+            // /* identical to box height, or 127% */
+
+            // display: flex;
+            // align-items: center;
+            // letter-spacing: 0.44px;
+
+            // color: var(--text-dark-color);
+
+            // /* Inside Auto Layout */
+
+            // flex: none;
+            // order: 0;
+            // flex-grow: 1;
+            // margin: 0px 0px;
+        }
+
+        .modal-header-actions {
+            color: var(--text-dark-color);
+        }
+
+        .swipe-down-element {
+            /* Swipe down layout */
+
+            /* Auto Layout */
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0px;
+
+            /* Inside Auto Layout */
+
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+            margin: 0px 0px;
+        }
+
+        .swipe-down-line {
+            width: 128px;
+            border: 3px solid var(--text);
+            border-radius: 10px;
+        }
+    }
+
+    .modal-body {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: scroll;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer {
+        padding: 10px 20px 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .modal-body + .modal-footer {
+        // border-top: 1px solid #DDDDDD;
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: black;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 2;
+}
+
+@media (min-width: 550px) {
+    .modal {
+        bottom: 10%;
+        right: auto;
+        left: calc(50% - 350px);
+        top: 10%;
+        z-index: 3;
+        width: 700px;
+        border-radius: 20px;
+    }
+}
