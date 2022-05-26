@@ -1,14 +1,16 @@
+@import "variables";
+
 .modal {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px;
     background: white;
-    border-radius: 20px 20px 0 0;
+    border-radius: $borderRadius $borderRadius 0 0;
     width: 100%;
     max-height: 100%;
     touch-action: none;
-    position: absolute;
+    position: fixed;
     top: auto;
     bottom: 0;
     left: 0;
@@ -21,18 +23,19 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 20px 20px 10px;
+        padding: $baseNumber * 2 + px $baseNumber * 2 + px $baseNumber + px;
         // min-height: 100px;
         width: 100%;
         box-sizing: border-box;
+        cursor: pointer;
 
         .modal-header-headings {
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            padding: 10px 0px 0px;
-            min-height: 50px;
+            padding: $baseNumber + px 0px 0px;
+            min-height: $baseNumber * 7 + px;
 
             /* Inside Auto Layout */
 
@@ -77,7 +80,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 5px 0px;
+            padding: $baseNumber + px 0px;
 
             /* Inside Auto Layout */
 
@@ -88,17 +91,17 @@
         }
 
         .swipe-down-line {
-            width: 128px;
-            border: 3px solid var(--text);
-            border-radius: 10px;
+            width: 16 * $baseNumber + px;
+            border: $baseNumber / 2 + px solid var(--text);
+            border-radius: $borderRadius;
         }
     }
 
     .modal-body {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: $baseNumber * 2 + px;
+        padding-right: $baseNumber * 2 + px;
         width: 100%;
         box-sizing: border-box;
         overflow-x: scroll;
@@ -107,7 +110,7 @@
     }
 
     .modal-footer {
-        padding: 10px 20px 20px;
+        padding: $baseNumber + px $baseNumber * 2 + px $baseNumber * 2 + px;
         width: 100%;
         box-sizing: border-box;
     }
@@ -115,10 +118,15 @@
     .modal-body + .modal-footer {
         // border-top: 1px solid #DDDDDD;
     }
+
+    &.open {
+        position: absolute;
+        z-index: 100;
+    }
 }
 
 .modal-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -133,10 +141,10 @@
     .modal {
         bottom: 10%;
         right: auto;
-        left: calc(50% - 350px);
+        left: calc(50% - 360px);
         z-index: 3;
-        width: 700px;
-        border-radius: 20px;
+        width: $baseNumber * 90 + px;
+        border-radius: $borderRadius;
         &.open {
             top: 10%;
         }
