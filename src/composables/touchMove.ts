@@ -6,19 +6,32 @@ export function useMove() {
   const touchEndY = ref(0);
   const touchStartY = ref(0);
 
-  const touchStartMethod = (event: TouchEvent) => {
-    console.log("touch start", event);
-    touchStartY.value = event.changedTouches[0].screenY;
+  const touchStartMethod = (event: TouchEvent | MouseEvent) => {
+    // If the event is a type of TouchEvent
+    if (event instanceof MouseEvent) {
+      // Get the Y position of the mouse
+      touchStartY.value = event.screenY;
+    } else if (TouchEvent && event instanceof TouchEvent) {
+      touchStartY.value = event.changedTouches[0].screenY;
+    }
   };
 
-  const touchEndMethod = (event: TouchEvent) => {
-    touchEndY.value = event.changedTouches[0].screenY;
+  const touchEndMethod = (event: TouchEvent | MouseEvent) => {
+    if (event instanceof MouseEvent) {
+      touchEndY.value = event.screenY;
+    } else if (TouchEvent && event instanceof TouchEvent) {
+      touchEndY.value = event.changedTouches[0].screenY;
+    }
   };
+
+  const touchDistance = computed(() => {
+    return touchEndY.value - touchStartY.value;
+  });
 
   const touchDirection = computed(() => {
-    if (touchEndY.value > touchStartY.value) {
+    if (touchDistance.value > 0) {
       return "down";
-    } else if (touchEndY.value === touchStartY.value) {
+    } else if (touchDistance.value === 0) {
       return "tap";
     } else {
       return "up";
@@ -27,6 +40,7 @@ export function useMove() {
 
   // expose managed state as return value
   return {
+    touchDistance,
     touchDirection,
     touchStartMethod,
     touchEndMethod,

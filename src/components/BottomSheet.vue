@@ -72,7 +72,7 @@ export default defineComponent({
       required: false,
     },
   },
-  emits: ["closed"],
+  emits: ["closed", "opened"],
   data() {
     return {
       swipeDown: false,
@@ -121,7 +121,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { touchDirection, touchStartMethod, touchEndMethod } = useMove();
+    const { touchDistance, touchDirection, touchStartMethod, touchEndMethod } =
+      useMove();
     const isOpen = ref(false);
 
     const openModal = () => {
