@@ -17,7 +17,8 @@
         class="modal-header"
         @touchstart="touchStartMethod"
         @touchend="touchEndMethod"
-        @click="openModal"
+        @mousedown="touchStartMethod"
+        @mouseup="touchEndMethod"
       >
         <div class="swipe-down-element">
           <div class="swipe-down-line" />
@@ -43,14 +44,14 @@
       <div class="modal-body" v-if="isOpen">
         <slot name="body" />
       </div>
-      <footer class="modal-footer" v-if="isOpen">
+      <footer class="modal-footer" v-if="isOpen && hasSlot('footer')">
         <slot name="footer" />
       </footer>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, useSlots, watch } from "vue";
 import { useMove } from "@/composables/touchMove";
 
 export default defineComponent({
@@ -123,6 +124,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const { touchDistance, touchDirection, touchStartMethod, touchEndMethod } =
       useMove();
+
+    const slots = useSlots();
+
+    const hasSlot = (name) => {
+      return !!slots[name];
+    };
+
     const isOpen = ref(false);
 
     const openModal = () => {
@@ -166,6 +174,7 @@ export default defineComponent({
       touchEndMethod,
       openModal,
       closeModal,
+      hasSlot,
     };
   },
 });

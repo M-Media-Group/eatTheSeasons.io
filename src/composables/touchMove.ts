@@ -5,8 +5,10 @@ export function useMove() {
   // state encapsulated and managed by the composable
   const touchEndY = ref(0);
   const touchStartY = ref(0);
+  const touchEnded = ref(false);
 
   const touchStartMethod = (event: TouchEvent | MouseEvent) => {
+    touchEnded.value = false;
     // If the event is a type of TouchEvent
     if (event instanceof MouseEvent) {
       // Get the Y position of the mouse
@@ -17,6 +19,7 @@ export function useMove() {
   };
 
   const touchEndMethod = (event: TouchEvent | MouseEvent) => {
+    touchEnded.value = true;
     if (event instanceof MouseEvent) {
       touchEndY.value = event.screenY;
     } else if (TouchEvent && event instanceof TouchEvent) {
@@ -29,6 +32,9 @@ export function useMove() {
   });
 
   const touchDirection = computed(() => {
+    if (!touchEnded.value) {
+      return;
+    }
     if (touchDistance.value > 0) {
       return "down";
     } else if (touchDistance.value === 0) {

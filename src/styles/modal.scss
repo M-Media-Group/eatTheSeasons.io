@@ -8,7 +8,7 @@
     width: 100%;
     max-height: 100%;
     touch-action: none;
-    position: fixed;
+    position: absolute;
     top: auto;
     bottom: 0;
     left: 0;
@@ -118,7 +118,7 @@
 }
 
 .modal-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
