@@ -56,8 +56,14 @@
               Move to consumed foods
             </button>
           </div>
-
-          <SearchFood :showAddForm="false" :showImage="false" :hLevel="2">
+        </div>
+      </template>
+      <!-- <button @click="openModal()" class="submit-button">Add food</button> -->
+    </div>
+    <transition name="slide-from-bottom" mode="in-out">
+      <BottomSheet ref="searchModal" title="Search">
+        <template #body>
+          <SearchFood :showAddForm="false" :showImage="false" :hLevel="3">
             <template v-slot:default="{ food }">
               <form @submit.prevent="addItem(food, grams)">
                 <label
@@ -76,9 +82,9 @@
               </form>
             </template>
           </SearchFood>
-        </div>
-      </template>
-    </div>
+        </template>
+      </BottomSheet>
+    </transition>
   </div>
 </template>
 
@@ -88,18 +94,21 @@ import ConsumedFoodItemTable from "@/components/ConsumedFoodItemTable.vue";
 import { mapGetters } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
 import NutrientInformation from "@/components/NutrientInformation.vue";
-import SearchFood from "@/components/SearchFood.vue";
 import { FoodItem } from "@/types/foodItem";
+import BottomSheet from "../components/BottomSheet.vue";
 
 export default defineComponent({
   name: "ProgressView",
   components: {
     ConsumedFoodItemTable,
     NutrientInformation,
-    SearchFood,
+    SearchFood: defineAsyncComponent({
+      loader: () => import("@/components/SearchFood.vue"),
+    }),
     SignUp: defineAsyncComponent({
       loader: () => import("@/components/SignUp.vue"),
     }),
+    BottomSheet,
   },
   data() {
     return {
@@ -163,6 +172,9 @@ export default defineComponent({
         this.$store.dispatch("consumedItems/addConsumedItem", item);
       });
       this.items = [];
+    },
+    openModal() {
+      (this.$refs.searchModal as any).openModal();
     },
   },
 });
