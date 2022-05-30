@@ -60,31 +60,31 @@
       </template>
       <!-- <button @click="openModal()" class="submit-button">Add food</button> -->
     </div>
-    <transition name="slide-from-bottom" mode="in-out">
-      <BottomSheet ref="searchModal" title="Search">
-        <template #body>
-          <SearchFood :showAddForm="false" :showImage="false" :hLevel="3">
-            <template v-slot:default="{ food }">
-              <form @submit.prevent="addItem(food, grams)">
-                <label
-                  ><input
-                    type="number"
-                    inputmode="numeric"
-                    pattern="[0-9]*"
-                    min="1"
-                    v-model.number="grams"
-                    placeholder="Amount in grams"
-                    required
-                  /><span>g</span></label
-                ><button type="submit" class="submit-button">
-                  Add to meal planner
-                </button>
-              </form>
-            </template>
-          </SearchFood>
-        </template>
-      </BottomSheet>
-    </transition>
+
+    <BottomSheet ref="searchModal" title="Search" @opened="opened()">
+      <template #body>
+        <SearchFood :showAddForm="false" :showImage="false" :hLevel="3">
+          <template v-slot:default="{ food }">
+            <form @submit.prevent="addItem(food, grams)">
+              <label
+                ><input
+                  type="number"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  min="1"
+                  v-model.number="grams"
+                  placeholder="Amount in grams"
+                  required
+                  ref="searchInput"
+                /><span>g</span></label
+              ><button type="submit" class="submit-button">
+                Add to meal planner
+              </button>
+            </form>
+          </template>
+        </SearchFood>
+      </template>
+    </BottomSheet>
   </div>
 </template>
 
@@ -175,6 +175,20 @@ export default defineComponent({
     },
     openModal() {
       (this.$refs.searchModal as any).openModal();
+    },
+    opened() {
+      // Focus on the first input in searchModal
+      const searchModal = this.$refs.searchModal as any;
+      // find the first input in the modal
+      const input = searchModal.$el.querySelector("input");
+      if (input) {
+        input.focus();
+      }
+      // scroll to top of element with modal-body class
+      const modalBody = searchModal.$el.querySelector(".modal-body");
+      if (modalBody) {
+        modalBody.scrollTo(0, 0);
+      }
     },
   },
 });

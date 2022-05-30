@@ -2,56 +2,61 @@
   <div>
     <div
       class="modal-overlay"
-      @click="closeModal"
+      @click.stop="closeModal"
       @touchstart="touchStartMethod"
       @touchend="touchEndMethod"
       v-if="isOpen"
     />
-    <div
-      class="modal"
-      :style="draggedStyle"
-      v-if="isOpen || keepHeaderVisible"
-      :class="{ open: isOpen }"
-    >
-      <header
-        class="modal-header"
-        @touchstart="touchStartMethod"
-        @touchend="touchEndMethod"
-        @mousedown="touchStartMethod"
-        @mouseup="touchEndMethod"
+    <transition name="slide-from-bottom" mode="in-out">
+      <div
+        class="modal"
+        :style="draggedStyle"
+        v-if="isOpen || keepHeaderVisible"
+        :class="{ open: isOpen }"
       >
-        <div class="swipe-down-element">
-          <div class="swipe-down-line" />
-        </div>
-        <slot name="header">
-          <div
-            v-if="title || $slots.headerActions"
-            class="modal-header-headings"
-          >
-            <component
-              :is="titleHtmlElement"
-              v-if="title"
-              class="modal-header-title"
-            >
-              {{ title }}
-            </component>
-            <div v-if="$slots.headerActions" class="modal-header-actions">
-              <slot name="headerActions" />
-            </div>
+        <header
+          class="modal-header"
+          @touchstart="touchStartMethod"
+          @touchend="touchEndMethod"
+          @mousedown="touchStartMethod"
+          @mouseup="touchEndMethod"
+        >
+          <div class="swipe-down-element">
+            <div class="swipe-down-line" />
           </div>
-        </slot>
-      </header>
-      <div class="modal-body" v-if="isOpen">
-        <slot name="body" />
+          <slot name="header">
+            <div
+              v-if="title || $slots.headerActions"
+              class="modal-header-headings"
+            >
+              <component
+                :is="titleHtmlElement"
+                v-if="title"
+                class="modal-header-title"
+              >
+                {{ title }}
+              </component>
+              <div v-if="$slots.headerActions" class="modal-header-actions">
+                <slot name="headerActions" />
+              </div>
+            </div>
+          </slot>
+        </header>
+        <transition name="slide-from-bottom" mode="in-out">
+          <div class="modal-body" v-if="isOpen">
+            <slot name="body" />
+          </div>
+        </transition>
+
+        <footer class="modal-footer" v-if="isOpen && hasSlot('footer')">
+          <slot name="footer" />
+        </footer>
       </div>
-      <footer class="modal-footer" v-if="isOpen && hasSlot('footer')">
-        <slot name="footer" />
-      </footer>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
-import { defineComponent, ref, useSlots, watch } from "vue";
+import { defineComponent, nextTick, ref, useSlots, watch } from "vue";
 import { useMove } from "@/composables/touchMove";
 
 export default defineComponent({
@@ -135,12 +140,22 @@ export default defineComponent({
 
     const openModal = () => {
       document.body.style.overflow = "hidden";
+      //   document.body.style.position = "absolute";
+      //   document.body.style.height = "100vh";
+      //   document.body.style.height = "-webkit-fill-available";
+      //   document.style.height = "-webkit-fill-available;";
       isOpen.value = true;
-      emit("opened");
+      //   Wait for next tick to emit the opened event
+      //   so that the modal can be positioned correctly
+      //   before the opened event is emitted
+      //
+      nextTick(() => {
+        emit("opened");
+      });
     };
 
     const closeModal = () => {
-      document.body.style.overflow = null;
+      document.body.style = null;
       isOpen.value = false;
       emit("closed");
     };

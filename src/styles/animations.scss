@@ -43,16 +43,14 @@
     opacity: 0;
 }
 
-.slide-from-bottom-leave-to .modal,
-.slide-from-bottom-leave-to nav {
-    -webkit-transform: translateY(500px);
-    transform: translateY(500px);
-}
-
-.slide-from-bottom-enter-from .modal,
-.slide-from-bottom-enter-from nav {
-    -webkit-transform: translateY(500px);
-    transform: translateY(500px);
+.slide-from-bottom-enter-from,
+.slide-from-bottom-leave-to {
+    .modal,
+    nav,
+    :first-child {
+        -webkit-transform: translateY(500px);
+        transform: translateY(500px);
+    }
 }
 
 .slide-from-bottom-enter-active,
@@ -60,7 +58,8 @@
     transition: all $transiton-timing;
 
     .modal,
-    nav {
+    nav,
+    :first-child {
         transition: all $transiton-timing;
     }
 }
