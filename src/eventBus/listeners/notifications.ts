@@ -205,7 +205,7 @@ export default {
         " kcal. You can add " +
         (allowedCalories > 0
           ? allowedCalories + " kcal more"
-          : "no more calories for today."),
+          : "no more calories for now."),
       ["browser"]
     ).show();
   },
