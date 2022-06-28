@@ -226,6 +226,19 @@ export default {
     },
 
     ADD_FOOD_ITEM(state: { foodItems: FoodItemTs[] }, value: FoodItemTs): void {
+      // If the food item has no calories, compute it
+      if (value.kcal === null) {
+        value.kcal =
+          (value.carbohydrate ?? 0) * 4 +
+          (value.fat ?? 0) * 9 +
+          (value.protein ?? 0) * 4;
+
+        // Set the kcal back to null if it is 0
+        if (value.kcal === 0) {
+          value.kcal = null;
+        }
+      }
+
       // Add the food item if the food item with the ID does not exist
       state.foodItems.findIndex((item) => item.id === value.id) === -1 &&
         state.foodItems.push(value);

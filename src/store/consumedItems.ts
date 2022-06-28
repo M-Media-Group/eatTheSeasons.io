@@ -298,6 +298,18 @@ export default {
       if (rootGetters["app/supportsIndexedDB"]) {
         addToIndexedDB(toRaw(consumedItem));
       }
+
+      // If the item has no calories, compute it from the carbs, fat and protein
+      if (consumedItem.kcal === null) {
+        consumedItem.kcal =
+          (consumedItem.carbohydrate ?? 0) * 4 +
+          (consumedItem.fat ?? 0) * 9 +
+          (consumedItem.protein ?? 0) * 4;
+        if (consumedItem.kcal === 0) {
+          consumedItem.kcal = null;
+        }
+      }
+
       commit("ADD_CONSUMED_ITEM", consumedItem);
       $bus.$emit(eventTypes.consumed_food_item_add, consumedItem);
     },
