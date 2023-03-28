@@ -11,7 +11,7 @@
         <span v-if="localName"> ({{ localName }}) </span>
       </component>
       <p v-if="calories || lastMonth">
-        <span v-if="calories">{{ calories }} kcal/100g · </span>
+        <span v-if="calories">{{ calories.toFixed(2) }} kcal/100g · </span>
         <span v-if="lastMonth">Available to end of </span>
         {{ lastMonth }}
       </p>
