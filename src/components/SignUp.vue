@@ -18,6 +18,7 @@
         name="email"
         type="email"
         placeholder="Your Email Address"
+        required
       />
       <button type="submit" class="submit-button">Sign up</button>
     </form>
