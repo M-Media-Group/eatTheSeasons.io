@@ -4,6 +4,7 @@
       v-if="showImage && computedImageSrc"
       :src="computedImageSrc"
       :alt="'A picture of a ' + name"
+      loading="lazy"
     />
     <div>
       <component :is="'h' + titleLevel">
