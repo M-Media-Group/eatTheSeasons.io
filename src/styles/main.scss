@@ -280,12 +280,15 @@ form {
         text-align: center;
         appearance: none;
     }
-    > meter::after {
-        // content: attr(class);
+    > meter:hover::after {
+        content: attr(value) "%\a"attr(class);
+        overflow-x: hidden;
+        white-space: pre-wrap;
         position: absolute;
         top: $baseNumber * 2 + px;
+        width: $baseNumber * 8 + px;
         text-align: center;
-        left: 35%;
+        left: calc(50% - #{$baseNumber * 4 + px});
     }
     // First child
     > :first-child {
