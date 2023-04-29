@@ -3,6 +3,57 @@
 import { consumedItem } from "./types/consumedItem";
 import { Country } from "./types/foodItem";
 
+const migrations = {
+  eatenFoodItems: {
+    id: {
+      unique: true,
+    },
+    name: {
+      unique: false,
+    },
+    description: {
+      unique: false,
+    },
+    food_id: {
+      unique: false,
+    },
+    grams: {
+      unique: false,
+    },
+    kcal: {
+      unique: false,
+    },
+    water: {
+      unique: false,
+    },
+    protein: {
+      unique: false,
+    },
+    carbohydrate: {
+      unique: false,
+    },
+    fat: {
+      unique: false,
+    },
+    fiber: {
+      unique: false,
+    },
+    alcohol: {
+      unique: false,
+    },
+    created_at: {
+      unique: false,
+    },
+    updated_at: {
+      unique: false,
+    },
+  },
+};
+
+type TableNames = {
+  [K in keyof typeof migrations]: typeof migrations[K];
+};
+
 export async function getTranslatedString(
   string: string,
   language: Country
@@ -54,33 +105,25 @@ export function addMinutes(time: string, minutes: number) {
   return new Date(new Date(time).getTime() + minutes * 60000).toTimeString();
 }
 
-export function updateIndexedDB(table: string, event: any) {
+export function updateIndexedDB(
+  table = "eatenFoodItems" as keyof TableNames,
+  event: any
+) {
   const db = event.target.result;
   console.log("upgrade", db);
   const objectStore = db.createObjectStore(table, {
     keyPath: "id",
   });
-  objectStore.createIndex("id", "id", { unique: true });
-  objectStore.createIndex("name", "name", { unique: false });
-  objectStore.createIndex("description", "description", {
-    unique: false,
-  });
-  objectStore.createIndex("food_id", "food_id", { unique: false });
-  objectStore.createIndex("grams", "grams", { unique: false });
-  objectStore.createIndex("kcal", "kcal", { unique: false });
-  objectStore.createIndex("water", "water", { unique: false });
-  objectStore.createIndex("protein", "protein", { unique: false });
-  objectStore.createIndex("carbohydrate", "carbohydrate", { unique: false });
-  objectStore.createIndex("fat", "fat", { unique: false });
-  objectStore.createIndex("fiber", "fiber", { unique: false });
-  objectStore.createIndex("alcohol", "alcohol", { unique: false });
-  objectStore.createIndex("created_at", "created_at", { unique: false });
-  objectStore.createIndex("updated_at", "updated_at", { unique: false });
+
+  const fields = migrations[table];
+  for (const [fieldName, index] of Object.entries(fields)) {
+    objectStore.createIndex(fieldName, fieldName, { unique: index.unique });
+  }
 }
 
 export function addToIndexedDB(
   value: consumedItem,
-  table = "eatenFoodItems",
+  table = "eatenFoodItems" as keyof TableNames,
   dbName = "foodie"
 ) {
   console.log("addToIndexedDB", value);
@@ -112,7 +155,7 @@ export function addToIndexedDB(
 }
 
 export function getFromIndexedDB(
-  table = "eatenFoodItems",
+  table = "eatenFoodItems" as keyof TableNames,
   dbName = "foodie"
 ): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -147,7 +190,7 @@ export function getFromIndexedDB(
 
 export function deleteFromIndexedDB(
   id: number,
-  table = "eatenFoodItems",
+  table = "eatenFoodItems" as keyof TableNames,
   dbName = "foodie"
 ) {
   if (!window.indexedDB) {
