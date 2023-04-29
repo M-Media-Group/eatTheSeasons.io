@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="grid">
     <header class="default">
       <h1 v-if="items.length > 0">
         {{ items.length }} foods, {{ Math.round(caloriesEaten) }} kcal

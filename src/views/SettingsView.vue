@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="grid">
     <header class="default">
       <h1>Settings</h1>
     </header>
