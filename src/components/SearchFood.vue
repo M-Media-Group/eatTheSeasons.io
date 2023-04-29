@@ -98,7 +98,11 @@ import {
 } from "vue";
 import { mapGetters } from "vuex";
 
-import { CategoryName, FoodItem as FoodItemTs } from "@/types/foodItem";
+import {
+  CategoryName,
+  FoodItem as FoodItemTs,
+  OpenFoodFactsFoodItem,
+} from "@/types/foodItem";
 import { debounce, getBestImageUrl } from "@/helpers";
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
@@ -244,8 +248,50 @@ export default defineComponent({
         `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
       );
       const response = await request.json();
+      if (response.data.length === 0) {
+        return searchForFoodViaOpenFoodFactsAPI();
+      }
       response.data.forEach((foodItem: FoodItemTs) => {
         store.dispatch("foodItems/addFoodItem", foodItem);
+      });
+    };
+
+    const searchForFoodViaOpenFoodFactsAPI = async () => {
+      const request = await fetch(
+        `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${search.value}&search_simple=1&action=process&json=1`
+      );
+      const response = await request.json();
+      console.log(response);
+      response.products.forEach((foodItem: OpenFoodFactsFoodItem) => {
+        // Convert the type OpenFoodFactsFoodItem to FoodItem
+        const formattedFoodItem = {
+          id: parseInt(foodItem.id),
+          name: foodItem.product_name,
+          description: foodItem.generic_name,
+          is_raw: false,
+          image_url: foodItem.image_url,
+          kcal: foodItem.nutriments["energy-kcal_100g"],
+          water: null,
+          protein: parseFloat(foodItem.nutriments.proteins_100g),
+          fat: parseFloat(foodItem.nutriments.fat_100g),
+          carbohydrate: foodItem.nutriments.carbohydrates_100g,
+          fiber: parseFloat(foodItem.nutriments.fiber_100g),
+          alcohol: null,
+          created_at: new Date().toDateString(),
+          updated_at: new Date().toDateString(),
+          categories: [],
+          // categories: foodItem.categories_tags.map((category) => {
+          //   return {
+          //     id: null,
+          //     name: category,
+          //     created_at: new Date(),
+          //     updated_at: new Date(),
+          //   };
+          // }),
+          food_regions: [],
+        } as FoodItemTs;
+
+        store.dispatch("foodItems/addFoodItem", formattedFoodItem);
       });
     };
 
