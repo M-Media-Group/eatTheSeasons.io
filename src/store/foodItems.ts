@@ -47,6 +47,37 @@ export default {
       );
     },
 
+    requiredNutrients(
+      state: any,
+      getters: any,
+      rootState: any,
+      rootGetters: any
+    ) {
+      const nutrientInfo = rootGetters["auth/nutrientRatio"] as any;
+      const goals = rootGetters["auth/goals"] as unknown as Record<
+        string,
+        number
+      >;
+      // Determine the required nutrient % distribution required to reach goals based on already consumed nutrientInfo and goals
+      const requiredNutrients = {
+        carbsRatio:
+          nutrientInfo.carbsRatio < goals.carbsPercent
+            ? goals.carbsPercent - nutrientInfo.carbsRatio
+            : 0,
+        fatRatio:
+          nutrientInfo.fatRatio < goals.fatPercent
+            ? goals.fatPercent - nutrientInfo.fatRatio
+            : 0,
+
+        proteinRatio:
+          nutrientInfo.proteinRatio < goals.proteinPercent
+            ? goals.proteinPercent - nutrientInfo.proteinRatio
+            : 0,
+      };
+
+      return requiredNutrients;
+    },
+
     foodItemsThatHelpReachGoals(
       state: any,
       getters: any,
