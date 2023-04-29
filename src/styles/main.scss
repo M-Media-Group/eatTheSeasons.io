@@ -580,8 +580,8 @@ img {
         margin-left: auto;
         margin-right: auto;
 
-        background: #ffffff;
-        border: 1px solid #c4c4c4;
+        background: var(--bg);
+        border: 1px solid lightgray;
         box-shadow: $boxShadow;
         border-radius: $baseNumber * 2 + px;
 
@@ -667,6 +667,7 @@ img {
             flex-grow: 0;
             a {
                 text-decoration: none;
+                color: inherit;
             }
         }
     }
