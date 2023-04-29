@@ -120,7 +120,6 @@ export default defineComponent({
   components: {
     NutrientInformation,
   },
-  props: {},
 
   computed: {
     caloricGoal: {

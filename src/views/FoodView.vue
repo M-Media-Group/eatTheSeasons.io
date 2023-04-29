@@ -333,7 +333,7 @@ export default defineComponent({
         .filter((region, index, array) => array.indexOf(region) === index);
     },
 
-    getLastMonthInARowFromFoodItem(food: FoodItemTs): MonthName | "" {
+    getLastMonthInARowFromFoodItem(food: FoodItemTs): MonthName | undefined {
       const months = food.food_regions
         .find((foodRegion) => {
           return (
@@ -345,7 +345,7 @@ export default defineComponent({
           return season.month_name;
         });
       if (!months) {
-        return "";
+        return;
       }
       return months[months.length - 1];
     },
@@ -361,7 +361,7 @@ export default defineComponent({
       );
     },
 
-    getFoodCategoriesForFoodItem(food: FoodItemTs): string[] {
+    getFoodCategoriesForFoodItem(food: FoodItemTs): CategoryName[] {
       if (!food.categories) {
         return [];
       }

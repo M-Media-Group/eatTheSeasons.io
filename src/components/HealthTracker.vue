@@ -100,7 +100,6 @@ export default defineComponent({
     MealTimes,
     ConsumedFoodItemTable,
   },
-  props: {},
 
   data() {
     return {
