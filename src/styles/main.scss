@@ -532,7 +532,7 @@ main.grid > header {
     position: relative;
     margin-top: -$baseNumber * 10 + px;
     width: 100%;
-    height: $baseNumber * 30 + px;
+    padding-top: $baseNumber * 15 + px;
     left: 0px;
     top: 0px;
     padding-left: $baseNumber * 2 + px;
@@ -545,8 +545,8 @@ main.grid > header {
     grid-auto-rows: min-content;
     align-content: end;
     color: white;
-    padding-bottom: 40px;
-    margin-bottom: 40px;
+    padding-bottom: $baseNumber * 5 + px;
+    margin-bottom: 0;
     a {
         color: white;
     }
@@ -584,10 +584,11 @@ main.grid > header {
         position: sticky;
         width: auto;
         max-width: 90%;
-        height: 48px;
+
         top: $baseNumber + px;
+
         z-index: 2;
-        margin-top: -80px;
+
         margin-left: auto;
         margin-right: auto;
 
@@ -595,28 +596,6 @@ main.grid > header {
         border: 1px solid lightgray;
         box-shadow: $boxShadow;
         border-radius: $baseNumber * 2 + px;
-
-        /* Search */
-
-        // width: 90%;
-        // height: 22px;
-
-        // /* p */
-        // font-style: normal;
-        // font-weight: 400;
-        // font-size: $baseNumber * 2 + px;
-        // line-height: 22px;
-        // /* identical to box height */
-        // display: flex;
-        // align-items: center;
-        // text-align: center;
-
-        // color: rgba(70, 70, 70, 0.5);
-
-        // /* Inside auto layout */
-        // flex: none;
-        // order: 0;
-        // flex-grow: 0;
     }
 }
 
