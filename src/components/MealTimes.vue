@@ -1,13 +1,13 @@
 <template>
   <div class="grid">
-    <div
+    <details
       v-for="(meal, key, index) in meals"
       :key="meal"
       :style="{
         opacity: meal.dateHasPassed ? 0.5 : 1,
       }"
     >
-      <h3>
+      <summary>
         <time>{{ meal.date.toLocaleTimeString().slice(0, -3) }}</time> -
         {{
           key
@@ -17,7 +17,9 @@
               return str.toUpperCase();
             })
         }}
-      </h3>
+        - {{ Math.round(caloriesConsumedByGivenTime(meal.date)) }} /
+        {{ meal.totalAllowedCalories }} kcal
+      </summary>
       <p v-if="!meal.dateHasPassed">
         Calories actually allowed:
         {{ (meal.totalAllowedCalories - caloriesEaten).toFixed(0) }}kcal
@@ -31,10 +33,6 @@
         </small>
       </p>
       <p v-else>
-        Calories eaten by mealtime:
-        {{ Math.round(caloriesConsumedByGivenTime(meal.date)) }} /
-        {{ meal.totalAllowedCalories }} kcal
-        <br />
         <small>
           (Expected total calories after meal:
           {{ mealTotalCaloriesPerMeal[index] }}kcal,
@@ -42,7 +40,7 @@
           allocated for this meal)
         </small>
       </p>
-    </div>
+    </details>
   </div>
 </template>
 
