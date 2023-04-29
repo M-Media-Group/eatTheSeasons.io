@@ -33,7 +33,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    // water: Number,
   },
   data() {
     return {

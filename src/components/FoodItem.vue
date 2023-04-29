@@ -44,13 +44,7 @@
       </div>
     </div>
     <NutrientInformation
-      v-if="
-        isSignedUp &&
-        carb !== null &&
-        fat !== null &&
-        protein !== null &&
-        water !== null
-      "
+      v-if="isSignedUp && carb !== null && fat !== null && protein !== null"
       :protein="protein"
       :carb="carb"
       :fat="fat"
