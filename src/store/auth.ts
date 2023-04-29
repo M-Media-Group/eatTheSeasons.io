@@ -129,7 +129,6 @@ export default {
         meals[meal].totalAllowedCalories = meals[meal].allowedCalories;
         Object.keys(meals).forEach((previousMeal: any) => {
           if (meals[previousMeal].date < meals[meal].date) {
-            console.log("prev", meals[previousMeal]);
             meals[meal].totalAllowedCalories +=
               meals[previousMeal].allowedCalories;
           }
@@ -182,14 +181,12 @@ export default {
     },
     nextMeal(state: any, getters: { meals: any[] }): object {
       // Get the first meal from the getters where the date has not passed
-      console.log(getters.meals);
       if (!getters.meals) {
         return {};
       }
       const nextMeal = Object.values(getters["meals"]).find(
         (meal: { dateHasPassed: any }) => !meal.dateHasPassed
       );
-      console.log(nextMeal);
       return nextMeal;
     },
   },
@@ -213,7 +210,6 @@ export default {
       commit("SET_SIGNED_UP", value);
     },
     setGoals({ commit }: { commit: Commit }, value: any[]): void {
-      console.log("CALLED COMMIT", value);
       commit("SET_GOALS", value);
       //   For each key in value object, store the value in localStorage
       for (const key in value) {

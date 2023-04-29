@@ -382,7 +382,6 @@ export default {
         commit("ADD_FOOD_ITEM", foodItem);
         // }
       });
-      console.log("GOT ADS");
       // Resolve the promise
       return Promise.resolve();
       // .then((response) => {

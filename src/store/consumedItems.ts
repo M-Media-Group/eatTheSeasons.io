@@ -234,7 +234,6 @@ export default {
           consumedItem.updated_at = currentDateAndTime.toString();
         }
       }
-      console.log("set date to", consumedItem.created_at);
       if (!consumedItem.id) {
         // Get the highest .id in the consumedItems
         const highestId =
@@ -336,7 +335,6 @@ export default {
       else if (!(date instanceof Date)) {
         date = new Date(date);
       }
-      console.log("got date", date);
       commit("SET_DATE", date);
     },
 
@@ -351,7 +349,6 @@ export default {
       else if (!(date instanceof Date)) {
         date = new Date(date);
       }
-      console.log("got date", date);
       commit("SET_END_DATE", date);
     },
   },

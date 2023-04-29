@@ -45,7 +45,6 @@ class CustomNotification {
     if (this.modes.includes("alert")) {
       // Close browser alert
     }
-    console.log("hide");
   }
 
   private showSite() {
