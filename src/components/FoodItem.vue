@@ -75,22 +75,19 @@
       >
         Add to tracker
       </button>
-      <template v-if="amount && amount > 0 && isFoodTrackerInputOpen">
+      <template
+        v-if="
+          amount &&
+          amount > 0 &&
+          isFoodTrackerInputOpen &&
+          visibleIntakeParams !== null
+        "
+      >
         <hr />
-        <template v-if="protein">
-          Protein eaten: {{ (protein / 100) * amount }}g
+        <template v-for="(unit, param) in visibleIntakeParams" :key="param">
+          {{ param.charAt(0).toUpperCase() + param.slice(1) }} eaten:
+          {{ Math.round((this[param] / 100) * amount) }}{{ unit }}
           <br />
-        </template>
-        <template v-if="carb">
-          Carbohydrates eaten: {{ (carb / 100) * amount }}g
-          <br />
-        </template>
-        <template v-if="fat">
-          Fat eaten: {{ (fat / 100) * amount }}g
-          <br />
-        </template>
-        <template v-if="calories">
-          Calories eaten: {{ ((calories / 100) * amount).toFixed(2) }}kcal
         </template>
       </template>
     </form>
@@ -101,8 +98,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, defineEmits, nextTick } from "vue";
-import { Category, CategoryName, FoodItem, MonthName } from "@/types/foodItem";
+import { computed, defineComponent, ref, nextTick } from "vue";
+import { CategoryName, FoodItem, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
@@ -167,6 +164,16 @@ export default defineComponent({
     servingSize: {
       type: Number as PropType<number | null>,
       default: null,
+      required: false,
+    },
+    visibleIntakeParams: {
+      type: Object as PropType<Record<string, string>>,
+      default: () => ({
+        protein: "g",
+        carb: "g",
+        fat: "g",
+        calories: "kcal",
+      }),
       required: false,
     },
   },
