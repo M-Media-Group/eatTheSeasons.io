@@ -18,6 +18,7 @@
           minlength="3"
           name="search"
           list="options-list"
+          :aria-busy="isLoading"
         />
       </template>
       <component v-else :is="'h' + hLevel">
@@ -48,13 +49,11 @@
     <div v-if="search.length < 3" style="margin-bottom: 3rem">
       Type at least 3 characters to search
     </div>
-    <div v-else-if="results.length === 0">
-      <div>
+    <div v-else-if="results.length === 0" :aria-busy="isLoading">
+      <div v-if="!isLoading">
         No foods found for <strong>{{ search }}</strong
         >.
       </div>
-      This website was created just this week so please bear with us as we add
-      more food, months, and regions!
     </div>
     <div class="grid big-gap search-results" v-else>
       <FoodItem
@@ -174,6 +173,8 @@ export default defineComponent({
     const store = useStore();
     const route = new URLSearchParams(window.location.search);
 
+    const isLoading = ref(false);
+
     // const foodItemsMatchingSearchTerm = computed(
     //   (term) => store.getters["foodItems/foodItemsMatchingSearchTerm"]
     // );
@@ -241,6 +242,7 @@ export default defineComponent({
     );
 
     const searchForFood = debounce(() => {
+      isLoading.value = true;
       searchForFoodViaAPI();
     }, 250);
 
@@ -258,6 +260,7 @@ export default defineComponent({
           source: "api",
         });
       });
+      isLoading.value = false;
     };
 
     const searchForFoodViaOpenFoodFactsAPI = async () => {
@@ -275,6 +278,7 @@ export default defineComponent({
           convertOpenFoodFactsFoodItemToFoodItem(foodItem)
         );
       });
+      isLoading.value = false;
     };
 
     const convertOpenFoodFactsFoodItemToFoodItem = (
@@ -328,6 +332,7 @@ export default defineComponent({
       results,
       noResults,
       sort,
+      isLoading,
       searchForFood,
       checkIsFoodNativeToCountry,
     };
