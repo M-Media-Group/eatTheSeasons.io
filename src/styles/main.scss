@@ -93,6 +93,11 @@ html,
         grid-gap: $baseNumber * 8 + px;
     }
 
+    &.horizontal {
+        grid-auto-flow: column;
+        justify-content: center;
+    }
+
     @media (min-width: $mobileBreakpoint) {
         &.big-gap {
             grid-gap: $baseNumber * 8 + px;

@@ -20,6 +20,17 @@
           list="options-list"
           :aria-busy="isLoading"
         />
+        <div v-if="!search" class="grid small-gap horizontal">
+          <template v-for="searchTerm in recentSearches" :key="searchTerm">
+            <button
+              class="recent-search"
+              @click="search = searchTerm"
+              type="button"
+            >
+              {{ searchTerm }}
+            </button>
+          </template>
+        </div>
       </template>
       <component v-else :is="'h' + hLevel">
         Find
@@ -55,6 +66,7 @@
         >.
       </div>
     </div>
+
     <div class="grid big-gap search-results" v-else>
       <FoodItem
         v-for="food in results.slice(0, resultsLimit)"
@@ -196,6 +208,13 @@ export default defineComponent({
       () => store.getters["foodItems/allFoodItems"]
     );
 
+    const recentSearches = ref(
+      allFoodItems.value
+        .map((food: FoodItemTs) => food.name)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+    );
+
     const items = ref(null) as any;
 
     const { search, results, noResults } = useVueFuse(items, {
@@ -333,6 +352,7 @@ export default defineComponent({
       noResults,
       sort,
       isLoading,
+      recentSearches,
       searchForFood,
       checkIsFoodNativeToCountry,
     };
