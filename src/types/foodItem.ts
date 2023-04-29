@@ -17,6 +17,8 @@ export interface FoodItem {
   updated_at: string;
   categories: Category[];
   food_regions: FoodRegion[];
+  source: string;
+  serving_size?: number;
 }
 
 export interface Category {
@@ -621,13 +623,13 @@ export interface NutrientLevels {
 
 export interface Nutriments {
   carbohydrates: number;
-  carbohydrates_100g: number;
+  carbohydrates_100g: number | string;
   carbohydrates_serving: string;
   carbohydrates_unit: string;
   carbohydrates_value: number;
   energy: number;
   "energy-kcal": number;
-  "energy-kcal_100g": number;
+  "energy-kcal_100g": number | string;
   "energy-kcal_serving": number;
   "energy-kcal_unit": string;
   "energy-kcal_value": number;

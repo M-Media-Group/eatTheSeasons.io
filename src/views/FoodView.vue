@@ -190,11 +190,16 @@ export default defineComponent({
 
     filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
       const foodItems = this.foodItemsInSeasonAndRegion;
-      const filteredFoodItems = foodItems.filter((foodItem) => true); // No filtering here just yet
       // Sort by this.sort.by
-      return filteredFoodItems.sort((a, b) => {
+      return foodItems.sort((a, b) => {
         const aValue = a[this.sort.by];
         const bValue = b[this.sort.by];
+
+        // If the values don't exist, put them at the end of the list
+        if (aValue === undefined || bValue === undefined) {
+          return this.sort.order === "asc" ? 1 : -1;
+        }
+
         if (aValue === null || bValue === null) {
           return this.sort.order === "asc" ? 1 : -1;
         }

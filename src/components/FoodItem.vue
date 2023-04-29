@@ -80,7 +80,7 @@
       >
         Add to tracker
       </button>
-      <template v-if="amount && amount > 0">
+      <template v-if="amount && amount > 0 && isFoodTrackerInputOpen">
         <hr />
         <template v-if="protein">
           Protein eaten: {{ (protein / 100) * amount }}g
@@ -169,12 +169,17 @@ export default defineComponent({
       default: true,
       required: false,
     },
+    servingSize: {
+      type: Number as PropType<number | null>,
+      default: null,
+      required: false,
+    },
   },
 
   emits: ["addedConsumedFoodItem"],
 
   setup(props, { emit }) {
-    const amount = ref(null as number | null);
+    const amount = ref((props.servingSize ?? null) as number | null);
     const input = ref(null) as any;
     const computedImage = ref(props.src);
 

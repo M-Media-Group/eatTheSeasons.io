@@ -71,6 +71,7 @@
         :water="food.water"
         :key="food.id"
         :showAddForm="true"
+        :servingSize="food.serving_size"
         v-bind="$attrs"
         ><slot :food="food"></slot
       ></FoodItem>
@@ -252,7 +253,10 @@ export default defineComponent({
         return searchForFoodViaOpenFoodFactsAPI();
       }
       response.data.forEach((foodItem: FoodItemTs) => {
-        store.dispatch("foodItems/addFoodItem", foodItem);
+        store.dispatch("foodItems/addFoodItem", {
+          ...foodItem,
+          source: "api",
+        });
       });
     };
 
@@ -261,38 +265,60 @@ export default defineComponent({
         `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${search.value}&search_simple=1&action=process&json=1`
       );
       const response = await request.json();
-      console.log(response);
       response.products.forEach((foodItem: OpenFoodFactsFoodItem) => {
-        // Convert the type OpenFoodFactsFoodItem to FoodItem
-        const formattedFoodItem = {
-          id: parseInt(foodItem.id),
-          name: foodItem.product_name,
-          description: foodItem.generic_name,
-          is_raw: false,
-          image_url: foodItem.image_url,
-          kcal: foodItem.nutriments["energy-kcal_100g"],
-          water: null,
-          protein: parseFloat(foodItem.nutriments.proteins_100g),
-          fat: parseFloat(foodItem.nutriments.fat_100g),
-          carbohydrate: foodItem.nutriments.carbohydrates_100g,
-          fiber: parseFloat(foodItem.nutriments.fiber_100g),
-          alcohol: null,
-          created_at: new Date().toDateString(),
-          updated_at: new Date().toDateString(),
-          categories: [],
-          // categories: foodItem.categories_tags.map((category) => {
-          //   return {
-          //     id: null,
-          //     name: category,
-          //     created_at: new Date(),
-          //     updated_at: new Date(),
-          //   };
-          // }),
-          food_regions: [],
-        } as FoodItemTs;
-
-        store.dispatch("foodItems/addFoodItem", formattedFoodItem);
+        // Discard food items without kcal
+        if (!foodItem.nutriments["energy-kcal_100g"]) {
+          return;
+        }
+        store.dispatch(
+          "foodItems/addFoodItem",
+          convertOpenFoodFactsFoodItemToFoodItem(foodItem)
+        );
       });
+    };
+
+    const convertOpenFoodFactsFoodItemToFoodItem = (
+      foodItem: OpenFoodFactsFoodItem
+    ) => {
+      // It seems the API sometimes returns a string and sometimes a number, so we need to check it here.
+      // @todo confirm that the API does return different types
+      const kcal =
+        typeof foodItem.nutriments["energy-kcal_100g"] === "string"
+          ? parseFloat(foodItem.nutriments["energy-kcal_100g"])
+          : foodItem.nutriments["energy-kcal_100g"];
+      const carbohydrate =
+        typeof foodItem.nutriments.carbohydrates_100g === "string"
+          ? parseFloat(foodItem.nutriments.carbohydrates_100g)
+          : foodItem.nutriments.carbohydrates_100g;
+
+      return {
+        id: parseInt(foodItem.id),
+        name: foodItem.product_name,
+        description: foodItem.generic_name,
+        is_raw: false,
+        image_url: foodItem.image_url,
+        kcal: kcal,
+        water: null,
+        protein: parseFloat(foodItem.nutriments.proteins_100g),
+        fat: parseFloat(foodItem.nutriments.fat_100g),
+        carbohydrate: carbohydrate,
+        fiber: parseFloat(foodItem.nutriments.fiber_100g),
+        alcohol: null,
+        created_at: new Date().toDateString(),
+        updated_at: new Date().toDateString(),
+        categories: [],
+        // categories: foodItem.categories_tags.map((category) => {
+        //   return {
+        //     id: null,
+        //     name: category,
+        //     created_at: new Date(),
+        //     updated_at: new Date(),
+        //   };
+        // }),
+        food_regions: [],
+        serving_size: parseFloat(foodItem.serving_size),
+        source: "openfoodfacts",
+      } as FoodItemTs;
     };
 
     return {
