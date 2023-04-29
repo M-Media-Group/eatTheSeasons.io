@@ -1,6 +1,6 @@
 <template>
-  <div class="grid big-gap">
-    <div class="page-header">
+  <main class="grid big-gap">
+    <header>
       <h1>Stats</h1>
       <input
         type="date"
@@ -13,7 +13,7 @@
         :min="startDate"
         :max="new Date().toISOString().split('T')[0]"
       />
-    </div>
+    </header>
 
     <div class="grid default-padding">
       <h2>
@@ -90,7 +90,7 @@
         /></label>
       </template>
     </div>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

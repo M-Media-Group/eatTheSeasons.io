@@ -1,11 +1,11 @@
 <template>
-  <div class="grid">
-    <div class="page-header default">
+  <main class="grid">
+    <header class="default">
       <h1>Food for you</h1>
       <p>Suggested foods based on your current nutrition goals.</p>
-    </div>
+    </header>
     <SuggestedFoodItems />
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

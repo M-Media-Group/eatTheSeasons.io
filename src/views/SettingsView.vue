@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="page-header default">
+  <main>
+    <header class="default">
       <h1>Settings</h1>
-    </div>
+    </header>
     <div class="grid big-gap default-padding">
       <div class="grid">
         <h2>Your goals</h2>
@@ -31,7 +31,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

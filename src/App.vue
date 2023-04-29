@@ -24,7 +24,7 @@
       <component :is="Component" />
     </transition>
   </router-view>
-  <div style="margin-top: 5rem">
+  <footer>
     <small>
       <router-link v-if="supportsIndexedDB" to="/settings"
         >Settings</router-link
@@ -33,7 +33,7 @@
       <a href="https://mmediagroup.fr">M Media</a> · Images from
       <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
     >
-  </div>
+  </footer>
 </template>
 
 <script lang="ts">

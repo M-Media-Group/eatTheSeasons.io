@@ -1,7 +1,7 @@
 <template>
-  <div class="grid" v-if="isSignedUp">
+  <main class="grid" v-if="isSignedUp">
     <SearchFood />
-  </div>
+  </main>
   <div v-else>
     <SignUp />
   </div>

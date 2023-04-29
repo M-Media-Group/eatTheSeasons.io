@@ -1,6 +1,6 @@
 <template>
-  <div class="grid">
-    <div class="page-header default">
+  <main class="grid">
+    <header class="default">
       <h1>
         Eat <MonthSelector v-model="filters.month" /> in
         <CountrySelector v-model="filters.country" />
@@ -10,7 +10,7 @@
         <router-link to="/sign-up">Sign up</router-link> to see more information
         about each food and seasonality.
       </p>
-    </div>
+    </header>
     <div class="main-banner" v-if="!isSignedUp && !isOnMobile">
       <SignUp />
     </div>
@@ -64,7 +64,7 @@
     >
       <SignUp />
     </div>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

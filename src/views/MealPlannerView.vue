@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="page-header default">
+  <main>
+    <header class="default">
       <h1 v-if="items.length > 0">
         {{ items.length }} foods, {{ Math.round(caloriesEaten) }} kcal
       </h1>
@@ -17,7 +17,7 @@
         kcal away from your goal
       </p>
       <p v-else>Add food to start planning a healthy meal</p>
-    </div>
+    </header>
     <div class="grid big-gap">
       <SignUp v-if="!isSignedUp" />
       <template v-else>
@@ -85,7 +85,7 @@
         </SearchFood>
       </template>
     </BottomSheet>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

@@ -368,7 +368,6 @@ button {
     font-family: inherit;
     margin-top: -0.5rem;
     border-radius: $borderRadius;
-    max-height: $baseNumber * 8 + px;
     // padding: 0.7em 1em;
     margin: $baseNumber + px;
     background: var(--bg);
@@ -520,7 +519,9 @@ img {
 //   padding-top: $baseNumber + px;
 // }
 
-.page-header {
+.page-header,
+main > header,
+main.grid > header {
     /* Rectangle 9 */
 
     position: relative;
@@ -739,4 +740,8 @@ a[aria-busy="true"] {
     to {
         transform: rotate(360deg);
     }
+}
+
+footer {
+    padding: $baseNumber * 2 + px;
 }
