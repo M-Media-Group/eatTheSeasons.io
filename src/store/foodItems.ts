@@ -1,4 +1,9 @@
 import { FoodItem as FoodItemTs } from "@/types/foodItem";
+import {
+  sortIndexesByDistanceFromGoal,
+  calculatePercentages,
+  filterIndexesBySameSigns,
+} from "@/utils/algorithms";
 import { Commit } from "vuex";
 
 export default {
@@ -73,7 +78,13 @@ export default {
       rootState: any,
       rootGetters: any
     ) {
-      const nutrientInfo = rootGetters["auth/nutrientRatio"] as any;
+      // Start console timer
+      console.time("foodItemsThatHelpReachGoals");
+      const consumed = {
+        carbs: rootGetters["consumedItems/carbsConsumedToday"],
+        fat: rootGetters["consumedItems/fatConsumedToday"],
+        protein: rootGetters["consumedItems/proteinConsumedToday"],
+      };
       const goals = rootGetters["auth/goals"] as unknown as Record<
         string,
         number
@@ -94,59 +105,55 @@ export default {
         }
         return true;
       });
-      const foodItemsWithRatios = Object.keys(foodItems).map((key) => {
-        const foodItem = foodItems[key as any] as any;
-        // Compute percentages between each consumed nutrient and the sum of all consumed nutrients
-        const consumedPercentage = {
-          carbsRatio:
-            (foodItem.carbohydrate /
-              (foodItem.carbohydrate + foodItem.fat + foodItem.protein)) *
-            100,
-          fatRatio:
-            (foodItem.fat /
-              (foodItem.carbohydrate + foodItem.fat + foodItem.protein)) *
-            100,
-          proteinRatio:
-            (foodItem.protein /
-              (foodItem.carbohydrate + foodItem.fat + foodItem.protein)) *
-            100,
-        };
-        // Subtract the difference of each goal from the consumed percentage
-        const difference = {
-          carbsRatio: consumedPercentage.carbsRatio - goals.carbsPercent,
-          fatRatio: consumedPercentage.fatRatio - goals.fatPercent,
-          proteinRatio: consumedPercentage.proteinRatio - goals.proteinPercent,
-        };
-        // Filter foodItems with similar ratios as in nutrientRatio
-        // Normalize the difference to a number between -1 and 1 (inclusive)
-        const normalizedDifference = {
-          carbsRatio: difference.carbsRatio / 100,
-          fatRatio: difference.fatRatio / 100,
-          proteinRatio: difference.proteinRatio / 100,
-        };
-        return {
-          ...foodItem,
-          ...normalizedDifference,
-        };
-      });
-      const foodItemsWithSimilarRatios = foodItemsWithRatios.filter(
-        (item) =>
-          // If the signs of the ratios in the item and the nutrients carbsMissingRatio, are the same, the ratios are similar
-          ((item.carbsRatio > 0 && nutrientInfo.carbs > 0) ||
-            (item.carbsRatio < 0 && nutrientInfo.carbs < 0)) &&
-          ((item.fatRatio > 0 && nutrientInfo.fat > 0) ||
-            (item.fatRatio < 0 && nutrientInfo.fat < 0)) &&
-          ((item.proteinRatio > 0 && nutrientInfo.protein > 0) ||
-            (item.proteinRatio < 0 && nutrientInfo.protein < 0))
+
+      const fFilter = filterIndexesBySameSigns(
+        calculatePercentages([consumed.carbs, consumed.fat, consumed.protein]),
+        [goals.carbsPercent, goals.fatPercent, goals.proteinPercent],
+        foodItems.map((item) => {
+          if (!item.carbohydrate || !item.fat || !item.protein) {
+            return [0, 0, 0];
+          }
+          return calculatePercentages([
+            item.carbohydrate,
+            item.fat,
+            item.protein,
+          ]);
+        })
       );
+
+      const filteredFoodItems = foodItems.filter((item, index) =>
+        fFilter.includes(index)
+      );
+
+      const fSort = sortIndexesByDistanceFromGoal(
+        calculatePercentages([consumed.carbs, consumed.fat, consumed.protein]),
+        [goals.carbsPercent, goals.fatPercent, goals.proteinPercent],
+        filteredFoodItems.map((item) => {
+          if (!item.carbohydrate || !item.fat || !item.protein) {
+            return [0, 0, 0];
+          }
+          return calculatePercentages([
+            item.carbohydrate,
+            item.fat,
+            item.protein,
+          ]);
+        })
+      );
+
+      // fSort returns an array of indexes, which we can use to sort the foodItems
+      const foodItemsSorted = fSort.map((index) => filteredFoodItems[index]);
+
       // Sort the foodItems by fiber, from highest to lowest
-      const foodItemsWithSimilarRatiosSorted = foodItemsWithSimilarRatios.sort(
-        (a, b) => b.fiber - a.fiber
+      const foodItemsWithSimilarRatiosSorted = foodItemsSorted.sort(
+        (a, b) => (b.fiber ?? 0) - (a.fiber ?? 0)
       );
       // Filter to only those that are in season
       // const foodItemsInSeason = foodItemsWithSimilarRatiosSorted.filter(
       //   (item) => item.food_regions?.length > 0
       // );
+
+      // End console timer
+      console.timeEnd("foodItemsThatHelpReachGoals");
       return foodItemsWithSimilarRatiosSorted;
     },
 
