@@ -16,7 +16,7 @@ export interface FoodItem {
   created_at: string;
   updated_at: string;
   categories: Category[];
-  food_regions: FoodRegion[];
+  food_regions?: FoodRegion[];
   source: string;
   serving_size?: number;
 }
