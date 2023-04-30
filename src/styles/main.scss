@@ -344,11 +344,14 @@ input {
     font-family: inherit;
     font-size: $baseNumber * 3 + px;
     font-weight: 700;
-    height: $baseNumber * 6 + px;
     position: relative;
     text-align: center;
     border-radius: $borderRadius;
     padding: $baseNumber * 4 + px 0;
+}
+
+input:not([type="checkbox"]):not([type="radio"]) {
+    height: $baseNumber * 6 + px;
     width: 100%;
 }
 

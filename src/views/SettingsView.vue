@@ -9,6 +9,10 @@
         <GoalSettings />
       </div>
       <div class="grid">
+        <h2>Tailor the app</h2>
+        <FilterSettings />
+      </div>
+      <div class="grid">
         <h2>Install the app</h2>
         <InstallApp />
       </div>
@@ -38,12 +42,14 @@
 import { defineComponent } from "vue";
 import GoalSettings from "@/components/GoalSettings.vue"; // @ is an alias to /src
 import InstallApp from "@/components/InstallApp.vue";
+import FilterSettings from "@/components/FilterSettings.vue";
 
 export default defineComponent({
   name: "SettingsView",
   components: {
     GoalSettings,
     InstallApp,
+    FilterSettings,
   },
 });
 </script>
