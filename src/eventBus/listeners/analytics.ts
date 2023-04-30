@@ -19,4 +19,9 @@ export default {
     gtag("event", "update_filters_" + event.key, {
       value: event.value,
     }),
+
+  disliked_food_item_add: (event: any) =>
+    gtag("event", "disliked_food_item_add", {
+      food_id: event,
+    }),
 };
