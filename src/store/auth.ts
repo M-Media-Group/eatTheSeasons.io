@@ -199,6 +199,12 @@ export default {
     SET_FILTERS(state: { filters: object }, value: object): void {
       state.filters = value;
     },
+    SET_FILTER(
+      state: { filters: Record<string, string> },
+      { key, value }: { key: string; value: string }
+    ): void {
+      state.filters[key] = value;
+    },
   },
 
   actions: {
@@ -217,8 +223,8 @@ export default {
       }
     },
     setFilters({ commit }: { commit: Commit }, value: any): void {
-      commit("SET_FILTERS", value);
       for (const key in value) {
+        commit("SET_FILTER", { key, value: value[key] });
         localStorage.setItem(`filters.${key}`, value[key].toString());
         $bus.$emit(eventTypes.update_filters, {
           key: key,
