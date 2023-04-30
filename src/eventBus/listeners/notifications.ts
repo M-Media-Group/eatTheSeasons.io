@@ -208,4 +208,10 @@ export default {
       ["browser"]
     ).show();
   },
+
+  disliked_food_item_add: (foodId: number) => {
+    new CustomNotification("success", "Food added to disliked foods.", [
+      "browser",
+    ]).show();
+  },
 };
