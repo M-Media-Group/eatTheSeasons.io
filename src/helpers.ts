@@ -57,9 +57,11 @@ const migrations = {
 
 const dbVersion = 4;
 
-type TableNames = {
-  [K in keyof typeof migrations]: typeof migrations[K];
-};
+type TableNames =
+  {
+    // prettier-ignore
+    [K in keyof typeof migrations]: typeof migrations[K];
+  };
 
 export async function getTranslatedString(
   string: string,
