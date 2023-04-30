@@ -1,5 +1,9 @@
 <template>
-  <div class="dropdown-selector" @click="isOpenDropdown = !isOpenDropdown">
+  <div
+    class="dropdown-selector"
+    @click="isOpenDropdown = !isOpenDropdown"
+    role="button"
+  >
     {{ getCountryName(modelValue) }}
     <ul v-if="isOpenDropdown">
       <li
