@@ -53,7 +53,7 @@
       <option
         :value="food.name"
         v-for="food in foodItems"
-        :key="food.id"
+        :key="'f-' + (food.id ?? food.name)"
       ></option>
     </datalist>
 
