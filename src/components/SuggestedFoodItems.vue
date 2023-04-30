@@ -1,5 +1,5 @@
 <template>
-  <div v-if="findFoodItems.length > 0" class="grid big-gap">
+  <div v-if="findFoodItems.length > 0">
     <FoodItemList
       :foods="findFoodItems.slice(0, resultsLimit)"
       :filters="{}"

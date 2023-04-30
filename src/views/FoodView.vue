@@ -19,12 +19,11 @@
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
     />
 
-    <div class="grid big-gap">
-      <FoodItemList
-        :foods="filteredAndOrderedFoodItemsInSeasonAndRegion"
-        :filters="filters"
-      />
-    </div>
+    <FoodItemList
+      :foods="filteredAndOrderedFoodItemsInSeasonAndRegion"
+      :filters="filters"
+    />
+
     <div v-if="isInBeta">
       <h2>Can you help us with these foods?</h2>
       <p>If you know when these foods are in season, please let us know!</p>

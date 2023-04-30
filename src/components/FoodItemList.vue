@@ -1,5 +1,5 @@
 <template>
-  <div class="grid big-gap">
+  <TransitionGroup name="list" tag="div" class="grid big-gap">
     <FoodItem
       v-for="food in foods"
       :id="food.id"
@@ -25,7 +25,7 @@
       :timesConsumedToday="timesConsumedToday(food.id)"
       ><slot :food="food"></slot
     ></FoodItem>
-  </div>
+  </TransitionGroup>
 </template>
 
 <script lang="ts">

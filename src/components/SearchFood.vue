@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div class="grid big-gap search-results" v-else>
+    <div class="search-results" v-else>
       <FoodItemList
         :foods="results.slice(0, resultsLimit)"
         v-bind="$attrs"
