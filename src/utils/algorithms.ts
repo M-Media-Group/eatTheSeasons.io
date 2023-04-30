@@ -25,16 +25,9 @@ export const sortIndexesByDistanceFromGoal = (
         (goalElem, index) => goalElem - current[index]
     );
 
-    console.log(
-        differenceBetweenGoalAndCurrent,
-        "differenceBetweenGoalAndCurrent"
-    );
-
     const differencesBetweenGoalAndArr = arr.map((elem) =>
         elem.map((subElem, index) => subElem - target[index])
     );
-
-    console.log(differencesBetweenGoalAndArr, "differencesBetweenGoalAndArr");
 
     const differencesBetweenGoalAndArrAndCurrent =
         differencesBetweenGoalAndArr.map((elem) =>
@@ -43,30 +36,15 @@ export const sortIndexesByDistanceFromGoal = (
             )
         );
 
-    console.log(
-        differencesBetweenGoalAndArrAndCurrent,
-        "differencesBetweenGoalAndArrAndCurrent"
-    );
-
     const distancesBetweenGoalAndArrAndCurrent =
         differencesBetweenGoalAndArrAndCurrent.map((elem) =>
             elem.map((subElem) => Math.abs(subElem))
         );
 
-    console.log(
-        distancesBetweenGoalAndArrAndCurrent,
-        "distancesBetweenGoalAndArrAndCurrent"
-    );
-
     const sumOfDistancesBetweenGoalAndArrAndCurrent =
         distancesBetweenGoalAndArrAndCurrent.map((elem) =>
             elem.reduce((acc, curr) => acc + curr, 0)
         );
-
-    console.log(
-        sumOfDistancesBetweenGoalAndArrAndCurrent,
-        "sumOfDistancesBetweenGoalAndArrAndCurrent"
-    );
 
     const sortedIndexes = sumOfDistancesBetweenGoalAndArrAndCurrent
         .map((elem, index) => [elem, index])
@@ -107,9 +85,6 @@ export const filterIndexesBySameSigns = (
         (elem) => elem.map((subElem) => (subElem < 0 ? 0 : 1))
     );
 
-    console.log(signsOfDifferenceBetweenGoalAndCurrent, signsOfDifferencesBetweenCurrentAndArr, "signsOfDifferencesBetweenCurrentAndArr",
-        arr)
-
     const indexesOfSameSigns = signsOfDifferencesBetweenCurrentAndArr.map(
         (elem, index) =>
             // If all signs are the same, return the index, otherwise return -1
@@ -117,8 +92,6 @@ export const filterIndexesBySameSigns = (
                 ? index
                 : -1
     );
-
-    console.log("gsa", indexesOfSameSigns)
 
     const filteredIndexes = indexesOfSameSigns.filter((elem) => elem !== -1);
 
