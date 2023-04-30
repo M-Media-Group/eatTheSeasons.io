@@ -1,17 +1,8 @@
 <template>
   <div v-if="findFoodItems.length > 0" class="grid big-gap">
-    <FoodItem
-      v-for="food in findFoodItems.slice(0, resultsLimit)"
-      :key="food.id"
-      :id="food.id"
-      :src="food.image_url"
-      :name="food.name"
-      :isNative="null"
-      :calories="food.kcal"
-      :carb="food.carbohydrate"
-      :fat="food.fat"
-      :protein="food.protein"
-      :water="food.water"
+    <FoodItemList
+      :foods="findFoodItems.slice(0, resultsLimit)"
+      :filters="{}"
       :showAddForm="true"
     />
     <template v-if="findFoodItems.length - resultsLimit > 0">
@@ -29,30 +20,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from "vue";
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import FoodItemList from "./FoodItemList.vue";
 
 export default defineComponent({
   name: "SuggestedFoodItems",
   components: {
-    FoodItem: defineAsyncComponent({
-      // the loader function
-      loader: () => import("./FoodItem.vue"),
-
-      // A component to use while the async component is loading
-      // loadingComponent: LoadingComponent,
-
-      // Delay before showing the loading component. Default: 200ms.
-      delay: 0,
-
-      // A component to use if the load fails
-      // errorComponent: ErrorComponent,
-
-      // The error component will be displayed if a timeout is
-      // provided and exceeded. Default: Infinity.
-
-      timeout: 3000,
-    }),
+    FoodItemList,
   },
 
   computed: {

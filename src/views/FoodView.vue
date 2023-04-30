@@ -20,40 +20,15 @@
     />
 
     <div class="grid big-gap">
-      <FoodItem
-        v-for="food in filteredAndOrderedFoodItemsInSeasonAndRegion"
-        :id="food.id"
-        :src="food.image_url"
-        :name="food.name"
-        :categories="getFoodCategoriesForFoodItem(food)"
-        :lastMonth="getLastMonthInARowFromFoodItem(food)"
-        :localName="getLocalName(food)"
-        :isNative="checkIsFoodNativeToCountry(food)"
-        :calories="food.kcal"
-        :carb="food.carbohydrate"
-        :fat="food.fat"
-        :protein="food.protein"
-        :water="food.water"
-        :key="food.id"
+      <FoodItemList
+        :foods="filteredAndOrderedFoodItemsInSeasonAndRegion"
+        :filters="filters"
       />
     </div>
     <div v-if="isInBeta">
       <h2>Can you help us with these foods?</h2>
       <p>If you know when these foods are in season, please let us know!</p>
-      <FoodItem
-        v-for="food in foodItemsWithoutSeasons"
-        :id="food.id"
-        :src="food.image_url"
-        :name="food.name"
-        :categories="getFoodCategoriesForFoodItem(food)"
-        :isNative="null"
-        :calories="food.kcal"
-        :carb="food.carbohydrate"
-        :fat="food.fat"
-        :protein="food.protein"
-        :water="food.water"
-        :key="food.id"
-      />
+      <FoodItemList :foods="foodItemsWithoutSeasons" :filters="filters" />
     </div>
     <div
       class="main-banner"
@@ -69,10 +44,9 @@
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from "vue";
-import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
 import MonthSelector from "@/components/MonthSelector.vue";
 import CountrySelector from "@/components/CountrySelector.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 import {
   CountryCode,
@@ -82,18 +56,18 @@ import {
   FoodItem as FoodItemTs,
 } from "@/types/foodItem";
 import { QueryParams as QueryParamsType } from "@/types/queryParams";
-import { getBestImageUrl } from "@/helpers";
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
+import FoodItemList from "@/components/FoodItemList.vue";
 
 export default defineComponent({
   name: "FoodView",
 
   components: {
-    FoodItem,
     MonthSelector,
     CountrySelector,
     MlCam: defineAsyncComponent(() => import("@/components/MlCam.vue")),
     SignUp,
+    FoodItemList,
   },
 
   data() {
@@ -302,17 +276,6 @@ export default defineComponent({
       });
     },
 
-    getLocalName(food: FoodItemTs): string {
-      return (
-        food.food_regions?.find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })?.local_name ?? ""
-      );
-    },
-
     getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
       return (this.foodItems as FoodItemTs[]).filter((food) => {
         return food.food_regions?.find((foodRegion) => {
@@ -345,47 +308,6 @@ export default defineComponent({
           );
         })
         .filter((region, index, array) => array.indexOf(region) === index);
-    },
-
-    getLastMonthInARowFromFoodItem(food: FoodItemTs): MonthName | undefined {
-      const months = food.food_regions
-        .find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })
-        ?.seasons.map((season) => {
-          return season.month_name;
-        });
-      if (!months) {
-        return;
-      }
-      return months[months.length - 1];
-    },
-
-    checkIsFoodNativeToCountry(food: FoodItemTs): boolean | null {
-      return (
-        food.food_regions?.find((foodRegion) => {
-          return (
-            foodRegion.region.country_code.toLowerCase() ===
-            this.filters.country.toLowerCase()
-          );
-        })?.grows_in_region ?? null
-      );
-    },
-
-    getFoodCategoriesForFoodItem(food: FoodItemTs): CategoryName[] {
-      if (!food.categories) {
-        return [];
-      }
-      return food.categories.map((foodCategory) => {
-        return foodCategory.name;
-      });
-    },
-
-    async vueGetBestImageUrl(name: string) {
-      return await getBestImageUrl(name);
     },
   },
 });

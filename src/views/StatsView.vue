@@ -49,30 +49,20 @@
       v-if="favoriteFoodItemsInTimeframe.length > 0"
     >
       <h2>Your favorite food</h2>
-
-      <template v-for="item in favoriteFoodItemsInTimeframe" :key="item">
-        <FoodItem
-          v-if="item?.name"
-          :name="item.name"
-          :id="item.id"
-          :src="item.image_url"
-          :isNative="null"
-          :showImage="false"
-          :titleLevel="3"
-        >
-          <div
-            class="badge"
-            style="background: rgb(77 71 245); cursor: pointer"
-          >
-            Eaten {{ item.count }} times
-          </div>
-          <p>
-            {{ item.grams }} grams, {{ Math.round(item.calories) }} kcal
-            consumed, averaged {{ Math.round(item.calories / item.count) }} kcal
-            per portion
-          </p>
-        </FoodItem>
-      </template>
+      <FoodItemList
+        :foods="favoriteFoodItemsInTimeframe"
+        :titleLevel="3"
+        :showImage="false"
+        v-slot="{ food }"
+      >
+        <div class="badge" style="background: rgb(77 71 245); cursor: pointer">
+          Eaten {{ food.count }} times
+        </div>
+        <p>
+          {{ food.grams }} grams, {{ Math.round(food.calories) }} kcal consumed,
+          averaged {{ Math.round(food.calories / food.count) }} kcal per portion
+        </p>
+      </FoodItemList>
     </div>
 
     <div class="grid default-padding">
@@ -94,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import FoodItem from "@/components/FoodItem.vue";
+import FoodItemList from "@/components/FoodItemList.vue";
 import NutrientInformation from "@/components/NutrientInformation.vue";
 import { consumedItem } from "@/types/consumedItem";
 import {
@@ -107,7 +97,7 @@ import {
 import { useStore } from "vuex";
 
 export default defineComponent({
-  components: { FoodItem, NutrientInformation },
+  components: { NutrientInformation, FoodItemList },
   name: "HomeView",
 
   setup() {
@@ -337,7 +327,7 @@ export default defineComponent({
       }, {}) as { [key: string]: any };
       // Require at least 3 items to be considered a favorite
       return Object.values(itemsByName)
-        .filter((item) => item.count >= 3)
+        .filter((item) => item.count >= 1)
         .sort((a, b) => b.count - a.count);
     });
 

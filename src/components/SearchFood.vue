@@ -68,24 +68,12 @@
     </div>
 
     <div class="grid big-gap search-results" v-else>
-      <FoodItem
-        v-for="food in results.slice(0, resultsLimit)"
-        :id="food.id"
-        :src="food.image_url"
-        :name="food.name"
-        :categories="getFoodCategoriesForFoodItem(food)"
-        :isNative="checkIsFoodNativeToCountry(food)"
-        :calories="food.kcal"
-        :carb="food.carbohydrate"
-        :fat="food.fat"
-        :protein="food.protein"
-        :water="food.water"
-        :key="food.id"
-        :showAddForm="true"
-        :servingSize="food.serving_size"
+      <FoodItemList
+        :foods="results.slice(0, resultsLimit)"
         v-bind="$attrs"
-        ><slot :food="food"></slot
-      ></FoodItem>
+        :filters="filters"
+        :showAddForm="true"
+      />
     </div>
     <div class="main-banner" v-if="!isSignedUp">
       <SignUp />
@@ -115,17 +103,18 @@ import {
   FoodItem as FoodItemTs,
   OpenFoodFactsFoodItem,
 } from "@/types/foodItem";
-import { debounce, getBestImageUrl } from "@/helpers";
+import { debounce } from "@/helpers";
 import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
 import $bus, { eventTypes } from "@/eventBus/events";
+import FoodItemList from "./FoodItemList.vue";
 
 export default defineComponent({
   name: "SearchView",
 
   components: {
-    FoodItem: defineAsyncComponent(() => import("@/components/FoodItem.vue")),
     SignUp: defineAsyncComponent(() => import("@/components/SignUp.vue")),
+    FoodItemList,
   },
 
   props: {
@@ -174,10 +163,6 @@ export default defineComponent({
       return food.categories.map((foodCategory) => {
         return foodCategory.name;
       });
-    },
-
-    async vueGetBestImageUrl(name: string) {
-      return await getBestImageUrl(name);
     },
   },
 

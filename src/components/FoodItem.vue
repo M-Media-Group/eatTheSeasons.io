@@ -105,11 +105,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, nextTick } from "vue";
-import { CategoryName, FoodItem, MonthName } from "@/types/foodItem";
+import { CategoryName, MonthName } from "@/types/foodItem";
 import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
-import { consumedItem } from "@/types/consumedItem";
 import { getBestImageUrl } from "@/helpers";
 
 export default defineComponent({
@@ -182,6 +181,26 @@ export default defineComponent({
       }),
       required: false,
     },
+    helpsReachGoals: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    isSignedUp: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    supportsIndexedDB: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    timesConsumedToday: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
   },
 
   emits: ["addedConsumedFoodItem"],
@@ -194,13 +213,6 @@ export default defineComponent({
     const store = useStore();
 
     const isFoodTrackerInputOpen = ref(false);
-
-    const supportsIndexedDB = store.getters["app/supportsIndexedDB"];
-
-    const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
-    const foodItemsThatHelpReachGoals = computed(
-      () => store.getters["foodItems/foodItemsThatHelpReachGoals"]
-    );
 
     const bestImageUrl = () => {
       if (!props.name || !props.showImage) {
@@ -229,27 +241,6 @@ export default defineComponent({
       // Get and wait for bestImageUrl to resolve
 
       return computedImage.value;
-    });
-
-    const consumedItemsToday = computed(
-      () => store.getters["consumedItems/allConsumedItemsToday"]
-    );
-
-    const helpsReachGoals = computed(() => {
-      return (
-        foodItemsThatHelpReachGoals.value.findIndex(
-          (foodItem: FoodItem) => foodItem.id === props.id
-        ) !== -1
-      );
-    });
-
-    const timesConsumedToday = computed(() => {
-      // Count amount of times this foodId appears in consumedItemsToday
-      return (
-        consumedItemsToday.value.filter(
-          (foodItem: consumedItem) => foodItem.food_id === props.id
-        ).length ?? 0
-      );
     });
 
     const submitFoodItem = (data: {
@@ -284,12 +275,6 @@ export default defineComponent({
 
     return {
       amount,
-      isSignedUp,
-      helpsReachGoals,
-      supportsIndexedDB,
-      foodItemsThatHelpReachGoals,
-      consumedItemsToday,
-      timesConsumedToday,
       handleButtonClick,
       isFoodTrackerInputOpen,
       input,
