@@ -4,6 +4,7 @@ export enum eventTypes {
   signUp = "signUp",
   consumed_food_item_add = "consumed_food_item_add",
   consumed_food_item_remove = "consumed_food_item_remove",
+  disliked_food_item_add = "disliked_food_item_add",
   search = "search",
   signup_form_complete = "signup_form_complete",
   update_goals = "update_goals",

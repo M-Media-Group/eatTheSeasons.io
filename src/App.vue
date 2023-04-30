@@ -40,6 +40,7 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import BurgerMenu from "./components/BurgerMenu.vue";
+import { createIndexedDB } from "./helpers";
 
 export default defineComponent({
   components: {
@@ -56,14 +57,16 @@ export default defineComponent({
     }),
   },
   created() {
-    // deleteIndexedDB();
+    createIndexedDB();
     this.fetchFoodItems();
     this.fetchConsumedItems();
+    this.fetchDislikedItemIds();
   },
   methods: {
     ...mapActions({
       fetchFoodItems: "foodItems/fetchFoodItems",
       fetchConsumedItems: "consumedItems/fetchConsumedItems",
+      fetchDislikedItemIds: "consumedItems/fetchDislikedItemIds",
     }),
   },
 });

@@ -91,6 +91,12 @@
         </template>
       </template>
     </form>
+    <button
+      v-if="isSignedUp && id && supportsIndexedDB && !isFoodTrackerInputOpen"
+      @click="submitDislikedItem(id)"
+    >
+      Dislike
+    </button>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -258,6 +264,10 @@ export default defineComponent({
       emit("addedConsumedFoodItem", data);
     };
 
+    const submitDislikedItem = (id: number) => {
+      store.dispatch("consumedItems/addDislikedItemId", id);
+    };
+
     const handleButtonClick = (event: Event) => {
       if (!isFoodTrackerInputOpen.value) {
         event.preventDefault();
@@ -284,6 +294,7 @@ export default defineComponent({
       isFoodTrackerInputOpen,
       input,
       submitFoodItem,
+      submitDislikedItem,
       computedImageSrc,
     };
   },

@@ -15,6 +15,7 @@ export default {
 
   state: {
     consumedItems: [] as consumedItem[],
+    dislikedFoodItemIds: [],
     setDate: new Date(),
     endDate: new Date(new Date().setHours(23, 59, 59)),
   },
@@ -151,6 +152,10 @@ export default {
     activeDate(state: { setDate: Date }) {
       return state.setDate;
     },
+
+    dislikedFoodItemIds(state: { dislikedFoodItemIds: number[] }) {
+      return state.dislikedFoodItemIds;
+    },
   },
 
   mutations: {
@@ -182,11 +187,33 @@ export default {
     ): void {
       state.consumedItems = consumedItems;
     },
+
     SET_DATE(state: { setDate: Date }, date: Date): void {
       state.setDate = date;
     },
     SET_END_DATE(state: { endDate: Date }, date: Date): void {
       state.endDate = date;
+    },
+
+    ADD_DISLIKED_ITEM_BY_ID(
+      state: { dislikedFoodItemIds: number[] },
+      dislikedItemId: number
+    ): void {
+      state.dislikedFoodItemIds.push(dislikedItemId);
+    },
+    DELETE_DISLIKED_ITEM_BY_ID(
+      state: { dislikedFoodItemIds: number[] },
+      dislikedItemId: number
+    ): void {
+      state.dislikedFoodItemIds = state.dislikedFoodItemIds.filter(
+        (id) => id !== dislikedItemId
+      );
+    },
+    SET_DISLIKED_ITEM_IDS(
+      state: { dislikedFoodItemIds: number[] },
+      dislikedItemIds: number[]
+    ): void {
+      state.dislikedFoodItemIds = dislikedItemIds;
     },
   },
 
@@ -350,6 +377,33 @@ export default {
         date = new Date(date);
       }
       commit("SET_END_DATE", date);
+    },
+
+    async fetchDislikedItemIds({
+      commit,
+      rootGetters,
+    }: {
+      commit: Commit;
+      rootGetters: any;
+    }): Promise<void> {
+      if (rootGetters["app/supportsIndexedDB"]) {
+        const dislikedItemIds = await getFromIndexedDB("dislikedFoodItems");
+        commit(
+          "SET_DISLIKED_ITEM_IDS",
+          dislikedItemIds.map((item: any) => item.id)
+        );
+      }
+    },
+
+    async addDislikedItemId(
+      { commit, rootGetters }: { commit: Commit; rootGetters: any },
+      dislikedItemId: number
+    ): Promise<void> {
+      if (rootGetters["app/supportsIndexedDB"]) {
+        await addToIndexedDB({ id: dislikedItemId }, "dislikedFoodItems");
+      }
+      commit("ADD_DISLIKED_ITEM_BY_ID", dislikedItemId);
+      $bus.$emit(eventTypes.disliked_food_item_add, dislikedItemId);
     },
   },
 };

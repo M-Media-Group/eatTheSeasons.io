@@ -28,14 +28,10 @@ export default {
       country: CountryCode.Fr,
       region: "All",
       month: new Date().toLocaleString("en-us", { month: "long" }),
-      showOnlyNative:
-        localStorage.getItem("filters.showOnlyNative") === "true"
-          ? true
-          : false,
+      showOnlyNative: localStorage.getItem("filters.showOnlyNative") === "true",
       showOnlyWithCaloricInfo:
-        localStorage.getItem("filters.showOnlyWithCaloricInfo") === "true"
-          ? true
-          : false,
+        localStorage.getItem("filters.showOnlyWithCaloricInfo") === "true",
+      hideDisliked: localStorage.getItem("filters.hideDisliked") === "true",
     },
   },
 

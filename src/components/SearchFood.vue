@@ -208,6 +208,10 @@ export default defineComponent({
       () => store.getters["foodItems/allFoodItems"]
     );
 
+    const dislikedFoodItemIds = computed(
+      () => store.getters["consumedItems/dislikedFoodItemIds"]
+    );
+
     const recentSearches = ref(
       allFoodItems.value
         .map((food: FoodItemTs) => food.name)
@@ -251,6 +255,9 @@ export default defineComponent({
               : true) &&
             (filters.value.showOnlyWithCaloricInfo
               ? food.kcal && food.kcal > 0
+              : true) &&
+            (filters.value.hideDisliked
+              ? !dislikedFoodItemIds.value.includes(food.id)
               : true)
           );
         });

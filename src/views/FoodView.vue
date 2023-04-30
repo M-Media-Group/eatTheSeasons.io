@@ -123,6 +123,7 @@ export default defineComponent({
       foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
       isInBeta: "app/isInBeta",
       filters: "auth/filters",
+      dislikedFoodItemIds: "consumedItems/dislikedFoodItemIds",
     }),
 
     isOnMobile() {
@@ -187,8 +188,22 @@ export default defineComponent({
       return foodItems.map((food) => food.name);
     },
 
-    filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
+    filteredFoodItemsInSeasonAndRegion(): FoodItemTs[] {
       const foodItems = this.foodItemsInSeasonAndRegion;
+      return foodItems.filter((food: FoodItemTs) => {
+        return (
+          (this.filters.showOnlyWithCaloricInfo
+            ? food.kcal && food.kcal > 0
+            : true) &&
+          (this.filters.hideDisliked
+            ? !this.dislikedFoodItemIds.includes(food.id)
+            : true)
+        );
+      });
+    },
+
+    filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
+      const foodItems = this.filteredFoodItemsInSeasonAndRegion;
       // Sort by this.sort.by
       return foodItems.sort((a, b) => {
         const aValue = a[this.sort.by];
