@@ -78,8 +78,6 @@ export default {
       rootState: any,
       rootGetters: any
     ) {
-      // Start console timer
-      console.time("foodItemsThatHelpReachGoals");
       const consumed = {
         carbs: rootGetters["consumedItems/carbsConsumedToday"],
         fat: rootGetters["consumedItems/fatConsumedToday"],
@@ -152,8 +150,6 @@ export default {
       //   (item) => item.food_regions?.length > 0
       // );
 
-      // End console timer
-      console.timeEnd("foodItemsThatHelpReachGoals");
       return foodItemsWithSimilarRatiosSorted;
     },
 
