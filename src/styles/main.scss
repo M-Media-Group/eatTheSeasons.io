@@ -348,6 +348,7 @@ input {
     text-align: center;
     border-radius: $borderRadius;
     padding: $baseNumber * 4 + px 0;
+    min-width: $baseNumber * 2 + px;
 }
 
 input:not([type="checkbox"]):not([type="radio"]) {
