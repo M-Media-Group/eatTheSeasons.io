@@ -1,15 +1,17 @@
 <template>
   <div class="dropdown-selector" @click="isOpenDropdown = !isOpenDropdown">
     {{ modelValue }}
-    <ul v-if="isOpenDropdown">
-      <li
-        v-for="month in months"
-        :key="month"
-        @click="$emit('update:modelValue', month)"
-      >
-        {{ month }}
-      </li>
-    </ul>
+    <Transition name="fade">
+      <ul v-if="isOpenDropdown">
+        <li
+          v-for="month in months"
+          :key="month"
+          @click="$emit('update:modelValue', month)"
+        >
+          {{ month }}
+        </li>
+      </ul>
+    </Transition>
   </div>
 </template>
 

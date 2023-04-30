@@ -52,22 +52,24 @@
       :water="water"
     />
     <slot></slot>
+
     <form
       v-if="isSignedUp && id && supportsIndexedDB && showAddForm"
       @submit.prevent="submitFoodItem({ food_id: id, grams: amount ?? 0 })"
     >
-      <input
-        v-if="isFoodTrackerInputOpen"
-        ref="input"
-        type="number"
-        inputmode="numeric"
-        pattern="[0-9]*"
-        min="1"
-        v-model.number="amount"
-        placeholder="Grams"
-        required
-      />
-
+      <transition name="fade" mode="out-in">
+        <input
+          v-if="isFoodTrackerInputOpen"
+          ref="input"
+          type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          min="1"
+          v-model.number="amount"
+          placeholder="Grams"
+          required
+        />
+      </transition>
       <button
         type="submit"
         class="submit-button"
@@ -75,6 +77,7 @@
       >
         Add to tracker
       </button>
+
       <template
         v-if="
           amount &&
@@ -91,6 +94,7 @@
         </template>
       </template>
     </form>
+
     <button
       v-if="isSignedUp && id && supportsIndexedDB && !isFoodTrackerInputOpen"
       @click="submitDislikedItem(id)"

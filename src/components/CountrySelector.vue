@@ -5,15 +5,17 @@
     role="button"
   >
     {{ getCountryName(modelValue) }}
-    <ul v-if="isOpenDropdown">
-      <li
-        v-for="country in availableCountries"
-        :key="country"
-        @click="$emit('update:modelValue', country)"
-      >
-        {{ getCountryName(country) }}
-      </li>
-    </ul>
+    <Transition name="fade">
+      <ul v-if="isOpenDropdown">
+        <li
+          v-for="country in availableCountries"
+          :key="country"
+          @click="$emit('update:modelValue', country)"
+        >
+          {{ getCountryName(country) }}
+        </li>
+      </ul>
+    </Transition>
   </div>
 </template>
 
