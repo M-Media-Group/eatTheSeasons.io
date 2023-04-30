@@ -48,7 +48,14 @@ const migrations = {
       unique: false,
     },
   },
+  dislikedFoodItems: {
+    id: {
+      unique: true,
+    },
+  },
 };
+
+const dbVersion = 4;
 
 type TableNames = {
   [K in keyof typeof migrations]: typeof migrations[K];
@@ -111,23 +118,47 @@ export function updateIndexedDB(
 ) {
   const db = event.target.result;
   console.log("upgrade", db);
-  const objectStore = db.createObjectStore(table, {
-    keyPath: "id",
-  });
+  try {
+    const objectStore = db.createObjectStore(table, {
+      keyPath: "id",
+    });
 
-  const fields = migrations[table];
-  for (const [fieldName, index] of Object.entries(fields)) {
-    objectStore.createIndex(fieldName, fieldName, { unique: index.unique });
+    const fields = migrations[table];
+    for (const [fieldName, index] of Object.entries(fields)) {
+      objectStore.createIndex(fieldName, fieldName, { unique: index.unique });
+    }
+  } catch (error) {
+    console.error("IndexedDB error", error);
   }
 }
 
+// Using the migrations constant, create the object store or update it
+export function createIndexedDB() {
+  if (!window.indexedDB) {
+    console.log(
+      "Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available."
+    );
+  }
+  const request = window.indexedDB.open("foodie", dbVersion);
+  request.onerror = function (event) {
+    console.log("error: ", event);
+  };
+  request.onupgradeneeded = function (event: any) {
+    // Loop through the migrations and create the object stores
+    for (const [tableName] of Object.entries(migrations)) {
+      updateIndexedDB(tableName as keyof TableNames, event);
+    }
+  };
+  request.onsuccess = function (event: any) {
+    console.log("success: ", event);
+  };
+}
+
 export function addToIndexedDB(
-  value: consumedItem,
+  value: consumedItem | Record<string, string | number | boolean>,
   table = "eatenFoodItems" as keyof TableNames,
   dbName = "foodie"
 ) {
-  console.log("addToIndexedDB", value);
-
   // Drop the foodItem from value
   delete value.foodItem;
 
@@ -137,20 +168,23 @@ export function addToIndexedDB(
       "Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available."
     );
   }
-  const request = window.indexedDB.open(dbName, 3);
+  const request = window.indexedDB.open(dbName, dbVersion);
   request.onerror = function (event) {
-    console.log("error: ");
+    console.log("error: ", event);
   };
   request.onupgradeneeded = function (event: any) {
     updateIndexedDB(table, event);
   };
   request.onsuccess = function (event: any) {
     const db = request.result;
-    console.log("add", db);
-    const tx = db.transaction(table, "readwrite");
-    const store = tx.objectStore(table);
-    console.log("Store result", store, value);
-    store.put(value);
+    try {
+      const tx = db.transaction(table, "readwrite");
+      const store = tx.objectStore(table);
+      store.put(value);
+    } catch (error) {
+      // If the error is a not found error, then create the object store
+      console.error("IndexedDB error", error);
+    }
   };
 }
 
@@ -164,9 +198,9 @@ export function getFromIndexedDB(
         "Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available."
       );
     }
-    const request = window.indexedDB.open(dbName, 3);
+    const request = window.indexedDB.open(dbName, dbVersion);
     request.onerror = function (event) {
-      console.log("error: ");
+      console.log("error: ", event);
     };
 
     request.onupgradeneeded = function (event: any) {
@@ -198,7 +232,7 @@ export function deleteFromIndexedDB(
       "Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available."
     );
   }
-  const request = window.indexedDB.open(dbName, 3);
+  const request = window.indexedDB.open(dbName, dbVersion);
   request.onerror = function (event) {
     console.log("error: ");
   };
@@ -233,7 +267,7 @@ export function deleteAllIndexedDBs() {
 //       "Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available."
 //     );
 //   }
-//   const request = window.indexedDB.open("foodie", 3);
+//   const request = window.indexedDB.open("foodie", dbVersion);
 //   request.onerror = function (event) {
 //     console.log("error: ");
 //   };
