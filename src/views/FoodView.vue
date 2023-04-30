@@ -116,7 +116,6 @@ export default defineComponent({
       isSignedUp: "auth/isSignedUp",
       foodItems: "foodItems/foodItems",
       foodItemsWithoutSeasons: "foodItems/foodItemsWithoutSeasons",
-      eatenFoodItems: "foodItems/eatenFoodItems",
       proteinEaten: "foodItems/proteinEaten",
       fatEaten: "foodItems/fatEaten",
       carbEaten: "foodItems/carbEaten",
