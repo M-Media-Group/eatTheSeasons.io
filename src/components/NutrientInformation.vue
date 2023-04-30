@@ -31,7 +31,7 @@ export default defineComponent({
     protein: Number,
     showText: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   data() {
