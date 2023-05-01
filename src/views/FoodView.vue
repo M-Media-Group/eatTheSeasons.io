@@ -4,7 +4,13 @@
       <h1>
         Eat <MonthSelector v-model="filters.month" /> in
         <CountrySelector v-model="filters.country" />
-        ({{ filters.region === "All" ? "all regions" : filters.region }})
+        ({{
+          filters.region
+            ? filters.region === "All"
+              ? "all regions"
+              : filters.region
+            : "all regions"
+        }})
       </h1>
       <p v-if="!isSignedUp">
         <router-link to="/sign-up">Sign up</router-link> to see more information
@@ -20,10 +26,26 @@
     />
 
     <FoodItemList
-      v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length > 0"
-      :foods="filteredAndOrderedFoodItemsInSeasonAndRegion"
-      :filters="filters"
-    />
+      v-if="allFoodItems.length > 0"
+      :foods="allFoodItems"
+      :filters="{
+        ...filters,
+        showOnlyInSeason: true,
+      }"
+      :sort="{ direction: 'asc', by: 'kcal' }"
+    >
+      <template #empty>
+        <p>
+          There's no foods in season in
+          <CountrySelector v-model="filters.country" />
+          ({{ filters.region === "All" ? "all regions" : filters.region }}) in
+          <MonthSelector v-model="filters.month" />.
+          <br />
+          You can <router-link to="/search">Search</router-link> for any food
+          instead.
+        </p>
+      </template>
+    </FoodItemList>
     <div v-else>
       <p>
         There's no foods in season in
@@ -44,10 +66,7 @@
     </div>
     <div
       class="main-banner"
-      v-if="
-        !isSignedUp &&
-        (isOnMobile || filteredAndOrderedFoodItemsInSeasonAndRegion.length > 3)
-      "
+      v-if="!isSignedUp && (isOnMobile || allFoodItems.length > 3)"
     >
       <SignUp />
     </div>
@@ -63,8 +82,6 @@ import { mapGetters } from "vuex";
 import {
   CountryCode,
   MonthName,
-  Category,
-  CategoryName,
   FoodItem as FoodItemTs,
 } from "@/types/foodItem";
 import { QueryParams as QueryParamsType } from "@/types/queryParams";
@@ -82,54 +99,17 @@ export default defineComponent({
     FoodItemList,
   },
 
-  data() {
-    return {
-      sort: {
-        order: "asc",
-        by: "kcal" as keyof FoodItemTs,
-        options: {
-          kcal: "kcal",
-          name: "name",
-          fat: "fat",
-          carbohydrate: "carbohydrate",
-        },
-      },
-    };
-  },
-
   computed: {
     ...mapGetters({
       isSignedUp: "auth/isSignedUp",
-      foodItems: "foodItems/foodItems",
+      allFoodItems: "foodItems/allFoodItems",
       foodItemsWithoutSeasons: "foodItems/foodItemsWithoutSeasons",
-      proteinEaten: "foodItems/proteinEaten",
-      fatEaten: "foodItems/fatEaten",
-      carbEaten: "foodItems/carbEaten",
-      caloriesEaten: "foodItems/caloriesEaten",
-      foodItemsMatchingSearchTerm: "foodItems/foodItemsMatchingSearchTerm",
       isInBeta: "app/isInBeta",
       filters: "auth/filters",
-      dislikedFoodItemIds: "consumedItems/dislikedFoodItemIds",
     }),
 
     isOnMobile() {
       return window.innerWidth < 768;
-    },
-
-    availableCategories(): CategoryName[] {
-      return (
-        (this.foodItems as FoodItemTs[])
-          .reduce(
-            (acc: any, food) =>
-              acc.concat(food.categories.map((c: Category) => c.name)),
-            []
-          )
-          // remove duplicates
-          .filter(
-            (value: any, index: any, self: string | any[]) =>
-              self.indexOf(value) === index
-          )
-      );
     },
 
     availableRegions(): string[] {
@@ -141,24 +121,26 @@ export default defineComponent({
     },
 
     foodItemsInRegion(): FoodItemTs[] {
-      return this.foodItemsInCountry.filter((foodItem) =>
-        foodItem.food_regions?.find(
-          (foodRegion) => foodRegion.region.name === this.filters.region
-        )
+      return this.foodItemsInCountry.filter(
+        (foodItem) =>
+          foodItem.food_regions?.findIndex(
+            (foodRegion) => foodRegion.region.name === this.filters.region
+          ) !== -1
       );
     },
 
     foodItemsInSeasonAndRegion(): FoodItemTs[] {
-      return this.foodItemsInRegion.filter((foodItem) =>
-        foodItem.food_regions?.find(
-          (foodRegion) =>
-            foodRegion.region.name === this.filters.region &&
-            foodRegion.seasons.find(
-              (season) =>
-                season.month_name.toLowerCase() ===
-                this.filters.month.toLowerCase()
-            )
-        )
+      return this.foodItemsInRegion.filter(
+        (foodItem) =>
+          foodItem.food_regions?.findIndex(
+            (foodRegion) =>
+              foodRegion.region.name === this.filters.region &&
+              foodRegion.seasons.findIndex(
+                (season) =>
+                  season.month_name.toLowerCase() ===
+                  this.filters.month.toLowerCase()
+              ) !== -1
+          ) !== -1
       );
     },
 
@@ -173,50 +155,11 @@ export default defineComponent({
       const foodItems = this.orderedFoodItemsInSeasonAndRegion;
       return foodItems.map((food) => food.name);
     },
-
-    filteredFoodItemsInSeasonAndRegion(): FoodItemTs[] {
-      const foodItems = this.foodItemsInSeasonAndRegion;
-      return foodItems.filter((food: FoodItemTs) => {
-        return (
-          (this.filters.showOnlyWithCaloricInfo
-            ? food.kcal && food.kcal > 0
-            : true) &&
-          (this.filters.hideDisliked
-            ? !this.dislikedFoodItemIds.includes(food.id)
-            : true)
-        );
-      });
-    },
-
-    filteredAndOrderedFoodItemsInSeasonAndRegion(): FoodItemTs[] {
-      const foodItems = this.filteredFoodItemsInSeasonAndRegion;
-      // Sort by this.sort.by
-      return foodItems.sort((a, b) => {
-        const aValue = a[this.sort.by];
-        const bValue = b[this.sort.by];
-
-        // If the values don't exist, put them at the end of the list
-        if (aValue === undefined || bValue === undefined) {
-          return this.sort.order === "asc" ? 1 : -1;
-        }
-
-        if (aValue === null || bValue === null) {
-          return this.sort.order === "asc" ? 1 : -1;
-        }
-        if (aValue > bValue) {
-          return this.sort.order === "asc" ? 1 : -1;
-        }
-        if (aValue < bValue) {
-          return this.sort.order === "asc" ? -1 : 1;
-        }
-        return 0;
-      });
-    },
   },
 
   watch: {
     // Watch foodItems immediate
-    foodItems: {
+    allFoodItems: {
       immediate: true,
       handler() {
         this.setDefaultRegion();
@@ -289,7 +232,7 @@ export default defineComponent({
     },
 
     getFoodItemsInCountry(country: CountryCode): FoodItemTs[] {
-      return (this.foodItems as FoodItemTs[]).filter((food) => {
+      return (this.allFoodItems as FoodItemTs[]).filter((food) => {
         return food.food_regions?.find((foodRegion) => {
           return (
             foodRegion.region.country_code.toLowerCase() ===
@@ -300,7 +243,7 @@ export default defineComponent({
     },
 
     getAvailableRegionsForCountry(country: CountryCode): string[] {
-      return (this.foodItems as FoodItemTs[])
+      return (this.allFoodItems as FoodItemTs[])
         .filter((food) => {
           return food.food_regions?.find((foodRegion) => {
             return (

@@ -1,6 +1,5 @@
 <template>
   <div class="grid" v-if="isSignedUp">
-    <!-- {{ foodItemsMatchingSearchTerm(filters.searchTerm).length }} -->
     <slot name="header" :search="search">
       <template v-if="hLevel === 1">
         <header class="page-header default">
@@ -52,19 +51,12 @@
     <datalist id="options-list">
       <option
         :value="food.name"
-        v-for="food in foodItems"
+        v-for="food in allFoodItems"
         :key="'f-' + (food.id ?? food.name)"
       ></option>
     </datalist>
-
     <div v-if="search.length < 3" style="margin-bottom: 3rem">
       Type at least 3 characters to search
-    </div>
-    <div v-else-if="results.length === 0" :aria-busy="isLoading">
-      <div v-if="!isLoading">
-        No foods found for <strong>{{ search }}</strong
-        >.
-      </div>
     </div>
 
     <div class="search-results" v-else>
@@ -73,6 +65,8 @@
         v-bind="$attrs"
         :filters="filters"
         :showAddForm="true"
+        :sort="false"
+        ref="resultsList"
       />
     </div>
     <div class="main-banner" v-if="!isSignedUp">
@@ -84,11 +78,10 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  defineComponent,
   defineAsyncComponent,
-  reactive,
+  defineProps,
   computed,
   ref,
   onMounted,
@@ -96,10 +89,8 @@ import {
   ComputedRef,
   Ref,
 } from "vue";
-import { mapGetters } from "vuex";
 
 import {
-  CategoryName,
   FoodItem as FoodItemTs,
   OpenFoodFactsFoodItem,
 } from "@/types/foodItem";
@@ -108,245 +99,123 @@ import { useVueFuse } from "vue-fuse";
 import { useStore } from "vuex";
 import $bus, { eventTypes } from "@/eventBus/events";
 import FoodItemList from "./FoodItemList.vue";
+import { useRouter } from "vue-router";
+import { convertOpenFoodFactsFoodItemToFoodItem } from "@/utils/dataTransformers";
 
-export default defineComponent({
-  name: "SearchView",
+const resultsList = ref();
 
-  components: {
-    SignUp: defineAsyncComponent(() => import("@/components/SignUp.vue")),
-    FoodItemList,
-  },
+const store = useStore();
+const route = new URLSearchParams(window.location.search);
 
-  props: {
-    hLevel: {
-      type: Number,
-      default: 1,
-    },
-  },
+const SignUp = defineAsyncComponent(() => import("@/components/SignUp.vue"));
 
-  watch: {
-    search: {
-      handler(searchTerm, oldTerm) {
-        if (searchTerm === oldTerm) {
-          return;
-        }
-        if (searchTerm.length >= 3) {
-          // Update URL with search term
-          this.$router.push({
-            query: {
-              searchTerm,
-            },
-          });
-          this.searchForFood(searchTerm);
-        }
-      },
-    },
-  },
-
-  methods: {
-    getFoodCategoriesForFoodItem(food: FoodItemTs): CategoryName[] {
-      if (!food.categories) {
-        return [];
-      }
-      return food.categories.map((foodCategory) => {
-        return foodCategory.name;
-      });
-    },
-  },
-
-  setup() {
-    const store = useStore();
-    const route = new URLSearchParams(window.location.search);
-
-    const isLoading = ref(false);
-    const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
-    const foodItems = computed(() => store.getters["foodItems/foodItems"]);
-    const resultsLimit = computed(() => store.getters["app/resultsLimit"]);
-
-    // const foodItemsMatchingSearchTerm = computed(
-    //   (term) => store.getters["foodItems/foodItemsMatchingSearchTerm"]
-    // );
-
-    const filters = computed(() => store.getters["auth/filters"]) as any;
-
-    const sort = reactive({
-      order: "asc",
-      by: "carbohydrate" as keyof FoodItemTs,
-      options: {
-        kcal: "kcal",
-        name: "name",
-        fat: "fat",
-        carbohydrate: "carbohydrate",
-      },
-    });
-
-    const allFoodItems = computed(
-      () => store.getters["foodItems/allFoodItems"]
-    );
-
-    const dislikedFoodItemIds = computed(
-      () => store.getters["consumedItems/dislikedFoodItemIds"]
-    );
-
-    const recentSearches = ref(
-      allFoodItems.value
-        .map((food: FoodItemTs) => food.name)
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 3)
-    );
-
-    const items = ref(null) as any;
-
-    const { search, results, noResults } = useVueFuse(items, {
-      keys: ["name", "categories.name", "description"],
-      minMatchCharLength: 3,
-      findAllMatches: true,
-      location: 0,
-      threshold: 0.4,
-    }) as {
-      search: Ref<string>;
-      results: ComputedRef<FoodItemTs[]>;
-      noResults: ComputedRef<boolean>;
-    };
-
-    const checkIsFoodNativeToCountry = (food: FoodItemTs) =>
-      food.food_regions?.find((foodRegion) => {
-        return (
-          foodRegion.region.country_code.toLowerCase() ===
-          filters.value.country.toLowerCase()
-        );
-      })?.grows_in_region ?? null;
-
-    onMounted(() => {
-      search.value = route.get("searchTerm") ?? "";
-    });
-
-    watch(
-      allFoodItems.value,
-      (newValue) => {
-        items.value = Object.values(newValue).filter((food: FoodItemTs) => {
-          return (
-            (filters.value.showOnlyNative
-              ? checkIsFoodNativeToCountry(food)
-              : true) &&
-            (filters.value.showOnlyWithCaloricInfo
-              ? food.kcal && food.kcal > 0
-              : true) &&
-            (filters.value.hideDisliked
-              ? !dislikedFoodItemIds.value.includes(food.id)
-              : true)
-          );
-        });
-      },
-      {
-        immediate: true,
-      }
-    );
-
-    const searchForFood = debounce((searchTerm) => {
-      $bus.$emit(eventTypes.search, searchTerm);
-
-      if (results.value.length > resultsLimit.value) {
-        return;
-      }
-      isLoading.value = true;
-      searchForFoodViaAPI();
-    }, 250);
-
-    const searchForFoodViaAPI = async () => {
-      const request = await fetch(
-        `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
-      );
-      const response = await request.json();
-      if (response.data.length === 0) {
-        return searchForFoodViaOpenFoodFactsAPI();
-      }
-      response.data.forEach((foodItem: FoodItemTs) => {
-        store.dispatch("foodItems/addFoodItem", {
-          ...foodItem,
-          source: "api",
-        });
-      });
-      isLoading.value = false;
-    };
-
-    const searchForFoodViaOpenFoodFactsAPI = async () => {
-      const request = await fetch(
-        `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${search.value}&search_simple=1&action=process&json=1`
-      );
-      const response = await request.json();
-      response.products.forEach((foodItem: OpenFoodFactsFoodItem) => {
-        // Discard food items without kcal
-        if (!foodItem.nutriments["energy-kcal_100g"]) {
-          return;
-        }
-        store.dispatch(
-          "foodItems/addFoodItem",
-          convertOpenFoodFactsFoodItemToFoodItem(foodItem)
-        );
-      });
-      isLoading.value = false;
-    };
-
-    const convertOpenFoodFactsFoodItemToFoodItem = (
-      foodItem: OpenFoodFactsFoodItem
-    ) => {
-      // It seems the API sometimes returns a string and sometimes a number, so we need to check it here.
-      // @todo confirm that the API does return different types
-      const kcal =
-        typeof foodItem.nutriments["energy-kcal_100g"] === "string"
-          ? parseFloat(foodItem.nutriments["energy-kcal_100g"])
-          : foodItem.nutriments["energy-kcal_100g"];
-      const carbohydrate =
-        typeof foodItem.nutriments.carbohydrates_100g === "string"
-          ? parseFloat(foodItem.nutriments.carbohydrates_100g)
-          : foodItem.nutriments.carbohydrates_100g;
-
-      return {
-        id: parseInt(foodItem.id),
-        name: foodItem.product_name,
-        description: foodItem.generic_name,
-        is_raw: false,
-        image_url: foodItem.image_url,
-        kcal: kcal,
-        water: null,
-        protein: parseFloat(foodItem.nutriments.proteins_100g),
-        fat: parseFloat(foodItem.nutriments.fat_100g),
-        carbohydrate: carbohydrate,
-        fiber: parseFloat(foodItem.nutriments.fiber_100g),
-        alcohol: null,
-        created_at: new Date().toDateString(),
-        updated_at: new Date().toDateString(),
-        categories: [],
-        // categories: foodItem.categories_tags.map((category) => {
-        //   return {
-        //     id: null,
-        //     name: category,
-        //     created_at: new Date(),
-        //     updated_at: new Date(),
-        //   };
-        // }),
-        food_regions: [],
-        serving_size: parseFloat(foodItem.serving_size),
-        source: "openfoodfacts",
-      } as FoodItemTs;
-    };
-
-    return {
-      items,
-      filters,
-      search,
-      results,
-      noResults,
-      sort,
-      isLoading,
-      recentSearches,
-      isSignedUp,
-      foodItems,
-      resultsLimit,
-      searchForFood,
-      checkIsFoodNativeToCountry,
-    };
+defineProps({
+  hLevel: {
+    type: Number,
+    default: 1,
   },
 });
+
+const isLoading = ref(false);
+const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
+const resultsLimit = computed(() => store.getters["app/resultsLimit"]);
+const filters = computed(() => store.getters["auth/filters"]);
+
+const router = useRouter();
+
+const allFoodItems = computed(() => store.state.foodItems.foodItems);
+
+const recentSearches = computed(() =>
+  allFoodItems.value
+    .map((food: FoodItemTs) => food.name)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3)
+);
+
+const { search, results, noResults, loadItems } = useVueFuse(
+  allFoodItems.value,
+  {
+    keys: ["name", "categories.name", "description"],
+    minMatchCharLength: 3,
+    findAllMatches: true,
+    location: 0,
+    threshold: 0.4,
+  }
+) as {
+  search: Ref<string>;
+  results: ComputedRef<FoodItemTs[]>;
+  noResults: ComputedRef<boolean>;
+  loadItems: (items: FoodItemTs[]) => void;
+};
+
+onMounted(() => {
+  search.value = route.get("searchTerm") ?? "";
+});
+
+watch(search, (searchTerm, oldTerm) => {
+  if (searchTerm === oldTerm) {
+    return;
+  }
+  if (searchTerm.length >= 3) {
+    // Update URL with search term
+    router.push({
+      query: {
+        searchTerm,
+      },
+    });
+    searchForFood(searchTerm);
+  }
+});
+
+// Weird VueFuse bug where it doesn't update the results when the items change
+// @todo investigate later
+watch(allFoodItems.value, () => {
+  loadItems(allFoodItems.value);
+  console.log(resultsList.value?.countOfShowableFoods);
+});
+
+const searchForFood = debounce((searchTerm) => {
+  $bus.$emit(eventTypes.search, searchTerm);
+
+  if (results.value.length > resultsLimit.value) {
+    return;
+  }
+  isLoading.value = true;
+  searchForFoodViaAPI();
+}, 250);
+
+const searchForFoodViaAPI = async () => {
+  const request = await fetch(
+    `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
+  );
+  const response = await request.json();
+  if (response.data.length === 0) {
+    return searchForFoodViaOpenFoodFactsAPI();
+  }
+  response.data.forEach((foodItem: FoodItemTs) => {
+    store.dispatch("foodItems/addFoodItem", {
+      ...foodItem,
+      source: "api",
+    });
+  });
+  isLoading.value = false;
+};
+
+const searchForFoodViaOpenFoodFactsAPI = async () => {
+  const request = await fetch(
+    `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${search.value}&search_simple=1&action=process&json=1`
+  );
+  const response = await request.json();
+  response.products.forEach((foodItem: OpenFoodFactsFoodItem) => {
+    // Discard food items without kcal
+    if (!foodItem.nutriments["energy-kcal_100g"]) {
+      return;
+    }
+    store.dispatch(
+      "foodItems/addFoodItem",
+      convertOpenFoodFactsFoodItemToFoodItem(foodItem)
+    );
+  });
+  isLoading.value = false;
+};
 </script>

@@ -15,7 +15,8 @@ export default {
 
   getters: {
     allFoodItems(state: { foodItems: FoodItemTs[] }): FoodItemTs[] {
-      return state.foodItems;
+      // @todo find out why we need filter() here so that downstream in components computed properties using this getter get updated
+      return state.foodItems.filter((foodItem) => foodItem !== null);
     },
 
     foodItems(
@@ -172,7 +173,10 @@ export default {
   },
 
   mutations: {
-    SET_FOOD_ITEMS(state: { foodItems: boolean }, value: boolean): void {
+    SET_FOOD_ITEMS(
+      state: { foodItems: FoodItemTs[] },
+      value: FoodItemTs[]
+    ): void {
       state.foodItems = value;
     },
 
@@ -191,8 +195,9 @@ export default {
       }
 
       // Add the food item if the food item with the ID does not exist
-      state.foodItems.findIndex((item) => item.id === value.id) === -1 &&
+      if (state.foodItems.findIndex((item) => item.id === value.id) === -1) {
         state.foodItems.push(value);
+      }
     },
   },
 
