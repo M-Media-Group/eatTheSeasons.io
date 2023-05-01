@@ -1,5 +1,13 @@
 <template>
-  <div class="food-item grid" :id="name?.replace(' ', '-')">
+  <div
+    class="food-item grid"
+    :id="name?.replace(' ', '-')"
+    :class="{
+      native: isNative,
+      helpful: helpsReachGoals,
+      disliked: isDisliked,
+    }"
+  >
     <img
       v-if="showImage && computedImageSrc"
       :src="computedImageSrc"

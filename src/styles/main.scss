@@ -506,7 +506,14 @@ button {
         width: max-content;
         grid-auto-columns: auto;
     }
+    transition: $transiton-timing;
     margin-bottom: $baseNumber * 4 + px;
+    &.disliked {
+        opacity: 0.5;
+        img {
+            filter: grayscale(100%);
+        }
+    }
 }
 
 .main-banner {
