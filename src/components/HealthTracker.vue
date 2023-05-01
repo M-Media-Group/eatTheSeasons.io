@@ -115,11 +115,7 @@ export default defineComponent({
       fatEaten: "consumedItems/fatConsumedToday",
       proteinEaten: "consumedItems/proteinConsumedToday",
       getConsumedItems: "consumedItems/allConsumedItemsToday",
-      foodItems: "foodItems/allFoodItems",
       goals: "auth/goals",
-      meals: "auth/meals",
-      nutrientRatio: "auth/nutrientRatio",
-      findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
     }),
     // Find foodItems with similar ratios as in currentVsGoals
 

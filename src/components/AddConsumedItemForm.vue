@@ -114,7 +114,6 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       getConsumedItems: "consumedItems/allConsumedItemsToday",
-      foodItems: "foodItems/allFoodItems",
     }),
   },
   methods: {
