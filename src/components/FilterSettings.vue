@@ -30,7 +30,7 @@
         :checked="filters.hideUnhelpful"
         @change="setFilters({ hideUnhelpful: !filters.hideUnhelpful })"
       />
-      <span>Hide food that doesn't help reach goals</span>
+      <span>Hide food that doesn't help reach daily goals</span>
     </label>
     <label>
       <input
