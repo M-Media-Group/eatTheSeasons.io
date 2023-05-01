@@ -78,7 +78,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/stats",
     name: "stats",
     component: () =>
-      import(/* webpackChunkName: "OnboardingView" */ "@/views/StatsView.vue"),
+      import(
+        /* webpackChunkName: "OnboardingView" */ "@/views/NewStatsView.vue"
+      ),
   },
 
   // Single food page view
