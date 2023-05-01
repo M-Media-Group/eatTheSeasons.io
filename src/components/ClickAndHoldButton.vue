@@ -1,6 +1,8 @@
 <template>
   <button
     @mousedown.prevent="handleMouseDown"
+    @touchstart.prevent="handleMouseDown"
+    @touchend.prevent="handleMouseUp"
     @mouseup.prevent="handleMouseUp"
     :data-percent-complete="Math.round(progress) + '%'"
   >

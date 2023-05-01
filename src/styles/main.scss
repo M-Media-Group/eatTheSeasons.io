@@ -415,6 +415,7 @@ button {
 
     &[data-percent-complete]:active {
         position: relative;
+        user-select: none;
         &::after {
             // Create an auto-flooding background
             content: attr(data-percent-complete) "\a Keep pressing to complete";
