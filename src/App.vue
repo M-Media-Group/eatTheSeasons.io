@@ -31,7 +31,11 @@
       >
       · <router-link to="/about">About</router-link> · Made with ❤️ by
       <a href="https://mmediagroup.fr">M Media</a> · Images from
-      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a></small
+      <a href="https://www.pngplay.com/" target="_blank">PNGPlay</a> · Open food
+      data from
+      <a href="https://world.openfoodfacts.org" target="_blank"
+        >OpenFoodFacts</a
+      ></small
     >
   </footer>
 </template>
