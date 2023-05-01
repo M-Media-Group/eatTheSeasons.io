@@ -95,11 +95,18 @@
       </template>
     </form>
     <ClickAndHoldButton
-      v-if="isSignedUp && id && supportsIndexedDB && !isFoodTrackerInputOpen"
+      v-if="
+        isSignedUp &&
+        id &&
+        supportsIndexedDB &&
+        !isFoodTrackerInputOpen &&
+        !isDisliked
+      "
       @click="submitDislikedItem(id)"
     >
       Dislike
     </ClickAndHoldButton>
+    <div v-else-if="isDisliked">You disliked this food</div>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -204,6 +211,11 @@ export default defineComponent({
     timesConsumedToday: {
       type: Number,
       default: 0,
+      required: false,
+    },
+    isDisliked: {
+      type: Boolean,
+      default: false,
       required: false,
     },
   },
