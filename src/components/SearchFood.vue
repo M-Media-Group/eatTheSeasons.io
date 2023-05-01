@@ -124,32 +124,20 @@ export default defineComponent({
     },
   },
 
-  computed: {
-    ...mapGetters({
-      isSignedUp: "auth/isSignedUp",
-      foodItems: "foodItems/foodItems",
-      resultsLimit: "app/resultsLimit",
-    }),
-  },
-
   watch: {
     search: {
       handler(searchTerm, oldTerm) {
         if (searchTerm === oldTerm) {
           return;
         }
-        if (searchTerm.length > 0) {
+        if (searchTerm.length >= 3) {
           // Update URL with search term
           this.$router.push({
             query: {
               searchTerm,
             },
           });
-          $bus.$emit(eventTypes.search, searchTerm);
-          if (this.results.length > this.resultsLimit) {
-            return;
-          }
-          this.searchForFood();
+          this.searchForFood(searchTerm);
         }
       },
     },
@@ -171,6 +159,9 @@ export default defineComponent({
     const route = new URLSearchParams(window.location.search);
 
     const isLoading = ref(false);
+    const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
+    const foodItems = computed(() => store.getters["foodItems/foodItems"]);
+    const resultsLimit = computed(() => store.getters["app/resultsLimit"]);
 
     // const foodItemsMatchingSearchTerm = computed(
     //   (term) => store.getters["foodItems/foodItemsMatchingSearchTerm"]
@@ -252,7 +243,12 @@ export default defineComponent({
       }
     );
 
-    const searchForFood = debounce(() => {
+    const searchForFood = debounce((searchTerm) => {
+      $bus.$emit(eventTypes.search, searchTerm);
+
+      if (results.value.length > resultsLimit.value) {
+        return;
+      }
       isLoading.value = true;
       searchForFoodViaAPI();
     }, 250);
@@ -345,6 +341,9 @@ export default defineComponent({
       sort,
       isLoading,
       recentSearches,
+      isSignedUp,
+      foodItems,
+      resultsLimit,
       searchForFood,
       checkIsFoodNativeToCountry,
     };
