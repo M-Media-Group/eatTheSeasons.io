@@ -134,7 +134,7 @@ export default defineComponent({
       proteinEaten: "consumedItems/proteinConsumedToday",
       nextMeal: "auth/nextMeal",
     }),
-    currentDate() {
+    currentDate(): string {
       return this.$store.state.consumedItems.setDate
         .toISOString()
         .split("T")[0];
