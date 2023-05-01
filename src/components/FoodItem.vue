@@ -18,7 +18,7 @@
       <router-link custom v-slot="{ navigate }" :to="'/food/' + id">
         <component
           :is="'h' + titleLevel"
-          @click="showLink ? navigate : null"
+          @click="showLink ? navigate() : null"
           :class="{ clickable: showLink }"
         >
           {{ name }}
