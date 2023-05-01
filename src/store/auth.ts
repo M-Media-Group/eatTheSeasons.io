@@ -36,6 +36,7 @@ export default {
       showOnlyWithCaloricInfo:
         localStorage.getItem("filters.showOnlyWithCaloricInfo") === "true",
       hideDisliked: localStorage.getItem("filters.hideDisliked") === "true",
+      hideUnhelpful: localStorage.getItem("filters.hideUnhelpful") === "true",
     },
   },
 

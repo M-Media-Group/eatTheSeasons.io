@@ -114,7 +114,7 @@ export function useFood() {
     return foods.filter(
       (food) =>
         (filters.hideDisliked ? !isDisliked(food.id) : true) &&
-        (filters.hideHelpsReachGoals ? !helpsReachGoals(food.id) : true) &&
+        (filters.hideUnhelpful ? helpsReachGoals(food.id) : true) &&
         (filters.showOnlyWithCaloricInfo ? food.kcal && food.kcal > 0 : true) &&
         (filters.showOnlyWithCountry && filters.country
           ? isNativeToCountry(food, filters.country)
