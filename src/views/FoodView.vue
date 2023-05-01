@@ -20,9 +20,22 @@
     />
 
     <FoodItemList
+      v-if="filteredAndOrderedFoodItemsInSeasonAndRegion.length > 0"
       :foods="filteredAndOrderedFoodItemsInSeasonAndRegion"
       :filters="filters"
     />
+    <div v-else>
+      <p>
+        There's no foods in season in
+        <CountrySelector v-model="filters.country" />
+        ({{ filters.region === "All" ? "all regions" : filters.region }}) in
+        <MonthSelector v-model="filters.month" />.
+      </p>
+      <p>
+        <router-link to="/search">Search</router-link> for any food you ate to
+        get more results.
+      </p>
+    </div>
 
     <div v-if="isInBeta">
       <h2>Can you help us with these foods?</h2>
