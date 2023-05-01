@@ -107,3 +107,29 @@ export const calculatePercentages = (numbers: number[]): number[] => {
     const percentages = numbers.map((num) => (num / total) * 100);
     return percentages;
 };
+
+// prettier-ignore
+/**
+ * Given an array of values and an array of arrays of values return an ordered array of indexes. They should be ordered from most similar to least similar
+ */
+export const sortIndexesBySimilarity = (
+    current: number[],
+    arr: number[][]
+): number[] => {
+
+    // For each element in each array, calculate the difference from the current
+     const differencesBetweenCurrentAndArr = arr.map((elem) =>
+        elem.map((subElem, index) => subElem - current[index])
+    );
+
+    // Sum the elements
+    const differenceScores = differencesBetweenCurrentAndArr.map((elem) =>
+            elem.reduce((acc, curr) => acc + Math.abs(curr), 0)
+        );
+
+    const orderedScoreIndexes = differenceScores.map((elem, index) => [elem, index])
+        .sort((a, b) => a[0] - b[0])
+        .map((elem) => elem[1]);
+
+    return orderedScoreIndexes;
+}
