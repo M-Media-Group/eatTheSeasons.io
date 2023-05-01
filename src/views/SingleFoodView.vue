@@ -7,6 +7,8 @@
       :titleLevel="1"
       :filters="{
         country: filters.country,
+        region: filters.region,
+        month: filters.month,
       }"
     />
     <h2>Similar nutrient ratios</h2>
