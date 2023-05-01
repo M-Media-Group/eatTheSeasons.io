@@ -413,6 +413,29 @@ button {
         color: var(--bg);
     }
 
+    &[data-percent-complete]:active {
+        position: relative;
+        &::after {
+            // Create an auto-flooding background
+            content: attr(data-percent-complete) "\a Keep pressing to complete";
+            overflow-x: hidden;
+            white-space: pre-wrap;
+            position: absolute;
+            bottom: $baseNumber * 4 + px;
+            text-align: center;
+            left: 0;
+            right: 0;
+            width: min-content;
+            background-color: var(--bg);
+            color: var(--text);
+            border-radius: $borderRadius;
+            z-index: 100;
+            padding: $baseNumber + px $baseNumber * 2 + px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+            border: 1px solid lightgray;
+        }
+    }
+
     &.submit-button {
         font-weight: 600;
         color: $text;
