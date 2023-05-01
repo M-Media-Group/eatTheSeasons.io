@@ -42,7 +42,9 @@
           </template>
           <td>{{ item.kcal?.toFixed(expand ? 2 : 0) }}kcal</td>
           <td>
-            <button @click="removeItem(item.id)">Remove</button>
+            <ClickAndHoldButton @click="removeItem(item.id)"
+              >Remove</ClickAndHoldButton
+            >
             <!-- <button @click="copyToFormFromFoodItemId(item.id)">Copy</button> -->
           </td>
         </tr>
@@ -95,6 +97,7 @@ import { mapGetters, mapActions } from "vuex";
 import { consumedItem } from "@/types/consumedItem";
 import AddConsumedItemForm from "./AddConsumedItemForm.vue";
 import type { PropType } from "vue";
+import ClickAndHoldButton from "./ClickAndHoldButton.vue";
 
 export default defineComponent({
   name: "ConsumedFoodItemTable",
@@ -123,6 +126,7 @@ export default defineComponent({
 
   components: {
     AddConsumedItemForm,
+    ClickAndHoldButton,
   },
 
   computed: {

@@ -94,13 +94,12 @@
         </template>
       </template>
     </form>
-
-    <button
+    <ClickAndHoldButton
       v-if="isSignedUp && id && supportsIndexedDB && !isFoodTrackerInputOpen"
       @click="submitDislikedItem(id)"
     >
       Dislike
-    </button>
+    </ClickAndHoldButton>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -114,11 +113,13 @@ import type { PropType } from "vue";
 import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
 import { getBestImageUrl } from "@/helpers";
+import ClickAndHoldButton from "./ClickAndHoldButton.vue";
 
 export default defineComponent({
   name: "FoodItem",
   components: {
     NutrientInformation,
+    ClickAndHoldButton,
   },
 
   props: {
