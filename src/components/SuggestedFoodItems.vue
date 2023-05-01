@@ -2,7 +2,7 @@
   <div v-if="findFoodItems.length > 0">
     <FoodItemList
       :foods="findFoodItems.slice(0, resultsLimit)"
-      :filters="{}"
+      :filters="filters"
       :showAddForm="true"
     />
     <template v-if="findFoodItems.length - resultsLimit > 0">
@@ -34,6 +34,7 @@ export default defineComponent({
     ...mapGetters({
       findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
       resultsLimit: "app/resultsLimit",
+      filters: "auth/filters",
     }),
   },
 });
