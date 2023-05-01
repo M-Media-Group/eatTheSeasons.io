@@ -214,7 +214,7 @@ export function getFromIndexedDB(
       if (!request.result) {
         reject(new Error("No database found"));
       }
-      const tx = db.transaction(table, "readwrite");
+      const tx = db.transaction(table, "readonly");
       const store = tx.objectStore(table);
       const data = store.getAll();
       data.onsuccess = function (event: any) {
