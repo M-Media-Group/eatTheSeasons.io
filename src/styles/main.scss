@@ -766,3 +766,11 @@ a[aria-busy="true"] {
 footer {
     padding: $baseNumber * 2 + px;
 }
+
+[onclick],
+.clickable {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

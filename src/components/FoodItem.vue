@@ -15,10 +15,16 @@
       loading="lazy"
     />
     <div>
-      <component :is="'h' + titleLevel">
-        {{ name }}
-        <span v-if="localName"> ({{ localName }}) </span>
-      </component>
+      <router-link custom v-slot="{ navigate }" :to="'/food/' + id">
+        <component
+          :is="'h' + titleLevel"
+          @click="showLink ? navigate : null"
+          :class="{ clickable: showLink }"
+        >
+          {{ name }}
+          <span v-if="localName"> ({{ localName }}) </span>
+        </component>
+      </router-link>
       <p v-if="calories || lastMonth">
         <span v-if="calories">{{ calories.toFixed(2) }} kcal/100g · </span>
         <span v-if="lastMonth">Available to end of </span>
@@ -226,6 +232,11 @@ export default defineComponent({
     isDisliked: {
       type: Boolean,
       default: false,
+      required: false,
+    },
+    showLink: {
+      type: Boolean,
+      default: true,
       required: false,
     },
   },

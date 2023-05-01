@@ -80,6 +80,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "OnboardingView" */ "@/views/StatsView.vue"),
   },
+
+  // Single food page view
+  {
+    path: "/food/:id",
+    name: "food-item",
+    component: () =>
+      import(
+        /* webpackChunkName: "FoodItemView" */ "@/views/SingleFoodView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({
