@@ -171,7 +171,6 @@ watch(search, (searchTerm, oldTerm) => {
 // @todo investigate later
 watch(allFoodItems.value, () => {
   loadItems(allFoodItems.value);
-  console.log(resultsList.value?.countOfShowableFoods);
 });
 
 const searchForFood = debounce((searchTerm) => {

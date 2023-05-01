@@ -34,6 +34,8 @@
       name="empty"
       v-else-if="showableFoods.length === 0"
       key="not-found-foods"
+      :countOfShowableFoods="showableFoods.length"
+      :filteredResultsCount="filteredResultsCount"
     >
       <div>
         <p>No foods matching the criteria was found</p>
@@ -107,9 +109,7 @@ const showableFoods = computed(() =>
 const isSignedUp = computed(() => store.getters["auth/isSignedUp"]);
 const supportsIndexedDB = store.getters["app/supportsIndexedDB"];
 
-const countOfShowableFoods = computed(() => showableFoods.value.length);
-
-defineExpose({
-  countOfShowableFoods,
-});
+const filteredResultsCount = computed(
+  () => props.foods.length - showableFoods.value.length
+);
 </script>
