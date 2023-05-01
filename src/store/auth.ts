@@ -29,6 +29,10 @@ export default {
       region: "All",
       month: new Date().toLocaleString("en-us", { month: "long" }),
       showOnlyNative: localStorage.getItem("filters.showOnlyNative") === "true",
+      showOnlyWithCountry:
+        localStorage.getItem("filters.showOnlyWithCountry") === "true",
+      showOnlyInSeason:
+        localStorage.getItem("filters.showOnlyInSeason") === "true",
       showOnlyWithCaloricInfo:
         localStorage.getItem("filters.showOnlyWithCaloricInfo") === "true",
       hideDisliked: localStorage.getItem("filters.hideDisliked") === "true",
