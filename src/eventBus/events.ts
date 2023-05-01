@@ -9,6 +9,7 @@ export enum eventTypes {
   signup_form_complete = "signup_form_complete",
   update_goals = "update_goals",
   update_filters = "update_filters",
+  disliked_food_item_remove = "disliked_food_item_remove",
 }
 
 type EventsObject = { [P in eventTypes]?: any };

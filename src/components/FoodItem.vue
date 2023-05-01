@@ -106,7 +106,9 @@
     >
       Dislike
     </ClickAndHoldButton>
-    <div v-else-if="isDisliked">You disliked this food</div>
+    <button @click="deleteDislikedItemId(id)" v-else-if="isDisliked && id">
+      Remove food from disliked list
+    </button>
     <!-- <p v-if="categories">
       {{ categories.join(", ") }}
     </p> -->
@@ -276,6 +278,10 @@ export default defineComponent({
       store.dispatch("consumedItems/addDislikedItemId", id);
     };
 
+    const deleteDislikedItemId = (id: number) => {
+      store.dispatch("consumedItems/deleteDislikedItemId", id);
+    };
+
     const handleButtonClick = (event: Event) => {
       if (!isFoodTrackerInputOpen.value) {
         event.preventDefault();
@@ -293,6 +299,7 @@ export default defineComponent({
     return {
       amount,
       handleButtonClick,
+      deleteDislikedItemId,
       isFoodTrackerInputOpen,
       input,
       submitFoodItem,

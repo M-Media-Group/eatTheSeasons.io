@@ -405,5 +405,16 @@ export default {
       commit("ADD_DISLIKED_ITEM_BY_ID", dislikedItemId);
       $bus.$emit(eventTypes.disliked_food_item_add, dislikedItemId);
     },
+
+    async deleteDislikedItemId(
+      { commit, rootGetters }: { commit: Commit; rootGetters: any },
+      dislikedItemId: number
+    ): Promise<void> {
+      if (rootGetters["app/supportsIndexedDB"]) {
+        await deleteFromIndexedDB(dislikedItemId, "dislikedFoodItems");
+      }
+      commit("DELETE_DISLIKED_ITEM_BY_ID", dislikedItemId);
+      $bus.$emit(eventTypes.disliked_food_item_remove, dislikedItemId);
+    },
   },
 };
