@@ -574,7 +574,8 @@ main.grid > header {
     color: white;
     padding-bottom: $baseNumber * 5 + px;
     margin-bottom: 0;
-    a {
+    a,
+    input {
         color: white;
     }
     h1 {
@@ -591,11 +592,13 @@ main.grid > header {
     }
     &.default {
         color: var(--text);
-        a {
+        a,
+        input {
             color: var(--text);
         }
         background: var(--bg);
     }
+
     + input {
         /* Input */
 
