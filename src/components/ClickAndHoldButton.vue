@@ -1,7 +1,7 @@
 <template>
   <button
-    @mousedown="handleMouseDown"
-    @mouseup="handleMouseUp"
+    @mousedown.prevent="handleMouseDown"
+    @mouseup.prevent="handleMouseUp"
     :data-percent-complete="Math.round(progress) + '%'"
   >
     <slot></slot>
