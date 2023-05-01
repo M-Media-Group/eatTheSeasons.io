@@ -25,6 +25,19 @@
         :supportsIndexedDB="supportsIndexedDB"
         :timesConsumedToday="timesConsumedToday(food.id)"
         :isDisliked="isDisliked(food.id)"
+        :isInSeason="
+          filters.country &&
+          filters.region &&
+          hasSeasonalInfoForRegion(food, filters.country, filters.region) ===
+            false
+            ? null
+            : isInSeasonForRegion(
+                food,
+                filters.country ?? '',
+                filters.region ?? '',
+                filters.month ?? ''
+              )
+        "
         ><slot :food="food"></slot
       ></FoodItem>
     </template>
@@ -96,6 +109,8 @@ const {
   helpsReachGoals,
   timesConsumedToday,
   isDisliked,
+  isInSeasonForRegion,
+  hasSeasonalInfoForRegion,
 } = useFood();
 
 const showableFoods = computed(() =>

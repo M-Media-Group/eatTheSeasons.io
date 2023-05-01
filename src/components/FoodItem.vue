@@ -27,8 +27,10 @@
       </router-link>
       <p v-if="calories || lastMonth">
         <span v-if="calories">{{ calories.toFixed(2) }} kcal/100g · </span>
-        <span v-if="lastMonth">Available to end of </span>
-        {{ lastMonth }}
+        <span v-if="lastMonth && isInSeason"
+          >Available to end of {{ lastMonth }}</span
+        >
+        <span v-else-if="isInSeason == false">Not yet in season</span>
       </p>
     </div>
     <div
@@ -237,6 +239,11 @@ export default defineComponent({
     showLink: {
       type: Boolean,
       default: true,
+      required: false,
+    },
+    isInSeason: {
+      type: [Boolean, null] as PropType<boolean | null>,
+      default: null,
       required: false,
     },
   },

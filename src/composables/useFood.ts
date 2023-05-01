@@ -107,6 +107,19 @@ export function useFood() {
         ) !== -1
     ) !== -1;
 
+  const hasSeasonalInfoForRegion = (
+    food: FoodItemTs,
+    countryCode: string,
+    regionName: string
+  ) =>
+    food.food_regions &&
+    food.food_regions.findIndex(
+      (foodRegion) =>
+        foodRegion.region.country_code.toLowerCase() ===
+          countryCode.toLowerCase() &&
+        foodRegion.region.name.toLowerCase() === regionName.toLowerCase()
+    ) !== -1;
+
   const getFilteredFood = (
     foods: FoodItemTs[],
     filters: Record<string, any>
@@ -187,5 +200,7 @@ export function useFood() {
     isNativeToCountry,
     helpsReachGoals,
     isDisliked,
+    hasSeasonalInfoForRegion,
+    isInSeasonForRegion,
   };
 }
