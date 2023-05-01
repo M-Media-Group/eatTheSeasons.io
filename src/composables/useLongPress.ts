@@ -22,6 +22,10 @@ export default function useLongPress(
     // Start an interval that will update the progress bar
     intervalCompletionCheck.value = setInterval(() => {
       progress.value = timerPercentage();
+
+      if (progress.value >= 105) {
+        stopTimer();
+      }
     }, 100);
   };
 
@@ -53,7 +57,6 @@ export default function useLongPress(
     const now = Date.now();
     const elapsed = now - startTime.value;
     const percentage = (elapsed / timeMs) * 100;
-    console.log(percentage);
     return percentage;
   };
 
