@@ -6,7 +6,7 @@
       :show-add-form="true"
       :titleLevel="1"
     />
-    <h2>Related</h2>
+    <h2>Similar nutrient ratios</h2>
     <FoodItemList
       v-if="related"
       :foods="related"
