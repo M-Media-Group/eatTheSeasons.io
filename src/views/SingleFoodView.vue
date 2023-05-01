@@ -5,6 +5,9 @@
       :foods="[food]"
       :show-add-form="true"
       :titleLevel="1"
+      :filters="{
+        country: filters.country,
+      }"
     />
     <h2>Similar nutrient ratios</h2>
     <FoodItemList

@@ -7,11 +7,9 @@
         :src="food.image_url"
         :name="food.name"
         :categories="getFoodCategoriesForFoodItem(food)"
-        :lastMonth="
-          getLastMonthInARowFromFoodItem(food, filters.countryCode ?? '')
-        "
-        :localName="getLocalName(food, filters.countryCode ?? '')"
-        :isNative="isNativeToCountry(food, filters.countryCode ?? '')"
+        :lastMonth="getLastMonthInARowFromFoodItem(food, filters.country ?? '')"
+        :localName="getLocalName(food, filters.country ?? '')"
+        :isNative="isNativeToCountry(food, filters.country ?? '')"
         :calories="food.kcal"
         :carb="food.carbohydrate"
         :fat="food.fat"
@@ -45,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, defineExpose } from "vue";
+import { computed, defineProps } from "vue";
 import { FoodItem as FoodItemTs } from "@/types/foodItem";
 import type { PropType } from "vue";
 import FoodItem from "@/components/FoodItem.vue"; // @ is an alias to /src
