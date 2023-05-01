@@ -19,7 +19,7 @@ const emit = defineEmits(["click"]);
 const props = defineProps({
   timeout: {
     type: Number,
-    default: 2500,
+    default: 2000,
   },
 });
 
