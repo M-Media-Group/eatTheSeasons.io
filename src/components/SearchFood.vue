@@ -19,7 +19,7 @@
           list="options-list"
           :aria-busy="isLoading"
         />
-        <div v-if="!search" class="grid small-gap horizontal">
+        <div v-if="!search" class="grid small-gap horizontal scrollable">
           <template v-for="searchTerm in recentSearches" :key="searchTerm">
             <button
               class="recent-search"
@@ -101,6 +101,7 @@ import $bus, { eventTypes } from "@/eventBus/events";
 import FoodItemList from "./FoodItemList.vue";
 import { useRouter } from "vue-router";
 import { convertOpenFoodFactsFoodItemToFoodItem } from "@/utils/dataTransformers";
+import { useConsumedFood } from "@/composables/useConsumedFood";
 
 const resultsList = ref();
 
@@ -125,12 +126,50 @@ const router = useRouter();
 
 const allFoodItems = computed(() => store.state.foodItems.foodItems);
 
-const recentSearches = computed(() =>
-  allFoodItems.value
-    .map((food: FoodItemTs) => food.name)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3)
-);
+const { timeframe, timebreakdown, computedItems } = useConsumedFood();
+
+timeframe.value = "7d";
+timebreakdown.value = "h";
+const currentHour = new Date().getHours();
+
+const recentSearches = computed(() => {
+  if (!computedItems.value || Array.isArray(computedItems.value)) {
+    return [];
+  }
+
+  if (!computedItems.value[currentHour]) {
+    return [];
+  }
+  const returnItems = computedItems.value[currentHour];
+
+  if (computedItems.value[currentHour - 1]) {
+    returnItems.push(...computedItems.value[currentHour - 1]);
+  }
+
+  if (computedItems.value[currentHour + 1]) {
+    returnItems.push(...computedItems.value[currentHour + 1]);
+  }
+
+  // count duplicates, sort by count, and return only unique items
+  return Object.values(
+    returnItems.reduce(
+      (acc: { [key: string]: { count: number; name: string } }, item) => {
+        if (!acc[item.name]) {
+          acc[item.name] = {
+            ...item,
+            count: 0,
+          };
+        }
+        acc[item.name].count++;
+        return acc;
+      },
+      {}
+    )
+  )
+    .sort((a, b) => b.count - a.count)
+    .map((item) => item.name)
+    .slice(0, 15);
+});
 
 const { search, results, noResults, loadItems } = useVueFuse(
   allFoodItems.value,
