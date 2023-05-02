@@ -74,84 +74,23 @@
 
 <script lang="ts" setup>
 import FoodItemList from "@/components/FoodItemList.vue";
-import {
-  filterToTimerange,
-  getDatePrecision,
-  neoGroupByTimeRangeAndDate,
-} from "@/utils/analyticsBreakdown";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { computed } from "vue";
 import { Chart, ChartData, registerables } from "chart.js";
 import { LineChart, DoughnutChart } from "vue-chart-3";
-import { consumedItem } from "@/types/consumedItem";
+import { useConsumedFood } from "@/composables/useConsumedFood";
+const {
+  timeframe,
+  timebreakdown,
+  operation,
+  operationMode,
+  allConsumedItems,
+  foodsByCount,
+  usingDatePrecision,
+  usingTimeframe,
+  computedItemsWithOperation,
+} = useConsumedFood();
 
 Chart.register(...registerables);
-
-const store = useStore();
-const timeframe = ref("1w");
-const timebreakdown = ref("d");
-const operation = ref("kcal");
-const operationMode = ref("sum");
-
-const allConsumedItems = computed(() => {
-  return store.getters["consumedItems/allConsumedItems"] as consumedItem[];
-});
-
-const filteredWithTimerangeItems = computed(() => {
-  return filterToTimerange(allConsumedItems.value, Date.now(), timeframe.value);
-});
-
-const computedItems = computed(() => {
-  if (timebreakdown.value === null) return [filteredWithTimerangeItems.value];
-
-  return neoGroupByTimeRangeAndDate(
-    filteredWithTimerangeItems.value,
-    timebreakdown.value
-  );
-});
-
-const foodsByCount = computed(() => {
-  return (
-    filteredWithTimerangeItems.value
-      .map((item) => ({
-        id: item.food_id,
-        name: item.name,
-      }))
-      // Reduce to get the names and counts unique by id
-      .reduce((acc, item) => {
-        if (acc[item.id]) {
-          acc[item.id].count++;
-        } else {
-          acc[item.id] = {
-            name: item.name,
-            count: 1,
-          };
-        }
-        return acc;
-      }, {}) as Record<string, { name: string; count: number }>
-  );
-});
-
-const usingDatePrecision = computed(() => {
-  return getDatePrecision(timebreakdown.value);
-});
-
-const usingTimeframe = computed(() => {
-  return getDatePrecision(timeframe.value);
-});
-
-const computedItemsWithOperation = computed(() => {
-  return Object.keys(computedItems.value).reduce((acc, key) => {
-    acc[key] = computedItems.value[key].reduce((acc, item) => {
-      return acc + item[operation.value];
-    }, 0);
-    // If the operationMode is "avg", divide by the number of items
-    if (operationMode.value === "avg") {
-      acc[key] = acc[key] / computedItems.value[key].length;
-    }
-    return acc;
-  }, {}) as Record<string, number>;
-});
 
 const chartData = computed<ChartData<"line">>(() => {
   return {
