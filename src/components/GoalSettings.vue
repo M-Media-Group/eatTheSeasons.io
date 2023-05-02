@@ -16,8 +16,14 @@
       </datalist>
     </label>
     <hr />
+    <NutrientInformation
+      v-if="preset !== 'custom'"
+      :carb="carbPercent"
+      :fat="fatPercent"
+      :protein="proteinPercent"
+    />
     <div
-      class="presets grid"
+      class="presets grid horizontal scrollable"
       style="text-justify: left; grid-auto-flow: column"
     >
       <!-- Radio inputs of weight loss, maintain, gain -->
@@ -70,12 +76,6 @@
         % fats
       </label>
     </template>
-    <NutrientInformation
-      v-else
-      :carb="carbPercent"
-      :fat="fatPercent"
-      :protein="proteinPercent"
-    />
     <hr />
     <label style="width: 100%">
       <input type="time" v-model="firstMealTime" list="time-list" />

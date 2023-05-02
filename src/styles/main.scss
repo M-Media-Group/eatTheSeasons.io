@@ -357,6 +357,15 @@ select {
     }
 }
 
+[type="checkbox"],
+[type="radio"] {
+    width: $baseNumber * 4 + px;
+    &:checked {
+        background: $green;
+        border: $baseNumber / 4 + px dashed $green;
+    }
+}
+
 * {
     box-sizing: border-box;
     &::before,
