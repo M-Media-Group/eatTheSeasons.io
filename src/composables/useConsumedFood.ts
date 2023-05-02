@@ -84,7 +84,7 @@ export function useConsumedFood() {
   };
 
   const foodsByCount = computed(() => {
-    return getCountOfKeys("name", "food_id", allConsumedItems.value);
+    return getCountOfKeys("name", "food_id", filteredWithTimerangeItems.value);
   });
 
   const usingDatePrecision = computed(() => {
