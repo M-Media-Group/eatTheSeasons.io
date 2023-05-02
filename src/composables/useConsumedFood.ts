@@ -10,7 +10,7 @@ import { useStore } from "vuex";
 export function useConsumedFood() {
   const store = useStore();
   const timeframe = ref("5d");
-  const timebreakdown = ref("h");
+  const timebreakdown = ref("h" as string | false);
   const operation = ref("kcal" as keyof consumedItem);
   const operationMode = ref("sum");
 
@@ -27,9 +27,22 @@ export function useConsumedFood() {
   });
 
   const computedItems = computed(() => {
-    if (timebreakdown.value === null)
-      return { "0": filteredWithTimerangeItems.value };
-
+    if (!timebreakdown.value || timebreakdown.value === "false") {
+      return (
+        filteredWithTimerangeItems.value
+          //   Each day is a key, and the value is an array of items consumed on that day. The result is an object with keys of the day and values of the items consumed on that day.
+          .reduce((acc: Record<string, consumedItem[]>, item) => {
+            if (!item.created_at) return acc;
+            const key = new Date(item.created_at).toLocaleDateString();
+            if (!key) return acc;
+            if (!acc[key]) {
+              acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+          }, {})
+      );
+    }
     return neoGroupByTimeRangeAndDate(
       filteredWithTimerangeItems.value,
       timebreakdown.value
@@ -75,6 +88,7 @@ export function useConsumedFood() {
   });
 
   const usingDatePrecision = computed(() => {
+    if (!timebreakdown.value) return false;
     return getDatePrecision(timebreakdown.value);
   });
 

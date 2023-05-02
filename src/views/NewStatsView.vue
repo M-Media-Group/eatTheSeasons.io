@@ -9,7 +9,7 @@
       <div class="grid" style="grid-auto-flow: column">
         <input type="text" v-model="timeframe" />
         <select class="input" v-model="timebreakdown">
-          <option :value="null">none</option>
+          <option :value="false">none</option>
           <option value="m">minute</option>
           <option value="h">hour</option>
           <option value="d">day of week</option>
