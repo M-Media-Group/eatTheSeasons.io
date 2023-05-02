@@ -8,9 +8,10 @@
       <div class="grid" style="grid-auto-flow: column">
         <input type="text" v-model="timeframe" />
         <select class="input" v-model="timebreakdown">
+          <option value="m">minute</option>
           <option value="h">hour</option>
-          <option value="d">day</option>
-          <option value="w">week</option>
+          <option value="d">day of week</option>
+          <option value="w">day of month</option>
           <option value="M">month</option>
           <option value="y">year</option>
         </select>
@@ -47,6 +48,7 @@
       </div>
     </div>
     <h2>Results</h2>
+    <LineChart :chartData="chartData" />
     <div v-for="(computedItem, key) in computedItemsWithOperation" :key="key">
       <h3>
         {{ usingDatePrecision }} {{ key }}: {{ Math.round(computedItem) }}
@@ -65,6 +67,10 @@ import {
 } from "@/utils/analyticsBreakdown";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { Chart, ChartData, registerables } from "chart.js";
+import { LineChart } from "vue-chart-3";
+
+Chart.register(...registerables);
 
 const store = useStore();
 const timeframe = ref("1w");
@@ -107,5 +113,20 @@ const computedItemsWithOperation = computed(() => {
     }
     return acc;
   }, {});
+});
+
+const chartData = computed<ChartData<"line">>(() => {
+  return {
+    labels: Object.keys(computedItemsWithOperation.value),
+    datasets: [
+      {
+        label: `${operation.value} over ${usingDatePrecision.value}, ${operationMode.value} of last ${timeframe.value}`,
+        data: Object.values(computedItemsWithOperation.value),
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
+  };
 });
 </script>
