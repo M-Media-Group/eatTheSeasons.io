@@ -36,22 +36,30 @@ export function useConsumedFood() {
     );
   });
 
-  const foodsByCount = computed(() => {
+  const getCountOfKeys = (
+    key: keyof consumedItem,
+    id: keyof consumedItem,
+    items: consumedItem[]
+  ) => {
+    // Return the key-name and counts, unique by id
     return (
-      filteredWithTimerangeItems.value
+      items
         .map((item) => ({
-          id: item.food_id,
-          name: item.name,
+          id: item[id],
+          name: item[key],
         }))
         // Reduce to get the names and counts unique by id
         .reduce(
           (acc: Record<string, { name: string; count: number }>, item) => {
-            if (!item.id) return acc;
-            if (acc[item.id]) {
-              acc[item.id].count++;
+            const id = item.id;
+            const name = `${item.name}`;
+            if (!id) return acc;
+            if (typeof id !== "number" && typeof id !== "string") return acc;
+            if (acc[id]) {
+              acc[id].count++;
             } else {
-              acc[item.id] = {
-                name: item.name,
+              acc[id] = {
+                name: name,
                 count: 1,
               };
             }
@@ -60,6 +68,10 @@ export function useConsumedFood() {
           {}
         ) as Record<string, { name: string; count: number }>
     );
+  };
+
+  const foodsByCount = computed(() => {
+    return getCountOfKeys("name", "food_id", allConsumedItems.value);
   });
 
   const usingDatePrecision = computed(() => {

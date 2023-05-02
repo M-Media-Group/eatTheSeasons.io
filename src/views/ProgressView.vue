@@ -1,8 +1,8 @@
 <template>
-  <div class="grid">
+  <main class="grid">
     <SignUp v-if="!isSignedUp" />
     <HealthTracker v-else />
-  </div>
+  </main>
 </template>
 
 <script lang="ts">
