@@ -15,22 +15,6 @@ body {
     margin: 0;
 }
 
-// html,
-// body {
-//     height: 100vh;
-//     height: -webkit-fill-available;
-//     overflow: hidden;
-// }
-
-// body {
-//     min-height: 100vh;
-//     min-height: -webkit-fill-available;
-// }
-// html {
-//     height: -webkit-fill-available;
-//     overflow: hidden;
-// }
-
 html,
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -55,8 +39,8 @@ html,
     font-family: "Hepta Slab";
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: $baseNumber * 3 + px;
+    line-height: $baseNumber * 4 + px;
     z-index: 2;
     a,
     a.router-link-exact-active {
@@ -351,7 +335,7 @@ select {
     -webkit-font-smoothing: antialiased;
     color: var(--text);
     background: inherit;
-    border: 2px dashed $green;
+    border: $baseNumber / 4 + px dashed $green;
     cursor: pointer;
     display: inline-grid;
     align-content: center;
@@ -409,15 +393,15 @@ button {
     padding: ($baseNumber + 4) + px $baseNumber * 2 + px;
     gap: $baseNumber + px;
 
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: $boxShadow;
     border-radius: $borderRadius;
 
     /* bold/p */
 
     font-style: normal;
     font-weight: 800;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: $baseNumber * 2 + px;
+    line-height: $baseNumber * 3 + px;
 
     &:hover {
         transition: all $transiton-timing;
@@ -444,7 +428,7 @@ button {
             border-radius: $borderRadius;
             z-index: 100;
             padding: $baseNumber + px $baseNumber * 2 + px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+            box-shadow: $boxShadow;
             border: 1px solid lightgray;
         }
     }
@@ -455,7 +439,7 @@ button {
         text-transform: uppercase;
 
         background: $light-green;
-        border: 2px solid $green-border;
+        border: $baseNumber / 4 + px solid $green-border;
         border-radius: $borderRadius;
         transform-style: preserve-3d;
         transition: transform $transiton-timing;
@@ -526,11 +510,12 @@ button {
     }
     transition: $transiton-timing;
     margin-bottom: $baseNumber * 4 + px;
-    &.disliked {
-        opacity: 0.5;
-        img {
-            filter: grayscale(100%);
-        }
+}
+
+.disliked {
+    opacity: 0.5;
+    img {
+        filter: grayscale(100%);
     }
 }
 
