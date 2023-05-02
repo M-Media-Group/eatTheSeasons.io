@@ -19,30 +19,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "FoodItem",
-  props: {
-    calories: Number,
-    carb: Number,
-    fat: Number,
-    protein: Number,
-    showText: {
-      type: Boolean,
-      default: false,
-    },
+<script lang="ts" setup>
+import { computed, defineProps } from "vue";
+const fields = ["protein", "carb", "fat"] as const;
+const props = defineProps({
+  calories: Number,
+  carb: Number,
+  fat: Number,
+  protein: Number,
+  showText: {
+    type: Boolean,
+    default: false,
   },
-  data() {
-    return {
-      fields: ["protein", "carb", "fat"],
-    };
-  },
-  computed: {
-    total() {
-      return this.fields.reduce((acc: any, field: any) => acc + this[field], 0);
-    },
-  },
+});
+const total = computed(() => {
+  return fields.reduce((acc, field) => acc + (props[field] || 0), 0);
 });
 </script>
