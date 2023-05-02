@@ -118,43 +118,40 @@
     </aside>
   </transition>
 </template>
-<script lang="ts">
-import { defineComponent, computed, onMounted } from "vue";
-import { mapGetters, mapActions } from "vuex";
+<script lang="ts" setup>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import NutrientInformation from "./NutrientInformation.vue";
 
-export default defineComponent({
-  components: { NutrientInformation },
-  computed: {
-    ...mapGetters({
-      goals: "auth/goals",
-      kcalConsumedToday: "consumedItems/kcalConsumedToday",
-      carbEaten: "consumedItems/carbsConsumedToday",
-      fatEaten: "consumedItems/fatConsumedToday",
-      proteinEaten: "consumedItems/proteinConsumedToday",
-      nextMeal: "auth/nextMeal",
-    }),
-    currentDate(): string {
-      return this.$store.state.consumedItems.setDate
-        .toISOString()
-        .split("T")[0];
-    },
-    now() {
-      return new Date().toISOString().split("T")[0];
-    },
-  },
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  //   created() {},
-  methods: {
-    setDateToNow() {
-      this.$store.dispatch("consumedItems/setDate");
-    },
-  },
-});
+const store = useStore();
+
+const goals = computed(() => store.getters["auth/goals"]);
+
+const kcalConsumedToday = computed(
+  () => store.getters["consumedItems/kcalConsumedToday"]
+);
+const carbEaten = computed(
+  () => store.getters["consumedItems/carbsConsumedToday"]
+);
+const fatEaten = computed(
+  () => store.getters["consumedItems/fatConsumedToday"]
+);
+const proteinEaten = computed(
+  () => store.getters["consumedItems/proteinConsumedToday"]
+);
+const nextMeal = computed(() => store.getters["consumedItems/nextMeal"]);
+
+const currentDate = computed(
+  () => store.state.consumedItems.setDate.toISOString().split("T")[0]
+);
+
+const now = computed(() => new Date().toISOString().split("T")[0]);
+
+const setDateToNow = () => {
+  store.dispatch("consumedItems/setDate");
+};
+
+const isOpen = ref(false);
 </script>
 <style lang="scss" scoped>
 svg {

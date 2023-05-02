@@ -19,23 +19,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+<script lang="ts" setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import FoodItemList from "./FoodItemList.vue";
 
-export default defineComponent({
-  name: "SuggestedFoodItems",
-  components: {
-    FoodItemList,
-  },
+const store = useStore();
 
-  computed: {
-    ...mapGetters({
-      findFoodItems: "foodItems/foodItemsThatHelpReachGoals",
-      resultsLimit: "app/resultsLimit",
-      filters: "auth/filters",
-    }),
-  },
-});
+const findFoodItems = computed(
+  () => store.getters["foodItems/foodItemsThatHelpReachGoals"]
+);
+
+const resultsLimit = computed(() => store.getters["app/resultsLimit"]);
+
+const filters = computed(() => store.getters["auth/filters"]);
 </script>

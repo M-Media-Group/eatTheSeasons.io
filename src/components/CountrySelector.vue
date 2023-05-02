@@ -19,33 +19,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineProps, ref } from "vue";
 import { CountryCode } from "@/types/foodItem";
 import type { PropType } from "vue";
 
-export default defineComponent({
-  name: "CountrySelector",
-  props: {
-    modelValue: {
-      type: String as PropType<CountryCode>,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isOpenDropdown: false,
-      availableCountries: CountryCode,
-    };
-  },
-  methods: {
-    getCountryName(code: CountryCode): string {
-      /* Possibly need polyfill for DisplayNames */
-      const countryNames = new (Intl as any).DisplayNames(["en"], {
-        type: "region",
-      });
-      return countryNames.of(code.toUpperCase());
-    },
+defineProps({
+  modelValue: {
+    type: String as PropType<CountryCode>,
+    required: true,
   },
 });
+
+const isOpenDropdown = ref(false);
+const availableCountries = CountryCode;
+
+const getCountryName = (code: CountryCode): string => {
+  /* Possibly need polyfill for DisplayNames */
+  const countryNames = new (Intl as any).DisplayNames(["en"], {
+    type: "region",
+  });
+  return countryNames.of(code.toUpperCase());
+};
 </script>

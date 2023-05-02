@@ -43,21 +43,11 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+<script lang="ts" setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 
-export default defineComponent({
-  name: "AppFilters",
-  computed: {
-    ...mapGetters({
-      filters: "auth/filters",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      setFilters: "auth/setFilters",
-    }),
-  },
-});
+const store = useStore();
+const filters = computed(() => store.getters["auth/filters"]);
+const setFilters = (filters: any) => store.dispatch("auth/setFilters", filters);
 </script>

@@ -14,25 +14,16 @@
     </Transition>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { MonthName } from "@/types/foodItem";
-import type { PropType } from "vue";
-
-export default defineComponent({
-  name: "MonthSelector",
-  props: {
-    modelValue: {
-      type: String as PropType<MonthName>,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isOpenDropdown: false,
-      months: MonthName,
-    };
+import { computed, ref, defineProps, PropType } from "vue";
+defineProps({
+  modelValue: {
+    type: String as PropType<MonthName>,
+    required: true,
   },
 });
+
+const isOpenDropdown = ref(false);
+const months = computed(() => MonthName);
 </script>
