@@ -73,7 +73,7 @@ const store = useStore();
 const timeframe = ref("1w");
 const timebreakdown = ref("d");
 const operation = ref("kcal");
-const operationMode = ref("avg");
+const operationMode = ref("sum");
 
 const allConsumedItems = computed(() => {
   return store.getters["consumedItems/allConsumedItems"];
