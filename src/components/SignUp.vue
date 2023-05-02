@@ -71,65 +71,56 @@
     <p>Sign up now to get notified when we launch!</p>
   </div>
 </template>
+<script lang="ts" setup>
+import { reactive, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters, mapActions } from "vuex";
+const store = useStore();
+const router = useRouter();
 
-export default defineComponent({
-  name: "SignUp",
-  props: {
-    msg: String,
-  },
-  data() {
-    return {
-      form: {
-        email: "",
-      },
-    };
-  },
-  computed: {
-    ...mapGetters({
-      isSignedUp: "auth/isSignedUp",
-      supportsIndexedDB: "app/supportsIndexedDB",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      signUp: "auth/signUp",
-    }),
-    encode(data: {
-      [x: string]: string | number | boolean;
-      email?: any;
-      "form-name": string;
-    }) {
-      return Object.keys(data)
-        .map(
-          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
-    },
-    async handleSubmit() {
-      if (process.env.NODE_ENV !== "production") {
-        this.signUp(true);
-        this.$router.push("/onboarding");
-        return;
-      }
-      const request = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: this.encode({
-          "form-name": "signup",
-          ...this.form,
-        }),
-      });
-      if (request.status === 200) {
-        this.signUp(true);
-        this.$router.push("/onboarding");
-      } else {
-        alert("Error: " + request.status);
-      }
-    },
-  },
+const form = reactive({
+  email: "",
 });
+
+const isSignedUp = computed(() => {
+  return store.getters["auth/isSignedUp"];
+});
+
+const supportsIndexedDB = computed(() => {
+  return store.getters["app/supportsIndexedDB"];
+});
+
+const signUp = (value: boolean) => store.dispatch("auth/signUp", value);
+
+const encode = (data: {
+  [x: string]: string | number | boolean;
+  email?: any;
+  "form-name": string;
+}) => {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+};
+
+const handleSubmit = async () => {
+  if (process.env.NODE_ENV !== "production") {
+    signUp(true);
+    return router.push("/onboarding");
+  }
+  const request = await fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: encode({
+      "form-name": "signup",
+      ...form,
+    }),
+  });
+  if (request.status === 200) {
+    signUp(true);
+    return router.push("/onboarding");
+  } else {
+    alert("Error: " + request.status);
+  }
+};
 </script>

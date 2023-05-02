@@ -506,6 +506,12 @@ button {
     }
 }
 
+.hidden-on-mobile {
+    @media (max-width: $mobileBreakpoint) {
+        display: none;
+    }
+}
+
 // Only on larger than mobile, add display grid to form
 @media (min-width: $mobileBreakpoint) {
     form {

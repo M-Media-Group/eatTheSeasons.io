@@ -17,7 +17,7 @@
         about each food and seasonality.
       </p>
     </header>
-    <div class="main-banner" v-if="!isSignedUp && !isOnMobile">
+    <div class="main-banner hidden-on-mobile" v-if="!isSignedUp">
       <SignUp />
     </div>
     <MlCam
@@ -64,10 +64,7 @@
       <p>If you know when these foods are in season, please let us know!</p>
       <FoodItemList :foods="foodItemsWithoutSeasons" :filters="filters" />
     </div>
-    <div
-      class="main-banner"
-      v-if="!isSignedUp && (isOnMobile || allFoodItems.length > 3)"
-    >
+    <div class="main-banner" v-if="!isSignedUp">
       <SignUp />
     </div>
   </main>
@@ -107,10 +104,6 @@ export default defineComponent({
       isInBeta: "app/isInBeta",
       filters: "auth/filters",
     }),
-
-    isOnMobile() {
-      return window.innerWidth < 768;
-    },
 
     availableRegions(): string[] {
       return this.getAvailableRegionsForCountry(this.filters.country);
