@@ -332,6 +332,7 @@ label {
 input,
 textarea,
 select {
+    appearance: none;
     -webkit-font-smoothing: antialiased;
     color: var(--text);
     background: inherit;
@@ -347,8 +348,13 @@ select {
     position: relative;
     text-align: center;
     border-radius: $borderRadius;
-    padding: $baseNumber * 2 + px 0;
+    padding: $baseNumber * 2 + px;
     min-width: $baseNumber * 2 + px;
+    &.small {
+        font-size: $baseNumber * 2 + px;
+        padding: $baseNumber + px $baseNumber * 2 + px;
+        font-weight: 400;
+    }
 }
 
 * {

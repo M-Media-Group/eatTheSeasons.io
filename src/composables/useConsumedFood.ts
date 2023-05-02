@@ -96,22 +96,31 @@ export function useConsumedFood() {
     return getDatePrecision(timeframe.value);
   });
 
+  const computeItemsWithOperation = (
+    items: Record<string, consumedItem[]>,
+    operation: keyof consumedItem,
+    operationMode: string
+  ): Record<string, number> => {
+    return Object.keys(items).reduce((acc: Record<string, number>, key) => {
+      acc[key] = items[key].reduce((acc, item) => {
+        const value = item[operation];
+        if (typeof value !== "number") return acc;
+        return acc + value;
+      }, 0);
+      // If the operationMode is "avg", divide by the number of items
+      if (operationMode === "avg") {
+        acc[key] /= items[key].length;
+      }
+      return acc;
+    }, {});
+  };
+
   const computedItemsWithOperation = computed(() => {
-    return Object.keys(computedItems.value).reduce(
-      (acc: Record<string, number>, key) => {
-        acc[key] = computedItems.value[key].reduce((acc, item) => {
-          const value = item[operation.value];
-          if (typeof value !== "number") return acc;
-          return acc + value;
-        }, 0);
-        // If the operationMode is "avg", divide by the number of items
-        if (operationMode.value === "avg") {
-          acc[key] = acc[key] / computedItems.value[key].length;
-        }
-        return acc;
-      },
-      {}
-    ) as Record<string, number>;
+    return computeItemsWithOperation(
+      computedItems.value,
+      operation.value,
+      operationMode.value
+    );
   });
 
   return {
@@ -126,5 +135,6 @@ export function useConsumedFood() {
     usingDatePrecision,
     usingTimeframe,
     computedItemsWithOperation,
+    computeItemsWithOperation,
   };
 }

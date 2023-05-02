@@ -1,57 +1,27 @@
 <template>
-  <main class="grid default-padding">
+  <main class="grid default-padding big-gap">
     <header class="default">
-      <h1>
-        Looking back {{ timeframe.slice(0, -1) }} {{ usingTimeframe }} broken
-        down by {{ usingDatePrecision }}
-      </h1>
-
+      <h1>Look back {{ timeframe.slice(0, -1) }} {{ usingTimeframe }}s</h1>
       <div class="grid" style="grid-auto-flow: column">
         <input type="text" v-model="timeframe" />
-        <select class="input" v-model="timebreakdown">
-          <option :value="false">none</option>
-          <option value="m">minute</option>
+      </div>
+    </header>
+    <template v-if="allConsumedItems.length > 0">
+      <section>
+        <h2>Results</h2>
+        <label>Group by</label>
+        <select
+          class="input small"
+          v-model="timebreakdown"
+          style="width: max-content; margin: 0 auto"
+        >
+          <option :value="false">unique day</option>
           <option value="h">hour</option>
           <option value="d">day of week</option>
           <option value="w">day of month</option>
           <option value="M">month</option>
           <option value="y">year</option>
         </select>
-      </div>
-      <hr />
-      <div class="grid" style="grid-auto-flow: column">
-        <label>
-          <input type="radio" v-model="operation" value="grams" />
-          <span>gram</span>
-        </label>
-        <label>
-          <input type="radio" v-model="operation" value="kcal" />
-          <span>kcal</span>
-        </label>
-        <label>
-          <input type="radio" v-model="operation" value="protein" />
-          <span>protein</span>
-        </label>
-        <label>
-          <input type="radio" v-model="operation" value="carbohydrate" />
-          <span>carbohydrate</span>
-        </label>
-      </div>
-      <hr />
-      <div class="grid" style="grid-auto-flow: column">
-        <label>
-          <input type="radio" v-model="operationMode" value="avg" />
-          <span>avg</span>
-        </label>
-        <label>
-          <input type="radio" v-model="operationMode" value="sum" />
-          <span>sum</span>
-        </label>
-      </div>
-    </header>
-    <template v-if="allConsumedItems.length > 0">
-      <section>
-        <h2>Results</h2>
         <LineChart :chartData="chartData" />
       </section>
       <section>
@@ -81,13 +51,14 @@ import { useConsumedFood } from "@/composables/useConsumedFood";
 const {
   timeframe,
   timebreakdown,
-  operation,
   operationMode,
   allConsumedItems,
   foodsByCount,
   usingDatePrecision,
   usingTimeframe,
   computedItemsWithOperation,
+  computedItems,
+  computeItemsWithOperation,
 } = useConsumedFood();
 
 Chart.register(...registerables);
@@ -97,11 +68,59 @@ const chartData = computed<ChartData<"line">>(() => {
     labels: Object.keys(computedItemsWithOperation.value),
     datasets: [
       {
-        label: `${operation.value} over ${usingDatePrecision.value}, ${operationMode.value} of last ${timeframe.value}`,
-        data: Object.values(computedItemsWithOperation.value),
+        label: "kcal",
+        data: Object.values(
+          computeItemsWithOperation(
+            computedItems.value,
+            "kcal",
+            operationMode.value
+          )
+        ),
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
+      },
+      {
+        label: "protein",
+        data: Object.values(
+          computeItemsWithOperation(
+            computedItems.value,
+            "protein",
+            operationMode.value
+          )
+        ),
+        fill: false,
+        borderColor: "rgb(139, 137, 255)",
+        tension: 0.1,
+        hidden: true,
+      },
+      {
+        label: "carbohydrate",
+        data: Object.values(
+          computeItemsWithOperation(
+            computedItems.value,
+            "carbohydrate",
+            operationMode.value
+          )
+        ),
+        fill: false,
+        borderColor: "#22862d",
+        tension: 0.1,
+        hidden: true,
+      },
+      {
+        label: "fat",
+        data: Object.values(
+          computeItemsWithOperation(
+            computedItems.value,
+            "fat",
+            operationMode.value
+          )
+        ),
+        fill: false,
+        borderColor: "brown",
+        tension: 0.1,
+        hidden: true,
       },
     ],
   };
