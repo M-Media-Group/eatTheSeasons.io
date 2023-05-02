@@ -8,6 +8,7 @@
       <div class="grid" style="grid-auto-flow: column">
         <input type="text" v-model="timeframe" />
         <select class="input" v-model="timebreakdown">
+          <option :value="null">none</option>
           <option value="m">minute</option>
           <option value="h">hour</option>
           <option value="d">day of week</option>
@@ -49,12 +50,8 @@
     </div>
     <h2>Results</h2>
     <LineChart :chartData="chartData" />
-    <div v-for="(computedItem, key) in computedItemsWithOperation" :key="key">
-      <h3>
-        {{ usingDatePrecision }} {{ key }}: {{ Math.round(computedItem) }}
-        {{ operation }}
-      </h3>
-    </div>
+    <h2>Favorite foods</h2>
+    <DoughnutChart :chartData="doughnutChartData" />
   </main>
 </template>
 
@@ -68,7 +65,7 @@ import {
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { Chart, ChartData, registerables } from "chart.js";
-import { LineChart } from "vue-chart-3";
+import { LineChart, DoughnutChart } from "vue-chart-3";
 
 Chart.register(...registerables);
 
@@ -82,16 +79,39 @@ const allConsumedItems = computed(() => {
   return store.getters["consumedItems/allConsumedItems"];
 });
 
+const filteredWithTimerangeItems = computed(() => {
+  return filterToTimerange(allConsumedItems.value, Date.now(), timeframe.value);
+});
+
 const computedItems = computed(() => {
-  const filteredItems = filterToTimerange(
-    allConsumedItems.value,
-    Date.now(),
-    timeframe.value
+  if (timebreakdown.value === null) return [filteredWithTimerangeItems.value];
+
+  return neoGroupByTimeRangeAndDate(
+    filteredWithTimerangeItems.value,
+    timebreakdown.value
   );
+});
 
-  if (!timebreakdown.value) return filteredItems;
-
-  return neoGroupByTimeRangeAndDate(filteredItems, timebreakdown.value);
+const foodsByCount = computed(() => {
+  return (
+    filteredWithTimerangeItems.value
+      .map((item) => ({
+        id: item.food_id,
+        name: item.name,
+      }))
+      // Reduce to get the names and counts unique by id
+      .reduce((acc, item) => {
+        if (acc[item.id]) {
+          acc[item.id].count++;
+        } else {
+          acc[item.id] = {
+            name: item.name,
+            count: 1,
+          };
+        }
+        return acc;
+      }, {})
+  );
 });
 
 const usingDatePrecision = computed(() => {
@@ -125,6 +145,27 @@ const chartData = computed<ChartData<"line">>(() => {
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
+      },
+    ],
+  };
+});
+
+const doughnutChartData = computed<ChartData<"doughnut">>(() => {
+  return {
+    labels: Object.values(foodsByCount.value).map((item) => item.name),
+    datasets: [
+      {
+        label: "Foods by count",
+        data: Object.values(foodsByCount.value).map((item) => item.count),
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+        ],
+        hoverOffset: 4,
       },
     ],
   };
