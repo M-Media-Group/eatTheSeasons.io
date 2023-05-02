@@ -66,6 +66,7 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { Chart, ChartData, registerables } from "chart.js";
 import { LineChart, DoughnutChart } from "vue-chart-3";
+import { consumedItem } from "@/types/consumedItem";
 
 Chart.register(...registerables);
 
@@ -76,7 +77,7 @@ const operation = ref("kcal");
 const operationMode = ref("sum");
 
 const allConsumedItems = computed(() => {
-  return store.getters["consumedItems/allConsumedItems"];
+  return store.getters["consumedItems/allConsumedItems"] as consumedItem[];
 });
 
 const filteredWithTimerangeItems = computed(() => {
@@ -110,7 +111,7 @@ const foodsByCount = computed(() => {
           };
         }
         return acc;
-      }, {})
+      }, {}) as Record<string, { name: string; count: number }>
   );
 });
 
@@ -132,7 +133,7 @@ const computedItemsWithOperation = computed(() => {
       acc[key] = acc[key] / computedItems.value[key].length;
     }
     return acc;
-  }, {});
+  }, {}) as Record<string, number>;
 });
 
 const chartData = computed<ChartData<"line">>(() => {
