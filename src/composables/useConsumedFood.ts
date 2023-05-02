@@ -9,8 +9,8 @@ import { useStore } from "vuex";
 
 export function useConsumedFood() {
   const store = useStore();
-  const timeframe = ref("1w");
-  const timebreakdown = ref("d");
+  const timeframe = ref("5d");
+  const timebreakdown = ref("h");
   const operation = ref("kcal" as keyof consumedItem);
   const operationMode = ref("sum");
 
