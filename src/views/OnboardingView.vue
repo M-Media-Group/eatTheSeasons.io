@@ -45,9 +45,7 @@
       </div>
       <MealTimes />
       <router-link class="submit-button" to="/search"
-        ><button class="submit-button">
-          Add your first food to the tracker
-        </button></router-link
+        ><button class="submit-button">Add your first food</button></router-link
       >
     </div>
 
