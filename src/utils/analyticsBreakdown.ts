@@ -1,3 +1,4 @@
+import { consumedItem } from "@/types/consumedItem";
 import { FoodItem } from "@/types/foodItem";
 
 export function getTimeInMillis(timeRange: string): number {
@@ -47,13 +48,14 @@ export function applyDatePrecision(date: Date, precision: string): number {
 }
 
 export function neoGroupByTimeRangeAndDate(
-  foodItems: FoodItem[],
+  foodItems: consumedItem[],
   timeRange: string
-): Record<string, FoodItem[]> {
-  const breakdown = {} as Record<number, FoodItem[]>;
+): Record<string, consumedItem[]> {
+  const breakdown = {} as Record<number, consumedItem[]>;
   const itemDatePrecision = getDatePrecision(timeRange);
 
   foodItems.forEach((item) => {
+    if (!item.created_at) return false;
     const itemDate = new Date(item.created_at);
     const itemDateWithPrecision = applyDatePrecision(
       itemDate,
@@ -72,11 +74,12 @@ export function neoGroupByTimeRangeAndDate(
 }
 
 export function filterToTimerange(
-  foodItems: FoodItem[],
+  foodItems: consumedItem[],
   startTime: number,
   timeRange: string
-): FoodItem[] {
+): consumedItem[] {
   const filteredItems = foodItems.filter((item) => {
+    if (!item.created_at) return false;
     const itemDate = new Date(item.created_at).getTime();
     const timeDiffInMillis = startTime - itemDate;
     return timeDiffInMillis <= getTimeInMillis(timeRange);
