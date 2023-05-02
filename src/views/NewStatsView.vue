@@ -1,10 +1,11 @@
 <template>
   <main class="grid default-padding">
-    <h1>
-      Looking back {{ timeframe.slice(0, -1) }} {{ usingTimeframe }} broken down
-      by {{ usingDatePrecision }}
-    </h1>
-    <div class="grid">
+    <header class="default">
+      <h1>
+        Looking back {{ timeframe.slice(0, -1) }} {{ usingTimeframe }} broken
+        down by {{ usingDatePrecision }}
+      </h1>
+
       <div class="grid" style="grid-auto-flow: column">
         <input type="text" v-model="timeframe" />
         <select class="input" v-model="timebreakdown">
@@ -47,7 +48,7 @@
           <span>sum</span>
         </label>
       </div>
-    </div>
+    </header>
     <h2>Results</h2>
     <LineChart :chartData="chartData" />
     <h2>Favorite foods</h2>
