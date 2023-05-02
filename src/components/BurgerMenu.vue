@@ -139,7 +139,7 @@ const fatEaten = computed(
 const proteinEaten = computed(
   () => store.getters["consumedItems/proteinConsumedToday"]
 );
-const nextMeal = computed(() => store.getters["consumedItems/nextMeal"]);
+const nextMeal = computed(() => store.getters["auth/nextMeal"]);
 
 const currentDate = computed(
   () => store.state.consumedItems.setDate.toISOString().split("T")[0]
