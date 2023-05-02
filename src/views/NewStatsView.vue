@@ -49,10 +49,26 @@
         </label>
       </div>
     </header>
-    <h2>Results</h2>
-    <LineChart :chartData="chartData" />
-    <h2>Favorite foods</h2>
-    <DoughnutChart :chartData="doughnutChartData" />
+    <template v-if="allConsumedItems.length > 0">
+      <section>
+        <h2>Results</h2>
+        <LineChart :chartData="chartData" />
+      </section>
+      <section>
+        <h2>Favorite foods</h2>
+        <DoughnutChart :chartData="doughnutChartData" />
+      </section>
+      <section>
+        <h2>General stats</h2>
+        <p>
+          You've tracked {{ allConsumedItems.length }} consumed items on the app
+        </p>
+      </section>
+    </template>
+    <template v-else>
+      <h2>There's no data to show yet.</h2>
+      <p>Track your food intake throughout the week to see the results here.</p>
+    </template>
   </main>
 </template>
 
