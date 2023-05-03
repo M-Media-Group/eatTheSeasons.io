@@ -8,7 +8,7 @@ export default {
   state: {
     isSignedUp: localStorage.getItem("isSignedUp") === "true" ? true : false,
     goals: {
-      calories: parseFloat(localStorage.getItem("goals.calories") ?? "1000"),
+      calories: parseFloat(localStorage.getItem("goals.calories") ?? "1500"),
       calorieGoalTolerance: 300,
       proteinPercent: parseFloat(
         localStorage.getItem("goals.proteinPercent") ?? "30"
