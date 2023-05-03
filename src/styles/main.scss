@@ -664,6 +664,10 @@ main.grid > header {
 
     z-index: 100;
 
+    .router-link-active {
+        color: $green;
+    }
+
     > svg {
         cursor: pointer;
     }
