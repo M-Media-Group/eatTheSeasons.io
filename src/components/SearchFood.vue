@@ -68,7 +68,12 @@
         :showAddForm="true"
         :sort="false"
         ref="resultsList"
-      />
+      >
+        <template #empty>
+          <div :aria-busy="isLoading" v-if="isLoading"></div>
+          <div v-else>No results found</div>
+        </template>
+      </FoodItemList>
     </div>
     <SignUp v-if="!isSignedUp" />
   </div>
