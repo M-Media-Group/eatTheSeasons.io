@@ -1,5 +1,5 @@
 <template>
-  <div class="grid" v-if="isSignedUp">
+  <div class="grid">
     <slot name="header" :search="search">
       <template v-if="hLevel === 1">
         <header class="page-header default">
@@ -18,6 +18,7 @@
           name="search"
           list="options-list"
           :aria-busy="isLoading"
+          :ref="searchInput"
         />
         <div v-if="!search" class="grid small-gap horizontal scrollable">
           <template v-for="searchTerm in recentSearches" :key="searchTerm">
@@ -69,12 +70,7 @@
         ref="resultsList"
       />
     </div>
-    <div class="main-banner" v-if="!isSignedUp">
-      <SignUp />
-    </div>
-  </div>
-  <div v-else>
-    <SignUp />
+    <SignUp v-if="!isSignedUp" />
   </div>
 </template>
 
@@ -88,6 +84,7 @@ import {
   watch,
   ComputedRef,
   Ref,
+  defineExpose,
 } from "vue";
 
 import {
@@ -256,4 +253,16 @@ const searchForFoodViaOpenFoodFactsAPI = async () => {
   });
   isLoading.value = false;
 };
+
+const searchInput = ref();
+
+const focusOnSearchInput = () => {
+  if (searchInput.value) {
+    searchInput.value.focus();
+  }
+};
+
+defineExpose({
+  focusOnSearchInput,
+});
 </script>

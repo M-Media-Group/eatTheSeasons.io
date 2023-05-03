@@ -17,9 +17,7 @@
         about each food and seasonality.
       </p>
     </header>
-    <div class="main-banner hidden-on-mobile" v-if="!isSignedUp">
-      <SignUp />
-    </div>
+    <SignUp class="hidden-on-mobile" v-if="!isSignedUp" />
     <MlCam
       v-if="isInBeta"
       :seasonalFoodNames="foodItemNamesInSeasonAndRegion"
@@ -64,9 +62,7 @@
       <p>If you know when these foods are in season, please let us know!</p>
       <FoodItemList :foods="foodItemsWithoutSeasons" :filters="filters" />
     </div>
-    <div class="main-banner" v-if="!isSignedUp">
-      <SignUp />
-    </div>
+    <SignUp v-if="!isSignedUp" />
   </main>
 </template>
 

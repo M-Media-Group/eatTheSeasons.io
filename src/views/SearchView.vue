@@ -2,9 +2,7 @@
   <main class="grid" v-if="isSignedUp">
     <SearchFood />
   </main>
-  <div v-else>
-    <SignUp />
-  </div>
+  <SignUp v-else />
 </template>
 
 <script lang="ts" setup>

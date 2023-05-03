@@ -1,5 +1,5 @@
 <template>
-  <div class="grid">
+  <div class="grid main-banner">
     <form
       name="signup"
       method="POST"
@@ -7,6 +7,8 @@
       data-netlify="true"
       @submit.prevent="handleSubmit"
       v-if="!isSignedUp"
+      class="grid horizontal"
+      style="justify-content: center"
     >
       <p style="display: none">
         <label>
