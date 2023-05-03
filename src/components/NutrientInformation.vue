@@ -9,7 +9,7 @@
       max="100"
       low="33"
       high="66"
-      :value="Math.round(($props[field] / total) * 100)"
+      :value="Math.round(($props[field] / total) * 100) || 0"
     >
       <template v-if="showText">
         {{ Math.round(($props[field] / total) * 100) }}% <br />
