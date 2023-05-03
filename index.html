@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="/public/favicon.ico">
+  <title>
+    Eat.Ninja
+  </title>
+  <meta name="description"
+    content="Find out what foods are in season based on your country and the current month. See what foods are fresh and ready to eat now.">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPQLF31T5G"></script>
+  <!-- End Google Analytics -->
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-CPQLF31T5G');
+  </script>
+  <link rel="preconnect" href="https://www.pngplay.com">
+  <link rel="preconnect" href="%VITE_API_URL%">
+
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but Eat.Ninja doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app" class="grid"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>

@@ -1,11 +1,11 @@
-import { Commit, Dispatch } from "vuex";
+import { Commit } from "vuex";
 import router from "@/router";
 
 export default {
   namespaced: true,
   state: {
     isInBeta: false, // Currently not used
-    supportsIndexedDB: process.env.VUE_APP_USE_INDEXED_DB === "true",
+    supportsIndexedDB: import.meta.env.VITE_APP_USE_INDEXED_DB === "true",
     resultsLimit: 25,
   },
   getters: {

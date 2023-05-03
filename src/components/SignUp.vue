@@ -107,7 +107,7 @@ const encode = (data: {
 };
 
 const handleSubmit = async () => {
-  if (process.env.NODE_ENV !== "production") {
+  if (import.meta.env.DEV) {
     signUp(true);
     return router.push("/onboarding");
   }

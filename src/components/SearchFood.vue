@@ -221,7 +221,9 @@ const searchForFood = debounce((searchTerm) => {
 
 const searchForFoodViaAPI = async () => {
   const request = await fetch(
-    `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${search.value}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
+    `${import.meta.env.VITE_API_URL}/api/foods?per_page=500&search[term]=${
+      search.value
+    }&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
   );
   const response = await request.json();
   if (response.data.length === 0) {

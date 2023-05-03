@@ -9,6 +9,6 @@ import "./styles/main.scss";
 // Event bus listeners
 import "./eventBus/listeners/index";
 
-// axios.defaults.baseURL = process.env.VUE_APP_BASE_API_URL;
+// axios.defaults.baseURL = process.env.VITE_API_URL;
 
 createApp(App).use(store).use(router).mount("#app");

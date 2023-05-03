@@ -208,7 +208,7 @@ export default {
 
     async fetchFoodItems({ state, dispatch, commit }: any): Promise<void> {
       const inSeasonRequest = await fetch(
-        `${process.env.VUE_APP_BASE_API_URL}/api/in-season`
+        `${import.meta.env.VITE_API_URL}/api/in-season`
       );
       if (inSeasonRequest.status === 200) {
         const response = await inSeasonRequest.json();
@@ -218,7 +218,9 @@ export default {
       }
 
       const otherRequest = await fetch(
-        `${process.env.VUE_APP_BASE_API_URL}/api/foods?page=1&per_page=500&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen`
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/foods?page=1&per_page=500&scopes[]=notHavingSeasonality&scopes[]=withAllMacronutrients&scopes[]=notFrozen`
       );
       if (otherRequest.status === 200) {
         const otherResponse = await otherRequest.json();
@@ -243,7 +245,9 @@ export default {
         return Promise.resolve();
       }
       const request = await fetch(
-        `${process.env.VUE_APP_BASE_API_URL}/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/foods?per_page=500&search[term]=${searchTerm}&search[fields][]=${searchField}&scopes[]=withAllMacronutrients&with[]=categories&with[]=foodRegions.seasons&with[]=foodRegions.region.country`
       );
       const response = await request.json();
 
