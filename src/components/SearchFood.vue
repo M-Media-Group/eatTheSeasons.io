@@ -61,6 +61,8 @@
     </div>
 
     <div class="search-results" v-else>
+      <div :aria-busy="isLoading" v-if="isLoading"></div>
+
       <FoodItemList
         :foods="results.slice(0, resultsLimit)"
         v-bind="$attrs"
@@ -70,8 +72,7 @@
         ref="resultsList"
       >
         <template #empty>
-          <div :aria-busy="isLoading" v-if="isLoading"></div>
-          <div v-else>No results found</div>
+          <div v-show="!isLoading">No results found</div>
         </template>
       </FoodItemList>
     </div>
