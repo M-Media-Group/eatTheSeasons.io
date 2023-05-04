@@ -53,23 +53,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 import GoalSettings from "@/components/GoalSettings.vue"; // @ is an alias to /src
 import MealTimes from "@/components/MealTimes.vue"; // @ is an alias to /src
 import FilterSettings from "@/components/FilterSettings.vue";
 
-export default defineComponent({
-  name: "SettingsView",
-  components: {
-    GoalSettings,
-    MealTimes,
-    FilterSettings,
-  },
-  data() {
-    return {
-      step: 0,
-    };
-  },
-});
+const step = ref(0);
 </script>

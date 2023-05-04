@@ -9,14 +9,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import SignUp from "@/components/SignUp.vue"; // @ is an alias to /src
-
-export default defineComponent({
-  name: "HomeView",
-  components: {
-    SignUp,
-  },
-});
 </script>

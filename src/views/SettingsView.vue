@@ -38,18 +38,8 @@
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import GoalSettings from "@/components/GoalSettings.vue"; // @ is an alias to /src
 import InstallApp from "@/components/InstallApp.vue";
 import FilterSettings from "@/components/FilterSettings.vue";
-
-export default defineComponent({
-  name: "SettingsView",
-  components: {
-    GoalSettings,
-    InstallApp,
-    FilterSettings,
-  },
-});
 </script>

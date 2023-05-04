@@ -8,15 +8,6 @@
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import SuggestedFoodItems from "@/components/SuggestedFoodItems.vue"; // @ is an alias to /src
-
-export default defineComponent({
-  name: "SuggestedFoodView",
-
-  components: {
-    SuggestedFoodItems,
-  },
-});
 </script>
