@@ -3,7 +3,7 @@
 import { addToIndexedDB } from "@/helpers";
 import { consumedItem } from "@/types/consumedItem";
 
-const DATA_COUNT = 100_000;
+const DATA_COUNT = 10_000;
 
 export const run = async () => {
   for (let i = 0; i < DATA_COUNT; i++) {
