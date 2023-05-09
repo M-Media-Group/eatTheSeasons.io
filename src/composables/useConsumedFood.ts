@@ -1,4 +1,5 @@
 import { consumedItem } from "@/types/consumedItem";
+import { mode } from "@/utils/algorithms";
 import {
   filterToTimerange,
   getDatePrecision,
@@ -115,6 +116,20 @@ export function useConsumedFood() {
     }, {});
   };
 
+  const getModeServingForFoodFromFoods = (
+    food_id: number,
+    items: consumedItem[]
+  ): number[] => {
+    // Filter to items with the food_id
+    items = items.filter((item) => item.food_id === food_id);
+    // Return the mode of the serving
+    return mode(items.map((item) => item.grams));
+  };
+
+  const getModeServingForFood = (food_id: number): number[] => {
+    return getModeServingForFoodFromFoods(food_id, allConsumedItems.value);
+  };
+
   const computedItemsWithOperation = computed(() => {
     return computeItemsWithOperation(
       computedItems.value,
@@ -136,5 +151,6 @@ export function useConsumedFood() {
     usingTimeframe,
     computedItemsWithOperation,
     computeItemsWithOperation,
+    getModeServingForFood,
   };
 }

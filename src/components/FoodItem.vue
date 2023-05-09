@@ -83,9 +83,19 @@
           min="1"
           v-model.number="amount"
           placeholder="Grams"
+          :list="'common-servings-' + id"
           required
         />
       </transition>
+      <datalist v-if="isFoodTrackerInputOpen" :id="'common-servings-' + id">
+        <option v-if="servingSize">
+          {{ servingSize }}
+        </option>
+        <option v-for="serving in commonServings" :key="serving">
+          {{ serving }}
+        </option>
+      </datalist>
+
       <button
         type="submit"
         class="submit-button"
@@ -139,6 +149,7 @@ import NutrientInformation from "./NutrientInformation.vue";
 import { useStore } from "vuex";
 import { getBestImageUrl } from "@/helpers";
 import ClickAndHoldButton from "./ClickAndHoldButton.vue";
+import { useConsumedFood } from "@/composables/useConsumedFood";
 
 export default defineComponent({
   name: "FoodItem",
@@ -257,6 +268,8 @@ export default defineComponent({
 
     const store = useStore();
 
+    const consumedFood = useConsumedFood();
+
     const isFoodTrackerInputOpen = ref(false);
 
     const bestImageUrl = () => {
@@ -308,10 +321,17 @@ export default defineComponent({
       store.dispatch("consumedItems/deleteDislikedItemId", id);
     };
 
+    const commonServings = ref(null as number[] | null);
+
     const handleButtonClick = (event: Event) => {
+      if (!props.id) {
+        return;
+      }
+
       if (!isFoodTrackerInputOpen.value) {
         event.preventDefault();
         isFoodTrackerInputOpen.value = true;
+        commonServings.value = consumedFood.getModeServingForFood(props.id);
         nextTick(() => {
           if (input.value) {
             input.value.focus();
@@ -331,6 +351,7 @@ export default defineComponent({
       submitFoodItem,
       submitDislikedItem,
       computedImageSrc,
+      commonServings,
     };
   },
 });

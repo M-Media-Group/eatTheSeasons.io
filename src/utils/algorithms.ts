@@ -133,3 +133,26 @@ export const sortIndexesBySimilarity = (
 
     return orderedScoreIndexes;
 }
+
+// prettier-ignore
+/**
+ * Given an array of values, compute the modes of the array and return them in an array.
+ */
+export const mode = (arr: number[]): number[] => {
+    const counts = arr.reduce((acc, curr) => {
+        if (curr in acc) {
+            acc[curr]++;
+        } else {
+            acc[curr] = 1;
+        }
+        return acc;
+    }, {} as Record<number, number>);
+
+    const maxCount = Math.max(...Object.values(counts));
+
+    const modes = Object.entries(counts)
+        .filter(([, count]) => count === maxCount)
+        .map(([value]) => Number(value));
+
+    return modes;
+};
