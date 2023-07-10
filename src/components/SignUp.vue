@@ -113,7 +113,10 @@ const handleSubmit = async () => {
   }
   const request = await fetch("/", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+    },
     body: encode({
       "form-name": "signup",
       ...form,
