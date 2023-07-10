@@ -66,6 +66,14 @@ self.addEventListener("activate", (event) => {
 // If no response is found, it populates the runtime cache with the response
 // from the network before returning it to the page.
 self.addEventListener("fetch", (event) => {
+  // If the request is a POST request to the current origin (Netlify functions) then do not cache
+  if (
+    event.request.method === "POST" &&
+    event.request.url.startsWith(self.location.origin)
+  ) {
+    return;
+  }
+
   // Skip cross-origin requests, like those for Google Analytics.
   if (
     event.request.url.startsWith(self.location.origin) ||
