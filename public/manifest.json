@@ -28,5 +28,21 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#000000"
+    "background_color": "#22862d",
+    "description": "Eat Ninja",
+    "orientation": "portrait-primary",
+    "shortcuts": [
+        {
+            "name": "Search",
+            "url": "/search",
+            "description": "Search for food",
+            "icons": [
+                {
+                    "src": "icon-96x96.png",
+                    "type": "image/png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
 }
