@@ -45,6 +45,7 @@ import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import BurgerMenu from "./components/BurgerMenu.vue";
 import { createIndexedDB } from "./helpers";
+import $bus, { eventTypes } from "@/eventBus/events";
 
 export default defineComponent({
   components: {
@@ -65,6 +66,9 @@ export default defineComponent({
     this.fetchFoodItems();
     this.fetchConsumedItems();
     this.fetchDislikedItemIds();
+
+    this.registerVisibilityListener();
+    this.registerVisibilityHandler();
   },
   methods: {
     ...mapActions({
@@ -72,6 +76,27 @@ export default defineComponent({
       fetchConsumedItems: "consumedItems/fetchConsumedItems",
       fetchDislikedItemIds: "consumedItems/fetchDislikedItemIds",
     }),
+
+    // Register a visibility listener to call store.dispatch("consumedItems/setDate"); and the events app_became_visible and app_became_hidden in the event bus
+    registerVisibilityListener() {
+      const visibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          this.$store.dispatch("consumedItems/setDate");
+          $bus.$emit(eventTypes.app_became_visible);
+        } else {
+          $bus.$emit(eventTypes.app_became_hidden);
+        }
+      };
+      document.addEventListener("visibilitychange", visibilityChange);
+    },
+
+    // Register the handling of the event bus events app_became_visible and app_became_hidden to call store.dispatch("consumedItems/setDate");
+    // @todo, consider moving to somewhere else
+    registerVisibilityHandler() {
+      $bus.$on(eventTypes.app_became_visible, () => {
+        this.$store.dispatch("consumedItems/setDate");
+      });
+    },
   },
 });
 </script>

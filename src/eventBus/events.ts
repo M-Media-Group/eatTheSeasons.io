@@ -10,6 +10,10 @@ export enum eventTypes {
   update_goals = "update_goals",
   update_filters = "update_filters",
   disliked_food_item_remove = "disliked_food_item_remove",
+
+  // Page visibility events
+  app_became_visible = "app_became_visible",
+  app_became_hidden = "app_became_hidden",
 }
 
 type EventsObject = { [P in eventTypes]?: any };
