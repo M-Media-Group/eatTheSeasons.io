@@ -1,0 +1,13 @@
+{
+    "macronutrients": {
+        "protein": {
+            "caloriesPerGram": 4
+        },
+        "carbohydrates": {
+            "caloriesPerGram": 4
+        },
+        "fat": {
+            "caloriesPerGram": 9
+        }
+    }
+}
