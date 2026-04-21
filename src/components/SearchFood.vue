@@ -222,7 +222,7 @@ const searchForFood = debounce((searchTerm) => {
     return;
   }
   isLoading.value = true;
-  searchForFoodViaAPI();
+  try {searchForFoodViaAPI();} catch (e) {console.error("find food error", e);} finally {isLoading.value = false;}
 }, 250);
 
 const searchForFoodViaAPI = async () => {
